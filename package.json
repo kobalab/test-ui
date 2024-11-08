@@ -1,0 +1,20 @@
+{
+  "name": "test-ui",
+  "version": "1.0.0",
+  "description": "電脳麻将のUIのテスト",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kobalab/test-ui.git"
+  },
+  "keywords": [],
+  "author": "Satoshi Kobayashi",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kobalab/test-ui/issues"
+  },
+  "homepage": "https://github.com/kobalab/test-ui#readme"
+}
