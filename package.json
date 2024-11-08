@@ -2,7 +2,7 @@
   "name": "test-ui",
   "version": "0.0.1",
   "description": "電脳麻将のUIのテスト",
-  "main": "index.js",
+  "private": true,
   "scripts": {
     "build:html": "pug -o dist -P src/html/page/",
     "build:css": "stylus src/css/index.styl -o dist/css/test-ui-0.0.1.css",
