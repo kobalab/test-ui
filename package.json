@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/kobalab/test-ui/issues"
   },
-  "homepage": "https://github.com/kobalab/test-ui#readme"
+  "homepage": "https://github.com/kobalab/test-ui#readme",
+  "dependencies": {
+    "jquery": "^3.7.1"
+  }
 }
