@@ -4,7 +4,7 @@
   "description": "電脳麻将のUIのテスト",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build:js": "webpack --mode development --devtool inline-source-map"
   },
   "repository": {
     "type": "git",
