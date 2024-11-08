@@ -4,6 +4,7 @@
   "description": "電脳麻将のUIのテスト",
   "main": "index.js",
   "scripts": {
+    "build:html": "pug -o dist -P src/html/page/",
     "build:js": "webpack --mode development --devtool inline-source-map"
   },
   "repository": {
