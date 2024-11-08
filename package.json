@@ -19,5 +19,8 @@
   "homepage": "https://github.com/kobalab/test-ui#readme",
   "dependencies": {
     "jquery": "^3.7.1"
+  },
+  "devDependencies": {
+    "webpack-cli": "^5.1.4"
   }
 }
