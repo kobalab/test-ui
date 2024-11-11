@@ -1,0 +1,21 @@
+- var page = 'fadein'
+doctype html
+html(lang="ja")
+  head
+    include ../inc/style
+    include ../inc/script
+    style.
+      #box {
+        width: 160px; height: 160px;
+        background: navy;
+        margin: 20px;
+        transition: opacity 0.4s ease-in-out;
+      }
+  body
+    input(type="button" value="show")
+    input(type="button" value="hide")
+    |  / 
+    input(type="button" value="fadeIn")
+    input(type="button" value="fadeOut")
+    div#box
+    hr
