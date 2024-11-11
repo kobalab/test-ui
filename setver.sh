@@ -9,7 +9,7 @@ version=`echo $1 | sed 's/^[^0-9]*//'`
 
 ex package.json <<++
     /"version":/s/: .*$/: "${version}",/
-    /"build:css":/s/majiang[^ ]*\.css/majiang-${version}.css/
+    /"build:css":/s/[^\-]*\.css/${version}.css/
     w!
 ++
 
