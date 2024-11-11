@@ -16,7 +16,7 @@ module.exports = {
             setTimeout(()=>
                     node.off('transitionend')
                         .removeClass('fadeout'), 20)
-        }, 50);
+        }, 100);
         return node;
     },
 
