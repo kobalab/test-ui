@@ -1,0 +1,44 @@
+- var page = 'form'
+doctype html
+html(lang="ja")
+  head
+    meta(charset="utf-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1")
+    meta(name="format-detection" content="telephone=no")
+    title form
+    include ../inc/style
+    include ../inc/script
+    style.
+      form { font-size: 14px; }
+      div { margin: 0.5em; }
+      div div { display: inline-block; margin: 0; margin-right: 1em; }
+      .button { display: flex; }
+      .button input { margin-right: 0.5em; }
+  body.form
+    h1 form
+    form
+      div
+        input(name="text" size="16" placeholder="input text")
+      div
+        textarea(name="textarea" cols="48" rows="5")
+      div
+        div
+          label
+            input(name="radio" type="radio" value="1")
+            | ON 
+          label
+            input(name="radio" type="radio" value="0")
+            | OFF
+        div
+          label
+            input(name="checkbox" type="checkbox" value="1")
+            | check
+        div
+          select(name="select")
+            option
+            each n in [ 1, 2, 3, 4 ]
+              option(value=n) select #{n}
+      div.button
+        input(type="button" value="×")
+        input(type="reset")
+        input(type="submit")
