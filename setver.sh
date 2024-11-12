@@ -18,4 +18,7 @@ ex package-lock.json <<++
     w!
 ++
 
-echo "- var version = '${version}'" > src/html/inc/version.pug
+ex src/html/inc/version.pug <<++
+    1s/\'.*\'/\'${version}\'/
+    w!
+++
