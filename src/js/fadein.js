@@ -1,8 +1,4 @@
-/*
- *  fadein.js
- */
 const { show, hide, fadeIn, fadeOut } = require('./lib/fadein');
-
 $(function(){
     const box = $('#box');
     $('input[value="show"]').on('click', ()=>show(box));
