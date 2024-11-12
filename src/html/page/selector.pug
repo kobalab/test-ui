@@ -1,0 +1,39 @@
+- var page = 'selector'
+doctype html
+html(lang="ja")
+  head
+    meta(charset="utf-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1")
+    meta(name="format-detection" content="telephone=no")
+    title form
+    include ../inc/style
+    include ../inc/script
+    style.
+      .box {
+        display: inline-block;
+        width: 40px;
+        height: 40px;
+        border: solid 1px #666;
+        outline-color: red;
+      }
+      .box.selected {
+        background: #ccc
+      }
+      .plate {
+        margin: 4px 0;
+        width: 230px;
+        height: 16px;
+        border: solid 1px #666;
+        outline-color: red;
+      }
+      .plate.selected {
+        background: #ccc
+      }
+  body.selector
+    h1 selector
+    div.col
+      each n in [ 1, 2, 3, 4, 5 ]
+        div.box
+    div.row
+      each n in [ 1, 2, 3, 4, 5 ]
+        div.plate
