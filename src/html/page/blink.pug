@@ -1,0 +1,28 @@
+- var page = 'blink'
+doctype html
+html(lang="ja")
+  head
+    meta(charset="utf-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1")
+    meta(name="format-detection" content="telephone=no")
+    title blink
+    include ../inc/style
+    style.
+      .text {
+        animation: blink 2s infinite
+      }
+      .box {
+        background: #060;
+        padding: 1em;
+      }
+      img {
+        width: 40px;
+        height: 40px;
+        animation: blink-img 0.5s infinite
+      }
+  body.form
+    h1 blink
+    div.text
+      | Blinking text...
+    div.box
+      img(src="https://kobalab.net/majiang/img/icon.png")
