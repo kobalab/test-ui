@@ -8,6 +8,7 @@ module.exports = {
         form:       './src/js/form.js',
         fadein:     './src/js/fadein.js',
         selector:   './src/js/selector.js',
+        scale:      './src/js/scale.js',
     },
     output: {
         path:     __dirname + '/dist/js/',
