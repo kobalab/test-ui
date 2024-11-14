@@ -1,0 +1,9 @@
+#loaddata
+  each s in ['m','p','s']
+    each n in [1,2,3,4,5,6,7,8,9,0]
+      img.pai(data-pai=s+n src=`img/${s}${n}.gif` alt)
+    br
+  each n in [1,2,3,4,5,6,7]
+    img.pai(data-pai=`z${n}` src=`img/z${n}.gif` alt)
+  img.pai(data-pai="_" src="img/pai.gif" alt)
+  br
