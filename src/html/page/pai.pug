@@ -14,24 +14,14 @@ html(lang="ja")
     script.
         $(function(){
             const pai = Majiang.UI.pai('#loaddata');
-
-            function submit() {
-                try {
-                    let p = $('form [name=pai]').val();
-                    $('form span').empty().append(pai(p));
+            for (let s of ['m','p','s','z']) {
+                for (let n = 0; n <= 9; n++) {
+                    $('div').append(pai(Majiang.Shoupai.valid_pai(s+n)||"_"));
                 }
-                catch(e) {
-                    $('form span').empty().append(pai('_'));
-                }
-                return false;
+                $('div').append($('<br>'));
             }
-
-            $('form').on('submit', submit);
         });
   body.pai
     h1 pai
     include ../inc/loaddata
-    form
-      input(name="pai" size="2")
-      span
-        img(class="pai" src="img/pai.gif")
+    div
