@@ -33,6 +33,11 @@ html(lang="ja")
         height: 100%;
         border: solid 5px black;
       }
+    script.
+        const { scale } = Majiang.UI.Util;
+        $(function(){
+            $(window).on('resize', ()=>scale($('.main'), $('.space')));
+        });
   body.scale
     h1 scale
     div.space

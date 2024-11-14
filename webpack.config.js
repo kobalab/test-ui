@@ -5,10 +5,6 @@ const TerserPlugin = require("terser-webpack-plugin");
 module.exports = {
     entry:  {
         'test-ui':  './src/js/test-ui.js',
-        form:       './src/js/form.js',
-        fadein:     './src/js/fadein.js',
-        selector:   './src/js/selector.js',
-        scale:      './src/js/scale.js',
     },
     output: {
         path:     __dirname + '/dist/js/',
