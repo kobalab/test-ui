@@ -9,9 +9,9 @@ module.exports = function(loaddata) {
 
     const pai = {};
 
-    $('.pai', loaddata).each(function(){
-        let p = $(this).data('pai');
-        pai[p] = $(this);
+    $('.pai', loaddata).each((i, n)=>{
+        let p = $(n).data('pai');
+        pai[p] = $(n);
     });
 
     return function(p){
