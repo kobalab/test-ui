@@ -1,2 +1,4 @@
 include version
 script(src=`js/test-ui-${version}.js`)
+if page
+  script(src=`js/${page}-${version}.js`)
