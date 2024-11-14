@@ -9,8 +9,8 @@ function pai() {
                    'ウー', 'ロー', 'チー', 'パー', 'キュー' ];
     const zipai = [ 'トン', 'ナン', 'シャー', 'ペー', 'ハク', 'ハツ', 'チュン' ];
     let rv = {};
-    for (let s of Object.keys(suit)) {
-        for (let n = 0; n <= 9, n++) {
+    for (let s of ['m','p','s','z']) {
+        for (let n = 0; n <= 9; n++) {
             if (s != 'z')            rv[s+n] = num[n] + suit[s];
             else if (0 < n && n < 8) rv[s+n] = zipai[n-1];
         }
