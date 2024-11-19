@@ -18,6 +18,20 @@ function pai() {
     return rv;
 }
 
+function mianzi() {
+    return {
+        '+':      'カミチャから',
+        '=':      'トイメンから',
+        '-':      'シモチャから',
+        chi:      'チー',
+        peng:     'ポン',
+        minggang: 'カン',
+        gang:     'カカン',
+        angang:   'アンカン',
+    };
+}
+
 module.exports = function(type) {
-    if (type == 'pai') return pai();
+    if (type == 'pai')      return pai();
+    if (type == 'mianzi')   return mianzi();
 }

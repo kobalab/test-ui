@@ -4,9 +4,9 @@
 "use strict";
 
 const $ = require('jquery');
-const _label = require('./label')('pai');
+const label = require('./label')('pai');
 
-module.exports = function(loaddata, label = _label) {
+module.exports = function(loaddata) {
 
     const pai = {};
 
