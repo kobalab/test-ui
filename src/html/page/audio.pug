@@ -1,0 +1,25 @@
+doctype html
+html(lang="ja")
+  head
+    include ../inc/meta
+    title audio
+    include ../inc/style
+    include ../inc/script
+    script.
+        $(function(){
+            const audio = Majiang.UI.audio('#loaddata');
+            function submit(ev) {
+                let name = $('[name="audio"]').val();
+                audio(name).play();
+                return false;
+            }
+            $('form').on('submit', submit);
+        });
+  body.audio
+    h1 audio
+    include ../inc/loaddata
+    form
+      select(name="audio")
+        each audio in ['dapai','chi','peng','gang','zimo','rong','gong','beep']
+          option(value=audio)= audio
+      input(type="submit" value="Play")

@@ -6,17 +6,9 @@ html(lang="ja")
   body
     h1 test-ui
     ul
-      li
-        a(href="font.html") font
-      li
-        a(href="form.html") form
-      li
-        a(href="blink.html") blink
-      li
-        a(href="fadein.html") fadeIn
-      li
-        a(href="selector.html") selector
-      li
-        a(href="scale.html") scale
-      li
-        a(href="pai.html") pai
+      each page in ['font','form','blink','fadeIn','selector','scale']
+        li
+          a(href=`${page}.html`)= page
+      each page in ['pai','audio']
+        li
+          a(href=`${page}.html`)= page
