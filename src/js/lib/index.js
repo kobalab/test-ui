@@ -5,5 +5,6 @@ module.exports = {
     mianzi:      require('./mianzi'),
     Util:        Object.assign(require('./fadein'),
                                require('./selector'),
-                               require('./scale'))
+                               require('./scale'),
+                               require('./flip'))
 }
