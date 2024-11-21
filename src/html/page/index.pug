@@ -3,8 +3,14 @@ html(lang="ja")
   head
     include ../inc/meta
     title test-ui
+    include ../inc/version
+    style.
+      h1 {
+        margin-bottom: 0;
+      }
   body
     h1 test-ui
+    .version ver. #{version}
     ul
       each page in ['font','form','blink','fadeIn','selector','scale','flipInput']
         li
