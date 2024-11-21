@@ -8,16 +8,22 @@ const label = require('./label')('mianzi');
 
 module.exports = function(pai) {
 
+    function get_label(p) {
+        return pai(p).attr('alt')
+                    ? [ 'alt',        pai(p).attr('alt')        ]
+                    : [ 'aria-label', pai(p).attr('aria-label') ];
+    }
+
     return function(m) {
         let mianzi = $('<span>').addClass('mianzi');
         let s = m[0];
         if (m.replace(/0/g,'5').match(/^[mpsz](\d)\1\1\1$/)) {
             let nn = m.match(/\d/g);
             mianzi.attr('aria-label', label.angang)
-                  .append(pai('_'))
+                  .append(pai('_').attr(...get_label(s+nn[0])))
                   .append(pai(s+nn[2]))
                   .append(pai(s+nn[3]))
-                  .append(pai('_'));
+                  .append(pai('_').attr(...get_label(s+nn[1])));
         }
         else if (m.replace(/0/g,'5').match(/^[mpsz](\d)\1\1/)) {
             let gang  = m.match(/[\+\=\-]\d$/);
