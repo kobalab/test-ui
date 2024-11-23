@@ -26,11 +26,13 @@ html(lang="ja")
     h1 shoupai
     include ../inc/loaddata
     form
-      input(name="shoupai" size="20")
+      input(name="shoupai" size="28")
       label
         input(name="open" type="checkbox" value="1")
         | 伏せ牌
       input(type="submit")
-    .shoupai
-      .bingpai
-      .fulou
+    div
+      - for (let i = 0; i < 3; i++)
+        .shoupai
+          .bingpai
+          .fulou

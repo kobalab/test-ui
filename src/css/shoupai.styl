@@ -4,8 +4,12 @@ shoupai-size($width, $height, $bingpai-height, $fulou-height)
     height: $height
     .bingpai
         line-height: 1
-        margin-top: $height - $bingpai-height
-        float: left
+        if ($height < $bingpai-height + pai-width($fulou-height) * 2)
+            margin-top: $height - $bingpai-height
+            float: left
+        else
+            margin-top: 0
+            float: none
         pai-size: $bingpai-height
         .pai.zimo
             margin-left: pai-width($bingpai-height) * 0.1
@@ -15,8 +19,12 @@ shoupai-size($width, $height, $bingpai-height, $fulou-height)
             width: 0
     .fulou
         line-height: 1
-        margin-top: $height - $fulou-height
-        float: right
+        if ($height < $bingpai-height + pai-width($fulou-height) * 2)
+            margin-top: $height - $fulou-height
+            float: right
+        else
+            margin-top: $height - $bingpai-height - $fulou-height
+            float: none
         .mianzi
             margin-left: pai-width($bingpai-height) * 0.1
             float: right
