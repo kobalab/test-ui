@@ -18,9 +18,11 @@ shoupai-size($width, $height, $bingpai-height, $fulou-height)
         margin-top: $height - $fulou-height
         float: right
         .mianzi
-            margin-left: pai-width($bingpai-height) * 0.15
+            margin-left: pai-width($bingpai-height) * 0.1
             float: right
             mianzi-size: $fulou-height
+            &:last-child
+                margin-left: pai-width($bingpai-height) * 0.2
 
 mianzi-size($height)
     display: inline-block
