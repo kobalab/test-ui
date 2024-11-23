@@ -11,12 +11,20 @@ html(lang="ja")
             function submit() {
                 let paistr  = $('[name="shoupai"]').val();
                 let open    = ! $('[name="open"]').prop('checked');
-                let shoupai = new Majiang.UI.Shoupai($('body .shoupai'), pai,
-                                        Majiang.Shoupai.fromString(paistr)
-                                    ).redraw(open);
+                let shoupai = [];
+                $('body .shoupai').each((i, n)=>{
+                    let s = Majiang.Shoupai.fromString(paistr);
+                    shoupai.push(
+                        new Majiang.UI.Shoupai($(n), pai, s).redraw(open)
+                    );
+                    let zimo = (s.get_dapai() || []).pop() || '';
+                    $('.bingpai .zimo', $(n)).attr('data-pai', zimo + '_');
+                });
                 $('.bingpai .pai').on('click', (ev)=>{
+                    let p = $(ev.target).attr('data-pai');
                     $(ev.target).addClass('dapai');
-                    shoupai.dapai();
+                    shoupai.forEach(s => s.dapai(p));
+                    $('.bingpai .pai').off('click');
                 });
                 return false;
             }
