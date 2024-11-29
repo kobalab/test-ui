@@ -1,0 +1,40 @@
+doctype html
+html(lang="ja")
+  head
+    include ../inc/meta
+    title shan
+    include ../inc/style
+    include ../inc/script
+    script.
+      $(function(){
+          const pai = Majiang.UI.pai('#loaddata');
+
+          const model = new Majiang.Shan(Majiang.rule());
+          const view  = new Majiang.UI.Shan('body .shan', pai, model).redraw();
+
+          function zimo() {
+              $('body .zimo').append(pai(model.zimo()))
+              view.update();
+              if (! model.paishu) {
+                  clearInterval(timer);
+                  model.close();
+                  view.redraw();
+              }
+          }
+
+          let timer = setInterval(zimo, 50);
+      });
+  body.shan
+    h1 shan
+    include ../inc/loaddata
+    .shan
+      label
+        | ドラ
+        .baopai
+      label
+        | 裏ドラ
+        .fubaopai
+      label
+        | 牌数: 
+        span.paishu
+    .zimo(aria-label="ツモ牌")
