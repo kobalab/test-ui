@@ -13,7 +13,14 @@ html(lang="ja")
           const view  = new Majiang.UI.Shan('body .shan', pai, model).redraw();
 
           function zimo() {
-              $('body .zimo').append(pai(model.zimo()))
+              if (model.baopai.length == 5 || (Math.random() * 50)|0) {
+                  $('body .zimo').append(pai(model.zimo()));
+              }
+              else {
+                  $('body .zimo').append(pai(model.gangzimo()));
+                  model.kaigang();
+                  view.redraw();
+              }
               view.update();
               if (! model.paishu) {
                   clearInterval(timer);
