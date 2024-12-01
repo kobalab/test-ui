@@ -54,6 +54,23 @@ module.exports = class Shoupai {
         return this;
     }
 
+    adjust() {
+        let shoupai = this._root.width();
+        let bingpai = $('.bingpai', this._root).width();
+        let fulou   = $('.fulou', this._root).width();
+        if (fulou < shoupai) {
+            let overflow = bingpai + fulou - shoupai;
+            if (overflow > 0)
+                $('.bingpai', this._root).css('margin-left', `${- overflow}px`);
+            else
+                $('.bingpai', this._root).css('margin-left', '');
+        }
+        else {
+            $('.bingpai', this._root).css('margin-left', '');
+        }
+        return this;
+    }
+
     dapai(p) {
 
         let dapai = $('.bingpai .pai.dapai', this._root);
