@@ -10,8 +10,8 @@ const label = require('./label')('he');
 
 function add_label(pai, label) {
     if (pai.attr('alt'))
-            pai.attr('alt', label + ' ' + pai.attr('alt'));
-    else    pai.attr('aria-label', label + ' ' + pai.attr('aria-label'))
+            pai.attr('alt', pai.attr('alt') + ' ' + label);
+    else    pai.attr('aria-label', pai.attr('aria-label') + ' ' + label);
     return pai;
 }
 
