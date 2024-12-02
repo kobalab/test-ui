@@ -34,6 +34,12 @@ module.exports = class He {
         let i = 0;
         for (let p of this._he._pai) {
 
+            if (p.match(/\*/)) {
+                lizhi = true;
+                show($('.chouma', this._root));
+            }
+            if (this._type != 2 && p.match(/[\+\=\-]$/)) continue;
+
             let pai = this._pai(p);
             if (this._type != 0 && p[2] == '_') {
                 add_label(pai.addClass('zimo'), label.zimo);
@@ -41,14 +47,12 @@ module.exports = class He {
             if (p.match(/[\+\=\-]$/)) {
                 add_label(pai.addClass('fulou'), label.fulou);
             }
-            if (p.match(/\*/)) {
-                show($('.chouma', this._root));
+            if (lizhi) {
                 pai = $('<span>').addClass('lizhi')
                                  .attr('aria-label',label.lizhi)
                                  .append(pai);
+                lizhi = false;
             }
-            if (this._type != 2 && p.match(/[\+\=\-]$/)) continue;
-
             $('.dapai', this._root).append(pai);
 
             i++;
