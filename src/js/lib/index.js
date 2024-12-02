@@ -4,6 +4,7 @@ module.exports = {
     audio:       require('./audio'),
     Shoupai:     require('./shoupai'),
     Shan:        require('./shan'),
+    He:          require('./he'),
     Util:        Object.assign(require('./fadein'),
                                require('./selector'),
                                require('./scale'),

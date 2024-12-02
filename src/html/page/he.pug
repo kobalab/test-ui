@@ -1,0 +1,60 @@
+doctype html
+html(lang="ja")
+  head
+    include ../inc/meta
+    title he
+    include ../inc/style
+    include ../inc/script
+    script.
+      const shan  = new Majiang.Shan(Majiang.rule());
+      const model = new Majiang.He();
+      $(function(){
+          const pai = Majiang.UI.pai($('#loaddata'));
+          const view = [];
+          for (let i = 0; i < 3; i++) {
+              view.push(new Majiang.UI.He($('body .he').eq(i), pai, model, i)
+                                          .redraw());
+          }
+          let lizhi;
+          let zimo = shan.zimo();
+          function next() {
+              if (zimo) {
+                  if (lizhi || ! ((Math.random()*4)|0)) zimo += '_';
+                  if (! lizhi && ! ((Math.random()*12)|0)) {
+                      lizhi = true;
+                      zimo += '*';
+                  }
+                  console.log('**', zimo);
+                  model.dapai(zimo);
+                  view.forEach(he => he.dapai(zimo));
+                  zimo = null;
+              }
+              else {
+                  if (! ((Math.random()*8)|0)) {
+                      let p = model._pai.slice(-1)[0];
+                      let s = p[0], n = +p[1]||5;
+                      model.fulou(s+n+n+p[1]+'-');
+                      console.log('--', p);
+                  };
+                  view.forEach(he => he.redraw());
+                  zimo = shan.zimo();
+                  if (! ((Math.random()*18)|0) || model._pai.length >= 22)
+                      clearInterval(timer);
+              }
+          }
+          let timer;
+          $('body').on('click', ()=>{
+              if (timer) timer = clearInterval(timer);
+              else       timer = setInterval(next, 500);
+          });
+          $('body').trigger('click');
+      });
+  body.he
+    h1 he
+    include ../inc/loaddata
+    div
+      each n in [ 0, 1, 2 ]
+        .he
+          .lizhi
+            img.chouma(src='img/1000.gif' alt='リーチ')
+          .dapai

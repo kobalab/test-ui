@@ -1,0 +1,31 @@
+he-size($width, $pai-height, $type = block)
+    width: $width
+    >.lizhi
+        line-height: 0
+        width: pai-width($pai-height) * 6
+        height: ($pai-height * 2 / 7)
+        text-align: $type == line ? left : center
+        .chouma
+            width: @width * 0.6
+    >.dapai
+        line-height: 0
+        height: $type == line ? $pai-height : $pai-height * 3
+        pai-size: $pai-height
+        .pai.dapai
+            transform: translate(@height / 28, @height / 56)
+        .pai.zimo
+            opacity: 0.8
+        .pai.zimo.dapai
+            opacity: 0.6
+        .pai.fulou
+            opacity: 0.4
+        .lizhi
+            width: $pai-height
+            display: inline-block
+            text-align: left
+            transform: rotate(270deg)
+            .pai.dapai
+                transform: translate(- @height / 56, @height / 28)
+        .break
+            display: $type == line ? inline-block : block
+            width: pai-width($pai-height) * 0.1

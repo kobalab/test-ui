@@ -31,7 +31,16 @@ function mianzi() {
     };
 }
 
+function he() {
+    return {
+        lizhi: 'リーチ',
+        zimo:  'ツモ切り',
+        fulou: 'フーロ',
+    };
+}
+
 module.exports = function(type) {
     if (type == 'pai')      return pai();
     if (type == 'mianzi')   return mianzi();
+    if (type == 'he')       return he();
 }
