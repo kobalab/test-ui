@@ -35,9 +35,12 @@ html(lang="ja")
                       model.fulou(s+n+n+p[1]+'-');
                   };
                   view.forEach(he => he.redraw());
+                  if (! ((Math.random()*18)|0) || model._pai.length >= 22) {
+                      timer = clearInterval(timer);
+                      $('body').off('click');
+                      return;
+                  }
                   zimo = shan.zimo();
-                  if (! ((Math.random()*18)|0) || model._pai.length >= 22)
-                      clearInterval(timer);
               }
           }
           let timer;
