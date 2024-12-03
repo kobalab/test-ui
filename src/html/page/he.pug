@@ -24,7 +24,6 @@ html(lang="ja")
                       lizhi = true;
                       zimo += '*';
                   }
-                  console.log('**', zimo);
                   model.dapai(zimo);
                   view.forEach(he => he.dapai(zimo));
                   zimo = null;
@@ -34,7 +33,6 @@ html(lang="ja")
                       let p = model._pai.slice(-1)[0];
                       let s = p[0], n = +p[1]||5;
                       model.fulou(s+n+n+p[1]+'-');
-                      console.log('--', p);
                   };
                   view.forEach(he => he.redraw());
                   zimo = shan.zimo();
