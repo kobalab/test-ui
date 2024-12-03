@@ -43,7 +43,7 @@ html(lang="ja")
           let timer;
           $('body').on('click', ()=>{
               if (timer) timer = clearInterval(timer);
-              else       timer = setInterval(next, 500);
+              else       timer = setInterval(next, 200);
           });
           $('body').trigger('click');
       });
