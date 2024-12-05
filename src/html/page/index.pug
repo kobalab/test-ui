@@ -2,20 +2,6 @@ doctype html
 html(lang="ja")
   head
     include ../inc/meta
-    title test-ui
-    include ../inc/version
-    style.
-      h1 {
-        margin-bottom: 0;
-      }
+    include ../inc/style
+    include ../inc/script
   body
-    h1 test-ui
-    .version ver. #{version}
-    ul
-      each page in ['font','form','blink','fadeIn','selector','scale','flipInput','live']
-        li
-          a(href=`${page}.html`)= page
-      each page in ['pai','audio','shoupai','shan','he']
-        li
-          a(href=`${page}.html`)= page
-    a(href="https://github.com/kobalab/test-ui" target="_blank") GitHub
