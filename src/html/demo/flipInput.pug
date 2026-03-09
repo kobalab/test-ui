@@ -10,12 +10,12 @@ html(lang="ja")
         display: flex;
       }
       .flip {
-        height: 35px;
+        height: 32px;
       }
       img, .row input {
         box-sizing: border-box;
-        width: 25px;
-        height: 35px;
+        width: 24px;
+        height: 32px;
       }
     script.
       const { flipInput } = Majiang.UI.Util;
@@ -27,12 +27,12 @@ html(lang="ja")
     .flip(tabindex="0")
       .qipai
         - for (let i = 0; i < 8; i++)
-          img(src="img/pai.gif")
+          img(src="img/pai.png")
       input(size="10")
     hr
     each md in ['mo','da']
       .row(class=md)
         - for (let i = 1; i < 5; i++)
           .flip(tabindex=i)
-            img(src="img/pai.gif")
+            img(src="img/pai.png")
             input(size="1")
