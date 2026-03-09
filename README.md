@@ -3,4 +3,23 @@
 
 リファクタリングやUI部品のテスト・調整のためのリポジトリです。
 
+## 初期設定
 
+Unix系OS(Linux, macOS)の場合:
+```sh
+$ mkdir demo
+$ cd demo
+$ ln -s ../dist/img .
+$ ln -s ../dist/audio .
+$ ln -s ../css/audio .
+$ ln -s ../js/audio .
+```
+Windowsの場合:
+```
+> mkdir demo
+> cd demo
+> mklink /J img ..\dist\img
+> mklink /J audio ..\dist\audio
+> mklink /J css ..\dist\css
+> mklink /J js ..\dist\js
+```
