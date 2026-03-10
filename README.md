@@ -3,6 +3,10 @@
 
 リファクタリングやUI部品のテスト・調整のためのリポジトリです。
 
+## デモ
+
+https://kobalab.net/test-ui/demo/
+
 ## 初期設定
 
 Unix系OS(Linux, macOS)の場合:
