@@ -7,7 +7,7 @@ const $ = require('jquery');
 
 function scale(board, space) {
 
-    let dh = window.visualViewport.height;
+    let dh = $('body').height();
     let bh = board.height();
     if (bh > dh) {
         let scale  = dh / bh;
