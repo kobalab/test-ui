@@ -7,6 +7,7 @@
 
 Unix系OS(Linux, macOS)の場合:
 ```sh
+$ npm ci
 $ mkdir demo
 $ cd demo
 $ ln -s ../dist/img .
@@ -16,6 +17,7 @@ $ ln -s ../js/audio .
 ```
 Windowsの場合:
 ```
+> npm ci
 > mkdir demo
 > cd demo
 > mklink /J img ..\dist\img
