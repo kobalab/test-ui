@@ -47,7 +47,7 @@ function setSelector(list, namespace, param = {}) {
             }
         });
     }
-    if (opt.prev || prev.next) {
+    if (opt.prev && opt.next) {
         $(window).on('keydown' + namespace, (ev)=>{
             if (ev.key == opt.prev) {
                 i = (i == null) ? len - 1 :
