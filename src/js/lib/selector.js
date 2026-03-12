@@ -31,7 +31,7 @@ function setSelector(list, namespace, param = {}) {
         }
     }
 
-    list.attr('tabindex', opt.tabindex).attr('role','button')
+    list.attr('tabindex', opt.tabindex)
         .on('touchstart' + namespace, touchstart)
         .on('focus'      + namespace, (ev)=>{ i = list.index($(ev.target)) })
         .on('blur'       + namespace, (ev)=>{ i = null;
@@ -72,7 +72,7 @@ function setSelector(list, namespace, param = {}) {
 function clearSelector(namespace) {
     if (namespace[0] != '.') namespace = '.' + namespace;
     if (! selectors[namespace]) return;
-    selectors[namespace].removeAttr('tabindex role').off(namespace);
+    selectors[namespace].removeAttr('tabindex').off(namespace);
     $(window).off(namespace);
     delete selectors[namespace];
 }
