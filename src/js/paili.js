@@ -11,6 +11,7 @@ const { setSelector, clearSelector } = Majiang.UI.Util;
 
 const model = {};
 const view  = {};
+let _row;
 
 const rule = Majiang.rule();
 
@@ -100,6 +101,8 @@ function zimo() {
 
 function paili() {
 
+    $('.paili').empty();
+
     let n_xiangting = Majiang.Util.xiangting(model.shoupai);
 
     if      (n_xiangting == -1) $('.status').text('和了！！');
@@ -111,10 +114,39 @@ function paili() {
         return;
     }
 
+    let dapai = [];
+    for (let p of model.shoupai.get_dapai()) {
+
+        let shoupai = model.shoupai.clone().dapai(p);
+        if (Majiang.Util.xiangting(shoupai) > n_xiangting) continue;
+
+        p = p[0] + (+p[1]||5);
+        if (dapai.find(dapai => dapai.p == p)) continue;
+        let tingpai = Majiang.Util.tingpai(shoupai);
+        let n = tingpai.map(p => 4 - model.shoupai._bingpai[p[0]][p[1]])
+                       .reduce((x, y)=> x + y, 0);
+        dapai.push({ p: p, tingpai: tingpai, n: n });
+    }
+
+    const cmp = (a, b) => b.n - a.n
+                       || b.tingpai.length - a.tingpai.length
+                       || (a.p < b.p ? -1 : 1);
+    for (let d of dapai.sort(cmp)) {
+        let row = _row.clone();
+        $('.da', row).append(view.pai(d.p));
+        for (let tp of d.tingpai) {
+            $('.mo', row).append(view.pai(tp));
+        }
+        $('.n', row).text(d.n);
+        $('.paili').append(row);
+    }
+
     set_handler();
 }
 
 $(function(){
+
+    _row = $('.paili .row');
 
     view.pai   = Majiang.UI.pai('#loaddata');
     view.audio = Majiang.UI.audio('#loaddata');
