@@ -30,6 +30,9 @@ function qipai() {
                                 $('.shoupai'), view.pai, model.shoupai
                             ).redraw(true);
 
+    model.he = new Majiang.He();
+    view.he  = new Majiang.UI.He($('.he'), view.pai, model.he, 1).redraw();
+
     set_handler();
 }
 
@@ -63,12 +66,16 @@ function dapai(p) {
     model.shoupai.dapai(p);
     view.shoupai.dapai(p);
 
+    model.he.dapai(p);
+    view.he.dapai(p);
+
     setTimeout(zimo, 600);
 }
 
 function zimo() {
     model.shoupai.zimo(model.shan.zimo());
     view.shoupai.redraw();
+    view.he.redraw();
 
     set_handler();
 }
