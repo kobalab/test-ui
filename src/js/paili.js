@@ -32,6 +32,7 @@ function qipai(paistr) {
 
     if (paistr) {
         model.shoupai = Majiang.Shoupai.fromString(paistr);
+        history.replaceState('', '', `#${model.shoupai.toString()}`);
         repair_shan(model.shan, model.shoupai);
     }
     else {
@@ -171,6 +172,11 @@ $(function(){
         qipai($('form input[name="paistr"]').val());
         return false;
     });
+    $('form').on('reset', function(){
+        $('input[name="paistr"]').trigger('focus');
+        history.replaceState('', '', location.href.replace(/#.*$/,''));
+    });
 
-    qipai();
+    let paistr = location.hash.replace(/^#/,'');
+    qipai(paistr);
 });
