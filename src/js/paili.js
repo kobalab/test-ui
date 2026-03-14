@@ -30,6 +30,8 @@ function repair_shan(shan, shoupai) {
 
 function qipai(paistr) {
 
+    $('.paili').empty();
+
     model.shan = new Majiang.Shan(rule);
 
     if (paistr) {
