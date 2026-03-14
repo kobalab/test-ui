@@ -57,7 +57,7 @@ function qipai(paistr) {
     paili();
 }
 
-function set_handler() {
+function set_handler(focus) {
 
     for (let p of model.shoupai.get_dapai()) {
         let pai = $(p.slice(-1) == '_'
@@ -70,7 +70,7 @@ function set_handler() {
                 dapai(p);
             });
     }
-    setSelector($('.shoupai .pai[role="button"]'), 'dapai', { focus: -1 });
+    setSelector($('.shoupai .pai[role="button"]'), 'dapai', { focus: focus });
 }
 
 function clear_handler() {
@@ -157,7 +157,7 @@ function paili() {
         $('.paili').append(row);
     }
 
-    set_handler();
+    set_handler(-1);
 }
 
 $(function(){
@@ -176,6 +176,8 @@ $(function(){
         $('input[name="paistr"]').trigger('focus');
         history.replaceState('', '', location.href.replace(/#.*$/,''));
     });
+    $('[name="paistr"]').on('focus', ()=> clear_handler())
+                        .on('blur',  ()=> set_handler());
 
     let paistr = location.hash.replace(/^#/,'');
     qipai(paistr);
