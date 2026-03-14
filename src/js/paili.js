@@ -65,7 +65,7 @@ function set_handler() {
                         : `.pai:not(.zimo)[data-pai="${p}"]`,
                     $('.shoupai .bingpai'));
         pai.attr('role','button')
-            .on('click.dapai', (ev)=>{
+            .on('click', (ev)=>{
                 $(ev.target).addClass('dapai');
                 dapai(p);
             });
