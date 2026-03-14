@@ -11,4 +11,3 @@ global.Majiang.UI = require('./lib/');
 global.Majiang.VERSION = '0.2.2';
 global.jQuery = require('jquery');
 global.$ = jQuery;
-global.AriaLabel = require('./lib/label');
