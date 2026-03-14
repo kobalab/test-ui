@@ -16,8 +16,8 @@ $ mkdir demo
 $ cd demo
 $ ln -s ../dist/img .
 $ ln -s ../dist/audio .
-$ ln -s ../css/audio .
-$ ln -s ../js/audio .
+$ ln -s ../dist/css .
+$ ln -s ../dist/js .
 ```
 Windowsの場合:
 ```
