@@ -54,7 +54,7 @@ function qipai(paistr) {
     model.he = new Majiang.He();
     view.he  = new Majiang.UI.He($('.he'), view.pai, model.he, 1).redraw();
 
-    paili();
+    paili(600);
 }
 
 function set_handler(focus) {
@@ -115,7 +115,7 @@ function zimo() {
     paili();
 }
 
-function paili() {
+function paili(delay) {
 
     $('.paili').empty();
 
@@ -157,7 +157,7 @@ function paili() {
         $('.paili').append(row);
     }
 
-    set_handler(-1);
+    setTimeout(()=> set_handler(-1), delay);
 }
 
 $(function(){
