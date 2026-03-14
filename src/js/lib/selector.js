@@ -3,8 +3,6 @@
  */
 "use strict";
 
-let debug = 0;                                                      // for DEBUG
-let counter = 0;                                                    // for DEBUG
 const selectors = {};
 
 function setSelector(list, namespace, param = {}) {
@@ -17,7 +15,6 @@ function setSelector(list, namespace, param = {}) {
     };
     Object.assign(opt, param);
 
-    const c = ++counter;                                            // for DEBUG
     if (namespace[0] != '.') namespace = '.' + namespace;
     selectors[namespace] = list;
 
@@ -34,7 +31,7 @@ function setSelector(list, namespace, param = {}) {
         }
     }
 
-    list.attr('tabindex', opt.tabindex).attr('role','button')
+    list.attr('tabindex', opt.tabindex)
         .on('touchstart' + namespace, touchstart)
         .on('focus'      + namespace, (ev)=>{ i = list.index($(ev.target)) })
         .on('blur'       + namespace, (ev)=>{ i = null;
@@ -44,16 +41,14 @@ function setSelector(list, namespace, param = {}) {
 
     if (opt.confirm) {
         $(window).on('keyup' + namespace, (ev)=>{
-            if (debug) console.log(c, ev.type+namespace, ev.key, i);// for DEBUG
             if (ev.key == opt.confirm && i != null) {
                 list.eq(i).trigger('click');
                 return false;
             }
         });
     }
-    if (opt.prev || prev.next) {
+    if (opt.prev && opt.next) {
         $(window).on('keydown' + namespace, (ev)=>{
-            if (debug) console.log(c, ev.type+namespace, ev.key, i);// for DEBUG
             if (ev.key == opt.prev) {
                 i = (i == null) ? len - 1 :
                     (i <=    0) ?       0 : i - 1;
@@ -71,18 +66,15 @@ function setSelector(list, namespace, param = {}) {
     if (opt.focus != null) {
         list.eq(opt.focus).trigger('touchstart');
     }
-    if (debug) console.log('ON', c, namespace,                      // for DEBUG
-                            $._data(window).events);                // for DEBUG
     return list;
 }
 
 function clearSelector(namespace) {
     if (namespace[0] != '.') namespace = '.' + namespace;
     if (! selectors[namespace]) return;
-    selectors[namespace].removeAttr('tabindex role').off(namespace);
+    selectors[namespace].removeAttr('tabindex').off(namespace);
     $(window).off(namespace);
     delete selectors[namespace];
-    if (debug) console.log('OFF', namespace);                       // for DEBUG
 }
 
 module.exports = {
