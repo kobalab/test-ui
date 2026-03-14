@@ -12,8 +12,17 @@ html(lang="ja")
     include ../inc/script
 
   body.demo
+    include ../inc/loaddata
     h1 牌理
     include ../inc/navi
     .version ver. #{version}
     
+    form
+      | 手牌
+      input(type="text" name="paistr")
+    
     hr
+    
+    .shoupai
+      .bingpai
+      .fulou
