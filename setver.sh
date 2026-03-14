@@ -18,6 +18,20 @@ ex package-lock.json <<++
     w!
 ++
 
+ex src/js/majiang.js <<++
+    /電脳麻将/s/v.*/v${version}/
+    /VERSION/s/'.*'/'${version}'/
+    w!
+++
+
+for file in src/js/*.js
+do
+ex $file <<++
+    /電脳麻将/s/v.*/v${version}/
+    w!
+++
+done
+
 ex src/html/inc/version.pug <<++
     1s/\'.*\'/\'${version}\'/
     w!
