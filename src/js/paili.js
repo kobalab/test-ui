@@ -23,6 +23,8 @@ function qipai() {
     model.shoupai = new Majiang.Shoupai(qipai);
     model.shoupai.zimo(model.shan.zimo());
 
+    model.lizhi = false;
+
     while (model.shan.paishu > 17) model.shan.zimo();
 
     let paistr = model.shoupai.toString();
@@ -35,7 +37,7 @@ function qipai() {
     model.he = new Majiang.He();
     view.he  = new Majiang.UI.He($('.he'), view.pai, model.he, 1).redraw();
 
-    set_handler();
+    paili();
 }
 
 function set_handler() {
@@ -68,6 +70,12 @@ function dapai(p) {
     model.shoupai.dapai(p);
     view.shoupai.dapai(p);
 
+    if (! model.lizhi && Majiang.Util.xiangting(model.shoupai) == 0) {
+        model.lizhi = true;
+        p += '*';
+        view.audio('lizhi').play();
+    }
+
     model.he.dapai(p);
     view.he.dapai(p);
 
@@ -86,6 +94,22 @@ function zimo() {
 
     model.shoupai.zimo(model.shan.zimo());
     view.shoupai.redraw();
+
+    paili();
+}
+
+function paili() {
+
+    let n_xiangting = Majiang.Util.xiangting(model.shoupai);
+
+    if      (n_xiangting == -1) $('.status').text('和了！！');
+    else if (n_xiangting ==  0) $('.status').text('聴牌！');
+    else                        $('.status').text(`${n_xiangting}向聴`);
+
+    if (n_xiangting == -1) {
+        view.audio('zimo').play();
+        return;
+    }
 
     set_handler();
 }
