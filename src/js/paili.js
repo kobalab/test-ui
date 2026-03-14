@@ -23,6 +23,8 @@ function qipai() {
     model.shoupai = new Majiang.Shoupai(qipai);
     model.shoupai.zimo(model.shan.zimo());
 
+    while (model.shan.paishu > 17) model.shan.zimo();
+
     let paistr = model.shoupai.toString();
     $('[name="paistr"]').val(paistr);
 
@@ -73,9 +75,17 @@ function dapai(p) {
 }
 
 function zimo() {
-    model.shoupai.zimo(model.shan.zimo());
+
     view.shoupai.redraw();
     view.he.redraw();
+
+    if (! model.shan.paishu) {
+        $('.status').text('流局……');
+        return;
+    }
+
+    model.shoupai.zimo(model.shan.zimo());
+    view.shoupai.redraw();
 
     set_handler();
 }
