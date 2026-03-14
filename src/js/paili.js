@@ -11,7 +11,9 @@ const { setSelector, clearSelector } = Majiang.UI.Util;
 
 const model = {};
 const view  = {};
+
 let _row;
+let pref;
 
 const rule = Majiang.rule();
 
@@ -82,7 +84,7 @@ function dapai(p) {
 
     clear_handler();
 
-    view.audio('dapai').play();
+    if (pref.sound_on) view.audio('dapai').play();
 
     model.shoupai.dapai(p);
     view.shoupai.dapai(p);
@@ -90,7 +92,7 @@ function dapai(p) {
     if (! model.lizhi && Majiang.Util.xiangting(model.shoupai) == 0) {
         model.lizhi = true;
         p += '*';
-        view.audio('lizhi').play();
+        if (pref.sound_on) view.audio('lizhi').play();
     }
 
     model.he.dapai(p);
@@ -100,6 +102,8 @@ function dapai(p) {
 }
 
 function zimo() {
+
+    $('.paili').empty();
 
     view.shoupai.redraw();
     view.he.redraw();
@@ -117,8 +121,6 @@ function zimo() {
 
 function paili(delay) {
 
-    $('.paili').empty();
-
     let n_xiangting = Majiang.Util.xiangting(model.shoupai);
 
     if      (n_xiangting == -1) $('.status').text('和了！！');
@@ -126,7 +128,7 @@ function paili(delay) {
     else                        $('.status').text(`${n_xiangting}向聴`);
 
     if (n_xiangting == -1) {
-        view.audio('zimo').play();
+        if (pref.sound_on) view.audio('zimo').play();
         return;
     }
 
@@ -163,6 +165,7 @@ function paili(delay) {
 $(function(){
 
     _row = $('.paili .row');
+    pref = JSON.parse(localStorage.getItem('Majiang.pref'));
 
     view.pai   = Majiang.UI.pai('#loaddata');
     view.audio = Majiang.UI.audio('#loaddata');
