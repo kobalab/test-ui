@@ -4,8 +4,8 @@ const TerserPlugin = require("terser-webpack-plugin");
 
 module.exports = {
     entry:  {
+        majiang:   './src/js/majiang.js',
         paili:     './src/js/paili.js',
-        'test-ui':  './src/js/test-ui.js',
     },
     output: {
         path:     __dirname + '/dist/js/',
