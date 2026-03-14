@@ -7,6 +7,8 @@
  */
 "use strict";
 
+const { setSelector, clearSelector } = Majiang.UI.Util;
+
 const model = {};
 const view  = {};
 
@@ -26,7 +28,49 @@ function qipai() {
 
     view.shoupai = new Majiang.UI.Shoupai(
                                 $('.shoupai'), view.pai, model.shoupai
-                            ).redraw(true);    
+                            ).redraw(true);
+
+    set_handler();
+}
+
+function set_handler() {
+
+    for (let p of model.shoupai.get_dapai()) {
+        let pai = $(p.slice(-1) == '_'
+                        ? `.pai.zimo[data-pai="${p.slice(0,2)}"]`
+                        : `.pai:not(.zimo)[data-pai="${p}"]`,
+                    $('.shoupai .bingpai'));
+        pai.attr('role','button')
+            .on('click.dapai', (ev)=>{
+                $(ev.target).addClass('dapai');
+                dapai(p);
+            });
+    }
+    setSelector($('.shoupai .pai[role="button"]'), 'dapai', { focus: -1 });
+}
+
+function clear_handler() {
+    clearSelector('dapai');
+    $('.shoupai .pai[role="button"]').off('click');
+}
+
+function dapai(p) {
+
+    clear_handler();
+
+    view.audio('dapai').play();
+
+    model.shoupai.dapai(p);
+    view.shoupai.dapai(p);
+
+    setTimeout(zimo, 600);
+}
+
+function zimo() {
+    model.shoupai.zimo(model.shan.zimo());
+    view.shoupai.redraw();
+
+    set_handler();
 }
 
 $(function(){

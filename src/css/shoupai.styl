@@ -11,6 +11,11 @@ shoupai-size($width, $height, $bingpai-height, $fulou-height)
             margin-top: 0
             float: none
         pai-size: $bingpai-height
+        .pai[role="button"]
+            cursor: pointer
+            &:focus
+                transform: translate(0, - $bingpai-height / 8)
+                outline: none
         .pai.zimo
             margin-left: pai-width($bingpai-height) * 0.1
         .pai.deleted
