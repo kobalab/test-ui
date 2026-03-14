@@ -15,12 +15,24 @@ let _row;
 
 const rule = Majiang.rule();
 
+function repair_shan(shan, shoupai) {
+    let paistr = shoupai.toString();
+    for (let suitstr of paistr.match(/[mpsz][\d\+\=\-]+/g)) {
+        let s = suitstr[0];
+        for (let n of suitstr.match(/\d/g)) {
+            let i = shan._pai.indexOf(s+n);
+            if (i >= 0) shan._pai.splice(i, 1);
+        }
+    }
+}
+
 function qipai(paistr) {
 
     model.shan = new Majiang.Shan(rule);
 
     if (paistr) {
         model.shoupai = Majiang.Shoupai.fromString(paistr);
+        repair_shan(model.shan, model.shoupai);
     }
     else {
         let qipai = [];
