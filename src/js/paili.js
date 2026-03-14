@@ -151,5 +151,7 @@ $(function(){
     view.pai   = Majiang.UI.pai('#loaddata');
     view.audio = Majiang.UI.audio('#loaddata');
 
+    $('[type="button"]').on('click', qipai);
+
     qipai();
 });
