@@ -15,21 +15,24 @@ let _row;
 
 const rule = Majiang.rule();
 
-function qipai() {
+function qipai(paistr) {
 
     model.shan = new Majiang.Shan(rule);
 
-    let qipai = [];
-    while (qipai.length < 13) qipai.push(model.shan.zimo());
-    model.shoupai = new Majiang.Shoupai(qipai);
-    model.shoupai.zimo(model.shan.zimo());
-
+    if (paistr) {
+        model.shoupai = Majiang.Shoupai.fromString(paistr);
+    }
+    else {
+        let qipai = [];
+        while (qipai.length < 13) qipai.push(model.shan.zimo());
+        model.shoupai = new Majiang.Shoupai(qipai);
+        model.shoupai.zimo(model.shan.zimo());
+    }
     model.lizhi = false;
 
     while (model.shan.paishu > 17) model.shan.zimo();
 
-    let paistr = model.shoupai.toString();
-    $('[name="paistr"]').val(paistr);
+    $('[name="paistr"]').val(model.shoupai.toString());
 
     view.shoupai = new Majiang.UI.Shoupai(
                                 $('.shoupai'), view.pai, model.shoupai
@@ -151,7 +154,11 @@ $(function(){
     view.pai   = Majiang.UI.pai('#loaddata');
     view.audio = Majiang.UI.audio('#loaddata');
 
-    $('[type="button"]').on('click', qipai);
+    $('[type="button"]').on('click', ()=> qipai());
+    $('form').on('submit', function(){
+        qipai($('form input[name="paistr"]').val());
+        return false;
+    });
 
     qipai();
 });
