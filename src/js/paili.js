@@ -63,6 +63,8 @@ function qipai(paistr) {
 
 function set_handler(focus) {
 
+    if (Majiang.Util.xiangting(model.shoupai) == -1) return;
+
     for (let p of model.shoupai.get_dapai()) {
         let pai = $(p.slice(-1) == '_'
                         ? `.pai.zimo[data-pai="${p.slice(0,2)}"]`
