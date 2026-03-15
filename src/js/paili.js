@@ -38,6 +38,7 @@ function qipai(paistr) {
         model.shoupai = Majiang.Shoupai.fromString(paistr);
         history.replaceState('', '', `#${model.shoupai.toString()}`);
         repair_shan(model.shan, model.shoupai);
+        if (! model.shoupai._zimo) model.shoupai.zimo(model.shan.zimo());
     }
     else {
         let qipai = [];
