@@ -12,7 +12,7 @@ he-size($width, $pai-height, $type = block)
         height: $type == line ? $pai-height : $pai-height * 3
         pai-size: $pai-height
         .pai.dapai
-            transform: translate(@height / 28, @height / 56)
+            transform: translate(@height / 18, @height / 24)
         .pai.zimo
             opacity: 0.8
         .pai.zimo.dapai
@@ -25,7 +25,7 @@ he-size($width, $pai-height, $type = block)
             text-align: left
             transform: rotate(270deg)
             .pai.dapai
-                transform: translate(- @height / 56, @height / 28)
+                transform: translate(- @height / 18, @height / 24)
         .break
             display: $type == line ? inline-block : block
             width: pai-width($pai-height) * 0.1
