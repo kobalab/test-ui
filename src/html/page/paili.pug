@@ -6,7 +6,8 @@ html(lang="ja")
   head
     include ../inc/meta
 
-    title 電脳麻将: 牌理
+    include ../inc/ogp
+    +ogp('電脳麻将: 牌理', 'シャンテン数、有効牌とその枚数を表示します')
 
     include ../inc/style
     include ../inc/script
@@ -14,6 +15,7 @@ html(lang="ja")
   body.demo
     include ../inc/loaddata
     include ../inc/resize
+
     h1 牌理
     include ../inc/navi
     .version ver. #{version}
