@@ -112,6 +112,7 @@ function zimo() {
 
     if (! model.shan.paishu) {
         $('.status').text('流局……');
+        $('[type="button"]').trigger('focus');
         return;
     }
 
@@ -131,6 +132,7 @@ function paili(delay) {
 
     if (n_xiangting == -1) {
         if (pref.sound_on) view.audio('zimo').play();
+        $('[type="button"]').trigger('focus');
         return;
     }
 
