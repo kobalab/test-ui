@@ -6,3 +6,11 @@
  *  https://github.com/kobalab/Majiang/blob/master/LICENSE
  */
 "use strict";
+
+function submit() {
+    return false;
+}
+
+$(function(){
+    $('form').on('submit', submit);
+});
