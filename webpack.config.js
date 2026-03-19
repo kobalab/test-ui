@@ -6,6 +6,7 @@ module.exports = {
     entry:  {
         majiang:   './src/js/majiang.js',
         paili:     './src/js/paili.js',
+        hule:      './src/js/hule.js',
     },
     output: {
         path:     __dirname + '/dist/js/',

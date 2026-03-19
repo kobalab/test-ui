@@ -10,7 +10,8 @@ shoupai-size($width, $height, $bingpai-height, $fulou-height)
         else
             margin-top: 0
             float: none
-        pai-size: $bingpai-height
+        .pai
+            pai-size: $bingpai-height
         .pai[role="button"]
             cursor: pointer
             &:focus
@@ -39,7 +40,8 @@ shoupai-size($width, $height, $bingpai-height, $fulou-height)
 
 mianzi-size($height)
     display: inline-block
-    pai-size: $height
+    .pai
+        pai-size: $height
     .rotate
         display: inline-block
         white-space: nowrap

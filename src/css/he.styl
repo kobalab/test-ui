@@ -10,7 +10,8 @@ he-size($width, $pai-height, $type = block)
     >.dapai
         line-height: 0
         height: $type == line ? $pai-height : $pai-height * 3
-        pai-size: $pai-height
+        .pai
+            pai-size: $pai-height
         .pai.dapai
             transform: translate(@height / 18, @height / 24)
         .pai.zimo
