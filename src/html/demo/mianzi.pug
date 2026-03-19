@@ -1,0 +1,36 @@
+doctype html
+html(lang="ja")
+  head
+    include ../inc/meta
+    title mianzi
+    include ../inc/style
+    include ../inc/script
+    script.
+        $(function(){
+            const pai = Majiang.UI.pai('#loaddata');
+            const shoupai = $('.shoupai').clone();
+            $('.container').empty();
+
+            function submit(ev) {
+                let paistr = $('[name="mianzi"]').val();
+                let s = shoupai.clone();
+                $('.container').append(s);
+                new Majiang.UI.Shoupai(
+                        s, pai, Majiang.Shoupai.fromString(',' + paistr)
+                    ).redraw();
+                console.log(paistr);
+                return false;
+            }
+
+            $('form').on('submit', submit);
+        });
+
+  body.mianzi
+    h1 mianzi
+    include ../inc/loaddata
+    form
+      input(name="mianzi" size="8")
+      input(type="submit")
+    .container
+      .shoupai
+        .fulou
