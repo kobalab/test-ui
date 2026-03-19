@@ -25,14 +25,14 @@ html(lang="ja")
         input(name="paistr" type="text")
         input(type="submit" value="決定")
         input(type="reset" value="クリア")
-      div
+      //div
         span.
           ドラ表示牌:
           <input name="baopai" type="text"><input name="baopai" type="text"><input name="baopai" type="text"><input name="baopai" type="text"><input name="baopai" type="text">
         span.hide.
           裏ドラ表示牌:
           <input name="fubaopai" type="text"><input name="fubaopai" type="text"><input name="fubaopai" type="text"><input name="fubaopai" type="text"><input name="fubaopai" type="text">
-      div
+      //div
         span
           label
             input(name="zimo" type="radio" value="1")
@@ -53,7 +53,7 @@ html(lang="ja")
             option(value="1" selected) 南
             option(value="2") 西
             option(value="3") 北
-      div
+      //div
         span
           label
             input(name="lizhi" type="checkbox" value="1")
@@ -80,3 +80,17 @@ html(lang="ja")
             input(name="tianhu" type="checkbox" value="2")
             span 地和
     hr
+
+    .dialog
+      .shan
+        .baopai
+        .fubaopai
+      .shoupai
+        .bingpai
+        .fulou
+      table.hupai
+        tr.r_hupai
+          td.name
+          td.fanshu
+        tr.r_defen
+          td.defen(colspan="2")
