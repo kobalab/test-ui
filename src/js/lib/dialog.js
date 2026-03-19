@@ -35,12 +35,15 @@ module.exports = class HuleDialog {
             for (let hupai of hule.hupai) {
                 let r_hupai = this._r_hupai.clone();
                 $('.name', r_hupai).text(hupai.name);
-                $('.fanshu', r_hupai).text(`${hupai.fanshu}翻`);
+                $('.fanshu', r_hupai).text(
+                    hupai.fanshu + (hupai.fanshu[0] == '*' ? '' : '翻'));
                 $('.hupai').append(r_hupai);
             }
             let r_defen = this._r_defen.clone();
-            $('.defen', r_defen).text(
-                    `${hule.fu}符 ${hule.fanshu}翻 ${hule.defen}点`);
+            let defen = hule.damanguan
+                            ? '役満 ' : `${hule.fu}符 ${hule.fanshu}翻 `;
+            defen += `${hule.defen}点`
+            $('.defen', r_defen).text(defen);
             $('.hupai').append(r_defen);
         }
         else {

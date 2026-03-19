@@ -37,11 +37,12 @@ function submit(ev) {
     let hule = Majiang.Util.hule(shoupai, null, param) || {};
 
     let paipu = {
-        shoupai: paistr,
-        fu:      hule.fu,
-        fanshu:  hule.fanshu,
-        defen:   hule.defen,
-        hupai:   hule.hupai,
+        shoupai:    paistr,
+        damanguan:  hule.damanguan,
+        fu:         hule.fu,
+        fanshu:     hule.fanshu,
+        defen:      hule.defen,
+        hupai:      hule.hupai,
     };
 
     dialog.hule(paipu);
