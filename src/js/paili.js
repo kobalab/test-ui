@@ -14,6 +14,7 @@ const view  = {};
 
 let _row;
 let pref;
+let link;
 
 const rule = Majiang.rule();
 
@@ -31,6 +32,7 @@ function repair_shan(shan, shoupai) {
 function qipai(paistr) {
 
     $('.paili').empty();
+    $('.status a').removeAttr('href');
 
     model.shan = new Majiang.Shan(rule);
 
@@ -114,7 +116,7 @@ function zimo() {
     view.he.redraw();
 
     if (! model.shan.paishu) {
-        $('.status').text('流局……');
+        $('.status a').text('流局……');
         $('[type="button"]').trigger('focus');
         return;
     }
@@ -129,12 +131,13 @@ function paili(delay) {
 
     let n_xiangting = Majiang.Util.xiangting(model.shoupai);
 
-    if      (n_xiangting == -1) $('.status').text('和了！！');
-    else if (n_xiangting ==  0) $('.status').text('聴牌！');
-    else                        $('.status').text(`${n_xiangting}向聴`);
+    if      (n_xiangting == -1) $('.status a').text('和了！！');
+    else if (n_xiangting ==  0) $('.status a').text('聴牌！');
+    else                        $('.status a').text(`${n_xiangting}向聴`);
 
     if (n_xiangting == -1) {
         if (pref.sound_on) view.audio('zimo').play();
+        $('.status a').attr('href', link + model.shoupai + '/0/1/1');
         $('[type="button"]').trigger('focus');
         return;
     }
@@ -172,6 +175,7 @@ function paili(delay) {
 $(function(){
 
     _row = $('.paili .row');
+    link = $('.status a').attr('href');
     pref = localStorage.getItem('Majiang.pref')
                 ? JSON.parse(localStorage.getItem('Majiang.pref'))
                 : { sound_on: true };
