@@ -50,18 +50,55 @@ function submit(ev) {
     let fubaopai = $.makeArray($('[name="fubaopai"]'))
                         .map(n => Majiang.Shoupai.valid_pai($(n).val()))
                         .filter(p => p);
-    model.shan.baopai = baopai;
 
-    let param = Majiang.Util.hule_param();
-    param.zhuangfeng = + $('[name="zhuangfeng"]').val();
-    param.menfeng    = + $('[name="menfeng"]').val();
-    param.baopai     = baopai;
-    param.fubaopai   = fubaopai;
+    if (! shoupai.menqian) {
+        $('[name="lizhi"]').prop('checked', false);
+        hide($('[name="fubaopai"]').parent());
+        $('[name="yifa"]').prop('checked', false)
+                          .prop('disabled', true);
+        $('[name="tianhu"]').prop('checked', false);
+    }
+    if (! shoupai._fulou
+            .find(m => m.replace(/0/g,'5').match(/^[mpsz](\d)\1\1.*\1.*$/)))
+    {
+        $('[name="lingshang"]').prop('checked', false);
+    }
+    if (rongpai) {
+        $('[name="lingshang"]').prop('checked', false);
+    }
+    else {
+        $('[name="qianggang"]').prop('checked', false);
+    }
+
+    let lizhi = + $('input[name="lizhi"]:checked').val() || 0;
+
+    model.shan.baopai   = baopai;
+    model.shan.fubaopai = lizhi ? fubaopai : null;
+
+    let param = {
+        rule: Majiang.rule(),
+        zhuangfeng: + $('[name="zhuangfeng"]').val(),
+        menfeng:    + $('[name="menfeng"]').val(),
+        hupai: {
+            lizhi:      lizhi,
+            yifa:       $('[name="yifa"]').prop('checked'),
+            qianggang:  $('[name="qianggang"]').prop('checked'),
+            lingshang:  $('[name="lingshang"]').prop('checked'),
+            haidi:      ! $('[name="haidi"]').prop('checked') ? 0
+                            : ! rongpai                       ? 1
+                            :                                   2,
+            tianhu:     + $('[name="tianhu"]:checked').val() || 0,
+        },
+        baopai:     model.shan.baopai,
+        fubaopai:   model.shan.fubaopai,
+        jicun:      { changbang: 0, lizhibang: 0 }
+    };
 
     let hule = Majiang.Util.hule(shoupai, rongpai, param) || {};
 
     let paipu = {
         shoupai:    paistr,
+        fubaopai:   param.fubaopai,
         damanguan:  hule.damanguan,
         fu:         hule.fu,
         fanshu:     hule.fanshu,
@@ -70,6 +107,16 @@ function submit(ev) {
     };
 
     dialog.hule(paipu);
+
+    $('[name="baopai"]').val('');
+    for (let i = 0; i < baopai.length; i++) {
+        $('[name="baopai"]').eq(i).val(baopai[i]);
+    }
+    $('[name="fubaopai"]').val('');
+    if (! model.shan.fubaopai) fubaopai = [];
+    for (let i = 0; i < fubaopai.length; i++) {
+        $('[name="fubaopai"]').eq(i).val(fubaopai[i]);
+    }
 
     return false;
 }
