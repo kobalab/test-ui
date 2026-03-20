@@ -12,6 +12,21 @@ const Shan    = require('./shan');
 
 const { hide, show, fadeIn, fadeOut } = require('./fadein');
 
+function manguan(manguan) {
+
+    return manguan >= 4 * 6 ? '六倍役満 '
+         : manguan >= 4 * 5 ? '五倍役満 '
+         : manguan >= 4 * 4 ? '四倍役満 '
+         : manguan >= 4 * 3 ? 'トリプル役満 '
+         : manguan >= 4 * 2 ? 'ダブル役満 '
+         : manguan >= 4     ? '役満 '
+         : manguan >= 3     ? '三倍満 '
+         : manguan >= 2     ? '倍満 '
+         : manguan >= 1.5   ? '跳満 '
+         : manguan >= 1     ? '満貫 '
+         :                    '';
+}
+
 module.exports = class HuleDialog {
 
     constructor(root, pai) {
@@ -40,8 +55,9 @@ module.exports = class HuleDialog {
                 $('.hupai').append(r_hupai);
             }
             let r_defen = this._r_defen.clone();
-            let defen = hule.damanguan
-                            ? '役満 ' : `${hule.fu}符 ${hule.fanshu}翻 `;
+            let defen = (hule.damanguan ? ' '
+                                        : `${hule.fu}符 ${hule.fanshu}翻 `)
+                      + manguan(hule.defen / (hule.l == 0 ? 6 : 4) / 2000);
             defen += `${hule.defen}点`
             $('.defen', r_defen).text(defen);
             $('.hupai').append(r_defen);
