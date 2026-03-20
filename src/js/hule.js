@@ -128,9 +128,89 @@ $(function(){
                         model);
 
     $('form').on('submit', submit);
+
     $('form').on('reset', function(){
         hide($('.dialog'));
-        $('form input[name="paistr"]').focus();
+        $('[name="fubaopai"]').parent().addClass('hide');
+        $('[name="yifa"]').prop('disabled', true);
+        $('[name="tianhu"]').next().text('地和');
+        $('[name="tianhu"]').val(2);
+        $('form [name="paistr"]').focus();
+    });
+
+    $('[name="zimo"]').on('change', function(){
+        if ($(this, ':checked').val() == 1) {
+            $('[name="qianggang"]').prop('checked', false);
+        }
+        else {
+            $('[name="lingshang"]').prop('checked', false);
+            $('[name="tianhu"]').prop('checked', false);
+        }
+    });
+    $('[name="menfeng"]').on('change', function(){
+        if ($(this, ':selected').val() == 0) {
+            $('[name="tianhu"]').next().text('天和');
+            $('[name="tianhu"]').val(1);
+        }
+        else {
+            $('[name="tianhu"]').next().text('地和');
+            $('[name="tianhu"]').val(2);
+        }
+    });
+    $('[name="lizhi"]').on('change', function(){
+        if ($(this).prop('checked')) {
+            let val = $(this).val() == 1 ? 2 : 1;
+            $(`[name="lizhi"][value="${val}"]`).prop('checked', false);
+            show($('[name="fubaopai"]').parent());
+            $('[name="yifa"]').prop('disabled', false);
+            $('[name="tianhu"]').prop('checked', false);
+        }
+        else {
+            hide($('[name="fubaopai"]').parent());
+            $('[name="yifa"]').prop('checked', false)
+                              .prop('disabled', true);
+        }
+    });
+    $('[name="yifa"]').on('change', function(){
+        if ($(this).prop('checked')) {
+            $('[name="lingshang"]').prop('checked', false);
+        }
+    });
+    $('[name="haidi"]').on('change', function(){
+        if ($(this).prop('checked')) {
+            $('[name="lingshang"]').prop('checked', false);
+            $('[name="qianggang"]').prop('checked', false);
+            $('[name="tianhu"]').prop('checked', false);
+        }
+    });
+    $('[name="lingshang"]').on('change', function(){
+        if ($(this).prop('checked')) {
+            $('[name="yifa"]').prop('checked', false);
+            $('[name="haidi"]').prop('checked', false);
+            $('[name="qianggang"]').prop('checked', false);
+            $('[name="tianhu"]').prop('checked', false);
+            $('[name="zimo"][value="1"]').click();
+        }
+    });
+    $('[name="qianggang"]').on('change', function(){
+        if ($(this).prop('checked')) {
+            $('[name="haidi"]').prop('checked', false);
+            $('[name="lingshang"]').prop('checked', false);
+            $('[name="tianhu"]').prop('checked', false);
+            $('[name="zimo"][value="0"]').click();
+        }
+    });
+    $('[name="tianhu"]').on('change', function(){
+        if ($(this).prop('checked')) {
+            $('[name="lizhi"]').prop('checked', false);
+            $('[name="fubaopai"]').parent().addClass('hide');
+            $('[name="yifa"]').prop('checked', false)
+                              .prop('disabled', true);
+            $('[name="haidi"]').prop('checked', false);
+            $('[name="lingshang"]').prop('checked', false);
+            $('[name="qianggang"]').prop('checked', false);
+            $('[name="zimo"][value="1"]').click();
+        }
     });
 
     init();
