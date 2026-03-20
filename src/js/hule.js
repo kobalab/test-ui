@@ -14,14 +14,44 @@ let model = {
     shan: {},
 };
 
-function init() {
+function init(fragment) {
 
-    let paistr = 'm123p123z1z1,s1-23,z222=';
-    let baopai = ['z1'];
+    if (fragment) {
 
-    $('input[name="paistr"]').val(paistr).focus();
-    for (let i = 0; i < baopai.length; i++) {
-        $('input[name="baopai"]').eq(i).val(baopai[i]);
+        let [ paistr, baopai, fubaopai, zimo, zhuangfeng, menfeng,
+              lizhi, yifa, haidi, lingshang, qianggang, tianhu, rule ]
+                    = fragment.split(/\//);
+        baopai   = (baopai   || '').split(/,/);
+        fubaopai = (fubaopai || '').split(/,/);
+
+        $('[name="paistr"]').val(paistr);
+        for (let i = 0; i < baopai.length; i++) {
+            $('[name="baopai"]').eq(i).val(baopai[i]);
+        }
+        for (let i = 0; i < fubaopai.length; i++) {
+            $('[name="fubaopai"]').eq(i).val(fubaopai[i]);
+        }
+        $(`[name="zimo"][value="${zimo}"]`).click();
+        $('[name="zhuangfeng"]').val(zhuangfeng || 0);
+        $('[name="menfeng"]').val(menfeng || 0);
+        $(`[name="lizhi"][value="${lizhi}"]`).click();
+        if (+yifa)      $('[name="yifa"]').click();
+        if (+haidi)     $('[name="haidi"]').click();
+        if (+lingshang) $('[name="lingshang"]').click();
+        if (+qianggang) $('[name="qianggang"]').click();
+        if (+tianhu)    $('[name="tianhu"]').click();
+        if (rule)       $('select[name="rule"]').val(rule);
+
+        $('form').submit();
+    }
+    else {
+        let paistr = 'm123p123z1z1,s1-23,z222=';
+        let baopai = ['z1'];
+
+        $('[name="paistr"]').val(paistr).focus();
+        for (let i = 0; i < baopai.length; i++) {
+            $('[name="baopai"]').eq(i).val(baopai[i]);
+        }
     }
 }
 
@@ -70,7 +100,7 @@ function submit(ev) {
         $('[name="qianggang"]').prop('checked', false);
     }
 
-    let lizhi = + $('input[name="lizhi"]:checked').val() || 0;
+    let lizhi = + $('[name="lizhi"]:checked').val() || 0;
 
     model.shan.baopai   = baopai;
     model.shan.fubaopai = lizhi ? fubaopai : null;
@@ -117,6 +147,23 @@ function submit(ev) {
     for (let i = 0; i < fubaopai.length; i++) {
         $('[name="fubaopai"]').eq(i).val(fubaopai[i]);
     }
+
+    let fragment = '#' + [
+                    paistr,
+                    baopai.join(','),
+                    fubaopai.join(','),
+                    $('[name="zimo"]:checked').val(),
+                    $('[name="zhuangfeng"]').val(),
+                    $('[name="menfeng"]').val(),
+                    $('[name="lizhi"]:checked').val(),
+                    + $('[name="yifa"]').prop('checked'),
+                    + $('[name="haidi"]').prop('checked'),
+                    + $('[name="lingshang"]').prop('checked'),
+                    + $('[name="qianggang"]').prop('checked'),
+                    + $('[name="tianhu"]:checked').val() || 0
+                ].join('/');
+
+    history.replaceState('', '', fragment);
 
     return false;
 }
@@ -213,5 +260,6 @@ $(function(){
         }
     });
 
-    init();
+    let fragment = location.hash.replace(/^#/,'');
+    init(fragment);
 });
