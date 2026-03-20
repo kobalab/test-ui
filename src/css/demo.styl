@@ -8,6 +8,10 @@ body.demo
     h1
         display: none
 
+    .shan
+        .pai
+            pai-size: 40px
+
     .shoupai
         shoupai-size: auto 84px 56px 56px
 
@@ -22,8 +26,16 @@ body.demo
         img
             vertical-align: middle
     .dialog
+        display: table
         transition: opacity 0.4s ease-in-out;
         line-height: 1
+        .shan
+            .baopai
+                float: left
+            .fubaopai
+                float: right
+        .shoupai
+            clear: both
         .hupai
             margin-top: 10px
             min-width: 280px

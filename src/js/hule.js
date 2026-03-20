@@ -10,6 +10,9 @@
 const { hide, show, fadeIn, fadeOut } = Majiang.UI.Util;
 
 let dialog;
+let model = {
+    shan: {},
+};
 
 function init() {
 
@@ -31,10 +34,31 @@ function submit(ev) {
         return false;
     }
     let shoupai = Majiang.Shoupai.fromString(paistr);
+    $('[name="paistr"]').val(shoupai.toString());
+
+    let rongpai;
+    if ($('[name="zimo"]:checked').val() == 0) {
+        if (shoupai._zimo) {
+            rongpai = shoupai._zimo + '=';
+            shoupai.dapai(shoupai._zimo);
+        }
+    }
+
+    let baopai   = $.makeArray($('[name="baopai"]'))
+                        .map(n => Majiang.Shoupai.valid_pai($(n).val()))
+                        .filter(p => p);
+    let fubaopai = $.makeArray($('[name="fubaopai"]'))
+                        .map(n => Majiang.Shoupai.valid_pai($(n).val()))
+                        .filter(p => p);
+    model.shan.baopai = baopai;
 
     let param = Majiang.Util.hule_param();
+    param.zhuangfeng = + $('[name="zhuangfeng"]').val();
+    param.menfeng    = + $('[name="menfeng"]').val();
+    param.baopai     = baopai;
+    param.fubaopai   = fubaopai;
 
-    let hule = Majiang.Util.hule(shoupai, null, param) || {};
+    let hule = Majiang.Util.hule(shoupai, rongpai, param) || {};
 
     let paipu = {
         shoupai:    paistr,
@@ -53,7 +77,8 @@ function submit(ev) {
 $(function(){
 
     dialog = new Majiang.UI.HuleDialog(
-                        $('.dialog'), Majiang.UI.pai('#loaddata'));
+                        $('.dialog'), Majiang.UI.pai('#loaddata'),
+                        model);
 
     $('form').on('submit', submit);
     $('form').on('reset', function(){

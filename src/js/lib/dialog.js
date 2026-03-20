@@ -29,9 +29,10 @@ function manguan(manguan) {
 
 module.exports = class HuleDialog {
 
-    constructor(root, pai) {
-        this._root = root;
-        this._pai  = pai;
+    constructor(root, pai, model) {
+        this._root  = root;
+        this._pai   = pai;
+        this._model = model;
 
         this._r_hupai = $('.r_hupai', root);
         this._r_defen = $('.r_defen', root);
@@ -40,6 +41,11 @@ module.exports = class HuleDialog {
     hule(hule) {
 
         const root = this._root;
+
+        if (hule.fubaopai) show($('.shan .fubaopai', root));
+        else               hide($('.shan .fubaopai', root));
+
+        new Shan($('.shan', root), this._pai, this._model.shan).redraw();
 
         new Shoupai($('.shoupai', root), this._pai,
                     Majiang.Shoupai.fromString(hule.shoupai)).redraw(true);
