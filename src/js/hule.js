@@ -55,9 +55,7 @@ function init(fragment) {
     }
 }
 
-function submit(ev) {
-
-    ev.preventDefault();
+function submit() {
 
     let paistr = $('[name="paistr"]').val();
     if (! paistr) {
