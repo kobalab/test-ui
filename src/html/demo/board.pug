@@ -14,6 +14,14 @@ html(lang="ja")
         function start() {
             clearSelector('title');
             $('body').attr('class','board');
+            scale($('#board'), $('#space'));
+            
+            let analyzer;
+            $('#board').on('click', ()=>{
+                if (analyzer) $('body').removeClass('analyzer');
+                else          $('body').addClass('analyzer');
+                analyzer = ! analyzer;
+            });
         };
 
         $(function(){
@@ -32,5 +40,6 @@ html(lang="ja")
     #space
     #board
       .board
+      .analyzer
       .controller
     .version ver. #{version}

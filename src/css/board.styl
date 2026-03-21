@@ -1,11 +1,15 @@
 body.board
     width: 800px
-    height: 100dvh
     #board
         display: block
     margin: 0 auto
     background: black
     color: white
+
+body.analyzer
+    #board
+        .analyzer
+            display: block
 
 #space
     display: none
@@ -22,6 +26,16 @@ body.board
     .controller
         box-sizing: border-box
         border: solid 2px #666
+    .analyzer
+        display: none
+        position: absolute
+        top 0
+        width: 700px
+        height: 360px
+        background: rgba(0, 0, 0, 0.4)
+        box-sizing: border-box
+        border: solid 1px white
+        border-radius: 4px
 
 @media screen and (min-width: 820px)
     body.board
@@ -32,9 +46,31 @@ body.board
                 transform: translate(80px, 100px)
                 width: 160px
                 height: 100px
+    body.analyzer
+        width: 1400px
+        #board
+            .board
+                float: left
+            .analyzer
+                position: relative
+                transform: none
+                float: right
+                width: 590px
+                height: 680px
+
+@media screen and (min-height: 1000px)
+    body.analyzer
+        #board
+            .analyzer
+                position: relative
+                transform: none
+                width: auto
+                height: 300px
+
 
 @media screen and (max-height: 680px)
     body.board
+        height: 100dvh
         #navi
         > .version
             display: none
@@ -50,6 +86,10 @@ body.board
         height: 680px
     .controller
         height: 40px
+    .analyzer
+        transform: translate(50px, 100px)
+        width: 700px
+        height: 300px
 
 @media screen and (max-height: 450px)
     /*
@@ -65,3 +105,5 @@ body.board
                 right: 0
                 width: 40px
                 height: 450px
+            .analyzer
+                transform: translate(30px, 30px)
