@@ -1,0 +1,45 @@
+body.board
+    width: 800px
+    height: 100dvh
+    #board
+        display: block
+    margin: 0 auto
+    background: black
+    color: white
+
+#space
+    display: none
+    background: #666
+
+#board
+    display: none
+    .board
+        width: 800px
+        background: #154
+        box-sizing: border-box
+        border: solid 5px #2a8
+
+@media screen and (max-height: 680px)
+    body.board
+        #navi
+        > .version
+            display: none
+        #space
+            display: block
+            height: 100px
+
+/*
+    @import "desktop"
+*/
+#board
+    .board
+        height: 680px
+
+@media screen and (max-height: 450px)
+    /*
+        @import "mobile"
+    */
+    body.board
+        #board
+            .board
+                height: 450px
