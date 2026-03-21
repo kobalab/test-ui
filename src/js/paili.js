@@ -1,5 +1,5 @@
 /*!
- *  電脳麻将: 牌理 v0.2.5
+ *  電脳麻将: 牌理 v0.2.6
  *
  *  Copyright(C) 2017 Satoshi Kobayashi
  *  Released under the MIT license
