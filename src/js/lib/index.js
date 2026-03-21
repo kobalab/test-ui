@@ -5,6 +5,7 @@ module.exports = {
     Shoupai:     require('./shoupai'),
     Shan:        require('./shan'),
     He:          require('./he'),
+    HuleDialog:  require('./dialog'),
     Util:        Object.assign(require('./fadein'),
                                require('./selector'),
                                require('./scale'),
