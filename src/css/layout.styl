@@ -7,9 +7,8 @@ body.board
         display: block
 
 body.analyzer
-    #board
-        .analyzer
-            display: block
+    #board .analyzer
+        display: block
 
 #space
     display: none
@@ -32,6 +31,7 @@ body.analyzer
         width: 700px
         height: 300px
 
+/* PC画面の差分 */
 @media screen and (min-width: 820px)
     body.board
         #board .controller
@@ -53,6 +53,7 @@ body.analyzer
             .analyzer
                 float: right
 
+/* スマホ・タブレット画面(縦)の差分 */
 @media screen and (min-height: 1000px)
     body.analyzer
         #board .analyzer
@@ -61,7 +62,7 @@ body.analyzer
             width: auto
             height: 300px
 
-
+/* スマホ・タブレット画面(横)の差分 */
 @media screen and (max-height: 680px)
     body.board
         height: 100dvh
@@ -72,6 +73,7 @@ body.analyzer
             display: block
             height: 100px
 
+/* スマホ画面(横)の差分 */
 @media screen and (max-height: 450px)
     body.board
         #board
