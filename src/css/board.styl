@@ -1,10 +1,10 @@
 body.board
     width: 800px
-    #board
-        display: block
     margin: 0 auto
     background: black
     color: white
+    #board
+        display: block
 
 body.analyzer
     #board
@@ -20,52 +20,46 @@ body.analyzer
     position: relative
     .board
         width: 800px
-        background: #154
-        box-sizing: border-box
-        border: solid 5px #2a8
+        height: 680px
     .controller
-        box-sizing: border-box
-        border: solid 2px #666
+        width: auto
+        height: 40px
     .analyzer
         display: none
         position: absolute
         top 0
+        transform: translate(50px, 100px)
         width: 700px
-        height: 360px
-        background: rgba(0, 0, 0, 0.4)
-        box-sizing: border-box
-        border: solid 1px white
-        border-radius: 4px
+        height: 300px
 
 @media screen and (min-width: 820px)
     body.board
-        #board
-            .controller
-                position: absolute
-                top: 0
-                transform: translate(80px, 100px)
-                width: 160px
-                height: 100px
+        #board .controller
+            position: absolute
+            top: 0
+            transform: translate(80px, 100px)
+            width: 160px
+            height: 100px
     body.analyzer
         width: 1400px
+        #board .analyzer
+            position: relative
+            transform: none
+            width: 590px
+            height: 680px
         #board
             .board
                 float: left
             .analyzer
-                position: relative
-                transform: none
                 float: right
-                width: 590px
-                height: 680px
 
 @media screen and (min-height: 1000px)
     body.analyzer
-        #board
-            .analyzer
-                position: relative
-                transform: none
-                width: auto
-                height: 300px
+        #board .analyzer
+            position: relative
+            transform: none
+            width: auto
+            height: 300px
 
 
 @media screen and (max-height: 680px)
@@ -78,23 +72,7 @@ body.analyzer
             display: block
             height: 100px
 
-/*
-    @import "desktop"
-*/
-#board
-    .board
-        height: 680px
-    .controller
-        height: 40px
-    .analyzer
-        transform: translate(50px, 100px)
-        width: 700px
-        height: 300px
-
 @media screen and (max-height: 450px)
-    /*
-        @import "mobile"
-    */
     body.board
         #board
             .board

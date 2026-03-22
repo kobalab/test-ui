@@ -7,9 +7,25 @@ html(lang="ja")
     title board
     include ../inc/style
     include ../inc/script
+    style.
+        #board .board {
+            background: #154;
+            box-sizing: border-box;
+            border: solid 5px #2a8;
+        }
+        #board .controller {
+            box-sizing: border-box;
+            border: solid 2px #666
+        }
+        #board .analyzer {
+            background: rgba(0, 0, 0, 0.4);
+            box-sizing: border-box;
+            border: solid 1px white;
+            border-radius: 4px;
+        }
     script.
-        const { show, hide, setSelector, clearSelector,
-                scale } = Majiang.UI.Util;
+        const { show, hide, setSelector, clearSelector, scale } 
+                                                    = Majiang.UI.Util;
 
         function start() {
             clearSelector('title');
