@@ -1,0 +1,61 @@
+- var width = 800
+doctype html
+html(lang="ja")
+  head
+    base(href="../dist/")
+    include ../inc/meta
+    title board
+    include ../inc/style
+    include ../inc/script
+    style.
+        #board .board {
+            background: #154;
+            box-sizing: border-box;
+            border: solid 5px #2a8;
+        }
+        #board .controller {
+            box-sizing: border-box;
+            border: solid 2px #0ff
+        }
+        #board .analyzer {
+            background: rgba(0, 0, 0, 0.4);
+            box-sizing: border-box;
+            border: solid 1px white;
+            border-radius: 4px;
+        }
+    script.
+        const { show, hide, setSelector, clearSelector, scale } 
+                                                    = Majiang.UI.Util;
+
+        function start() {
+            clearSelector('title');
+            $('body').attr('class','board');
+            scale($('#board'), $('#space'));
+            
+            let analyzer;
+            $('#board').on('click', ()=>{
+                if (analyzer) $('body').removeClass('analyzer');
+                else          $('body').addClass('analyzer');
+                analyzer = ! analyzer;
+            });
+        };
+
+        $(function(){
+            
+            $(window).on('resize', ()=>scale($('#board'), $('#space')));
+            
+            setSelector($('#title .start'), 'title');
+            hide($('#title .loading'));
+            $('#title .start').on('click', start)
+            show($('#title .start'));
+        });
+
+  body.title
+    include ../inc/navi
+    include ../inc/title
+    #space
+    #board
+      .board
+      .analyzer
+      .controller
+    .version ver. #{version}

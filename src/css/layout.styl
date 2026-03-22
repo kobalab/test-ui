@@ -1,0 +1,87 @@
+body.board
+    width: 800px
+    margin: 0 auto
+    background: black
+    color: white
+    #board
+        display: block
+
+body.analyzer
+    #board
+        .analyzer
+            display: block
+
+#space
+    display: none
+    background: #666
+
+#board
+    display: none
+    position: relative
+    .board
+        width: 800px
+        height: 680px
+    .controller
+        width: auto
+        height: 40px
+    .analyzer
+        display: none
+        position: absolute
+        top 0
+        transform: translate(50px, 100px)
+        width: 700px
+        height: 300px
+
+@media screen and (min-width: 820px)
+    body.board
+        #board .controller
+            position: absolute
+            top: 0
+            transform: translate(80px, 100px)
+            width: 160px
+            height: 100px
+    body.analyzer
+        width: 1400px
+        #board .analyzer
+            position: relative
+            transform: none
+            width: 590px
+            height: 680px
+        #board
+            .board
+                float: left
+            .analyzer
+                float: right
+
+@media screen and (min-height: 1000px)
+    body.analyzer
+        #board .analyzer
+            position: relative
+            transform: none
+            width: auto
+            height: 300px
+
+
+@media screen and (max-height: 680px)
+    body.board
+        height: 100dvh
+        #navi
+        > .version
+            display: none
+        #space
+            display: block
+            height: 100px
+
+@media screen and (max-height: 450px)
+    body.board
+        #board
+            .board
+                height: 450px
+            .controller
+                position: absolute
+                top: 0
+                right: 0
+                width: 40px
+                height: 450px
+            .analyzer
+                transform: translate(30px, 30px)
