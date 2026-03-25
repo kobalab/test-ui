@@ -4,7 +4,7 @@ html(lang="ja")
   head
     base(href="../dist/")
     include ../inc/meta
-    title board
+    title layout
     include ../inc/style
     include ../inc/script
     style.
@@ -31,19 +31,21 @@ html(lang="ja")
             clearSelector('title');
             $('body').attr('class','board');
             scale($('#board'), $('#space'));
-            
-            let analyzer;
-            $('#board').on('click', ()=>{
-                if (analyzer) $('body').removeClass('analyzer');
-                else          $('body').addClass('analyzer');
-                analyzer = ! analyzer;
-            });
         };
 
         $(function(){
-            
+
             $(window).on('resize', ()=>scale($('#board'), $('#space')));
-            
+
+            $('#board').on('click', ()=>{
+                $('body').toggleClass('analyzer');
+            });
+
+            $('#board .navi [role="button"]').on('click', ()=>{
+                $('#board .navi').toggleClass('active');
+                return false;
+            });
+
             setSelector($('#title .start'), 'title');
             hide($('#title .loading'));
             $('#title .start').on('click', start)
@@ -51,11 +53,13 @@ html(lang="ja")
         });
 
   body.title
-    include ../inc/navi
+    #navi
+      include ../inc/navi
     include ../inc/title
     #space
     #board
       .board
       .analyzer
       .controller
+      include ../inc/navi
     .version ver. #{version}

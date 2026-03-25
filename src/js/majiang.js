@@ -1,5 +1,5 @@
 /*!
- *  電脳麻将 v0.2.7
+ *  電脳麻将 v0.2.8
  *
  *  Copyright(C) 2017 Satoshi Kobayashi
  *  Released under the MIT license
@@ -8,6 +8,6 @@
 "use strict";
 global.Majiang = require('@kobalab/majiang-core');
 global.Majiang.UI = require('./lib/');
-global.Majiang.VERSION = '0.2.7';
+global.Majiang.VERSION = '0.2.8';
 global.jQuery = require('jquery');
 global.$ = jQuery;

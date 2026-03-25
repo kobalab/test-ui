@@ -4,7 +4,7 @@ html(lang="ja")
   head
     base(href="../dist/")
     include ../inc/meta
-    title title
+    title preload
     include ../inc/style
     include ../inc/script
     script.
@@ -30,7 +30,8 @@ html(lang="ja")
 
         $(window).on('load', ()=> loaded = true);
   body.title
-    include ../inc/navi
+    #navi
+      include ../inc/navi
     #demo
       h1 preload
       include ../inc/loaddata
