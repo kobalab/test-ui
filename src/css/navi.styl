@@ -1,13 +1,45 @@
 #navi
     font-size: 12px
     font-family: menu-font
-    margin: 0
-    padding: 0
-    text-align: right
-    a
-        color: inherit
-        text-decoration: none
-    li
-        display: inline-block
-    li + li:before
-        content: ' | '
+    img[role="button"]
+        display: none
+    ul
+        margin: 0
+        padding: 0
+        text-align: right
+        a
+            color: inherit
+            text-decoration: none
+        li
+            display: inline-block
+        li + li:before
+            content: ' | '
+
+#board .navi
+    position: absolute
+    top: 0
+    font-size: 24px
+    font-family: menu-font
+    color: white
+    img[role="button"]
+        width: 24px
+        height: 24px
+        margin: 10px
+        opacity: 0.3
+    ul
+        display: none
+        margin: 0
+        padding: 0
+        width: 360px
+        a
+            color: inherit
+            text-decoration: none
+        li
+            list-style-type: none
+            padding: 2px 1em
+    &.active
+        background: black
+        img[role="button"]
+            opacity: 1
+        ul
+            display: block

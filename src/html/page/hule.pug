@@ -15,11 +15,12 @@ html(lang="ja")
   body.demo
     include ../inc/loaddata
     include ../inc/resize
-
-    h1 和了点計算
-    include ../inc/navi
+    #navi
+      include ../inc/navi
     .version ver. #{version}
     
+    h1 和了点計算
+
     form
       div 牌姿:
         input(name="paistr" type="text")
