@@ -27,6 +27,11 @@ $(function(){
 
     $(window).on('resize', ()=>scale($('#board'), $('#space')));
 
+    $('#board .navi [role="button"]').on('click', ()=>{
+        $('#board .navi').toggleClass('active');
+        return false;
+    });
+
     $(window).on('load', function(){
         setSelector($('#title .start'), 'title');
         hide($('#title .loading'));
