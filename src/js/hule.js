@@ -33,7 +33,7 @@ function init(fragment) {
         }
         $(`[name="zimo"][value="${zimo}"]`).click();
         $('[name="zhuangfeng"]').val(zhuangfeng || 0);
-        $('[name="menfeng"]').val(menfeng || 0).update();
+        $('[name="menfeng"]').val(menfeng || 0);
         $(`[name="lizhi"][value="${lizhi}"]`).click();
         if (+yifa)      $('[name="yifa"]').click();
         if (+haidi)     $('[name="haidi"]').click();
