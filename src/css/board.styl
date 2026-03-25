@@ -1,2 +1,16 @@
 #board .board
     background: #154
+
+#board .board .score
+    background: #111
+    font-family: defen-font
+    div:has(> .jushu)
+        float: left
+    .jushu
+        font-family: title-font
+    .jushu + div
+        display: table
+        margin: auto
+    .shan
+        float: right
+        text-align: right
