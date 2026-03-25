@@ -23,6 +23,13 @@ $(function(){
         clearSelector('title');
         $('body').attr('class','board');
         scale($('#board'), $('#space'));
+
+        let players = [];
+        for (let i = 0; i < 4; i++) players[i] = new Majiang.AI;
+        game      = new Majiang.Game(players, start);
+        game.view = new Majiang.UI.Board($('#board'), pai, audio, game.model);
+
+        game.kaiju();
     }
 
     $(window).on('resize', ()=>scale($('#board'), $('#space')));
