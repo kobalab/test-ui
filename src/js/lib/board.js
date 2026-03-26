@@ -78,7 +78,7 @@ module.exports = class Board {
         if (viewpoint != null) this._viewpoint = viewpoint;
         else                   viewpoint = this._viewpoint;
 
-        const model = this._model, view  = this._view;
+        const model = this._model, view = this._view;
 
         score($('.score', this._root), model, viewpoint);
 
@@ -105,7 +105,7 @@ module.exports = class Board {
 
     update(msg = {}) {
 
-        const model = this._model, view  = this._view;
+        const model = this._model, view = this._view;
 
         if (this._lunban >= 0 && this._lunban != model.lunban) {
             view.he[this._lunban].redraw();
