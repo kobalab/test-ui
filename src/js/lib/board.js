@@ -106,6 +106,9 @@ module.exports = class Board {
             view.shoupai[msg.dapai.l].dapai(msg.dapai.p);
             view.he[msg.dapai.l].dapai(msg.dapai.p);
         }
+        else if (msg.fulou) {
+            view.shoupai[msg.fulou.l].redraw();
+        }
 
         this._lunban = model.lunban;
 
