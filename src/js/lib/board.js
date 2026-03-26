@@ -46,34 +46,47 @@ module.exports = class Board {
         this._model = model;
         this._pai   = pai;
         this._view  = {
-            score: new Score($('.score', root), model),
+            score:   new Score($('.score', root), model),
+            shoupai: [],
         };
     }
 
     kaiju() {
-        console.log('*** kaiju');
+        this._viewpoint = 0;
         return this;
     }
 
-    redraw() {
+    redraw(viewpoint) {
 
-        const model = this._model;
-        const view  = this._view;
+        if (viewpoint != null) this._viewpoint = viewpoint;
+        else                   viewpoint = this._viewpoint;
 
-        view.score.redraw();
+        const model = this._model, view  = this._view;
+
+        view.score.redraw(viewpoint);
+
         view.shan = new Shan($('.score .shan', this._root), this._pai,
                                 model.shan).redraw();
 
+        for (let l = 0; l < 4; l++) {
+            let c    = class_name[(4 + model.player_id[l] - viewpoint) % 4];
+            let open = model.player_id[l] == viewpoint;
+
+            view.shoupai[l]
+                    = new Shoupai($(`.shoupai.${c}`, this._root),
+                                    this._pai, model.shoupai[l]
+                                ).redraw(open);
+        }
         return this;
     }
 
     update(data) {
 
-        const model = this._model;
-        const view  = this._view;
+        const model = this._model, view  = this._view;
 
         view.score.update();
         view.shan.update();
+        view.shoupai.forEach(s => s.redraw());
 
         return this;
     }
