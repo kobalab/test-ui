@@ -82,17 +82,28 @@ module.exports = class Board {
                                     this._pai, model.he[l]
                                 ).redraw();
         }
+        this._lunban = model.lunban;
+
         return this;
     }
 
-    update(data) {
+    update(msg = {}) {
+
+        console.log(msg);
 
         const model = this._model, view  = this._view;
 
-        view.score.update();
-        view.shan.update();
-        view.shoupai.forEach(s => s.redraw());
-        view.he.forEach(he => he.redraw());
+        if (this._lunban >= 0 && this._lunban != model.lunban) {
+            view.he[this._lunban].redraw();
+            view.shoupai[this._lunban].redraw();
+        }
+
+        if (msg.zimo) {
+            view.shan.update();
+            view.shoupai[msg.zimo.l].redraw();
+        }
+
+        this._lunban = model.lunban;
 
         return this;
     }
