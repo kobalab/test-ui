@@ -48,6 +48,7 @@ module.exports = class Board {
         this._view  = {
             score:   new Score($('.score', root), model),
             shoupai: [],
+            he:      [],
         };
     }
 
@@ -76,6 +77,10 @@ module.exports = class Board {
                     = new Shoupai($(`.shoupai.${c}`, this._root),
                                     this._pai, model.shoupai[l]
                                 ).redraw(open);
+
+            view.he[l] = new He($(`.he.${c}`, this._root),
+                                    this._pai, model.he[l]
+                                ).redraw();
         }
         return this;
     }
@@ -87,6 +92,7 @@ module.exports = class Board {
         view.score.update();
         view.shan.update();
         view.shoupai.forEach(s => s.redraw());
+        view.he.forEach(he => he.redraw());
 
         return this;
     }
