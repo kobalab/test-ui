@@ -36,7 +36,7 @@ html(lang="ja")
 
             $(window).on('resize', ()=>scale($('#board'), $('#space')));
 
-            $('#board').on('click', ()=>{
+            $('#board .board, #board .analyzer').on('click', ()=>{
                 $('body').toggleClass('analyzer');
             });
 
