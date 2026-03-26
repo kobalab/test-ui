@@ -112,6 +112,12 @@ module.exports = class Board {
             view.shan.redraw();
         }
 
+        class_name.forEach(c => $(`.${c}`, this._root).removeClass('lunban'));
+        if (model.lunban >= 0) {
+            let id = model.player_id[model.lunban];
+            let c  = class_name[(4 + id - this._viewpoint) % 4];
+            $(`.${c}`, this._root).addClass('lunban');
+        }
         this._lunban = model.lunban;
 
         return this;
