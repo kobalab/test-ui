@@ -1,7 +1,12 @@
 #board .board
+    box-sizing: border-box;
     background: #154
+    > *
+        position: absolute
+        transform-origin: 0% 0%
 
 #board .board .score
+    box-sizing: border-box;
     background: #111
     font-family: defen-font
     div:has(> .jushu)
@@ -14,3 +19,11 @@
     .shan
         float: right
         text-align: right
+
+#board .board
+    .shoupai
+        box-sizing: border-box;
+        border: solid 1px white
+    .he
+        box-sizing: border-box;
+        border: solid 1px blue

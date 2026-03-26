@@ -1,5 +1,4 @@
 #board .board .score
-    box-sizing: border-box;
     width: 280px
     height: 160px
     transform: translate(260px, 260px)
@@ -15,3 +14,28 @@
     .shan
         .pai
             pai-size: 40px
+
+#board .board
+    .shoupai
+        &.main
+            shoupai-size: 680px 60px 56px 40px
+            transform: translate(120px, 620px)
+        &.xiajia
+            shoupai-size: 560px 60px 40px 40px
+            transform: translate(740px, 560px) rotate(270deg)
+        &.duimian
+            shoupai-size: 680px 60px 40px 40px
+            transform: translate(680px, 60px) rotate(180deg)
+        &.shangjia
+            shoupai-size: 560px 60px 40px 40px
+            transform: translate(60px, 120px) rotate(90deg)
+    .he
+        he-size: 300px 40px
+        &.main
+            transform: translate(310px, 420px)
+        &.xiajia
+            transform: translate(540px, 430px) rotate(270deg)
+        &.duimian
+            transform: translate(490px, 260px) rotate(180deg)
+        &.shangjia
+            transform: translate(260px, 250px) rotate(90deg)
