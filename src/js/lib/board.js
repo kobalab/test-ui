@@ -102,6 +102,10 @@ module.exports = class Board {
             view.shan.update();
             view.shoupai[msg.zimo.l].redraw();
         }
+        else if (msg.dapai) {
+            view.shoupai[msg.dapai.l].dapai(msg.dapai.p);
+            view.he[msg.dapai.l].dapai(msg.dapai.p);
+        }
 
         this._lunban = model.lunban;
 
