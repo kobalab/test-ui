@@ -109,6 +109,16 @@ module.exports = class Board {
         else if (msg.fulou) {
             view.shoupai[msg.fulou.l].redraw();
         }
+        else if (msg.gang) {
+            view.shoupai[msg.gang.l].redraw();
+        }
+        else if (msg.gangzimo) {
+            view.shan.update();
+            view.shoupai[msg.gangzimo.l].redraw();
+        }
+        else if (msg.kaigang) {
+            view.shan.redraw();
+        }
 
         this._lunban = model.lunban;
 
