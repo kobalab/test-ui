@@ -12,6 +12,7 @@
     div:has(> .jushu)
         float: left
     .jushu
+        line-height: 1
         font-family: title-font
     .jushu + div
         display: table
@@ -19,11 +20,23 @@
     .shan
         float: right
         text-align: right
+    .defen
+        clear: both
+        div
+            position: absolute
+            &.main
+                text-align: center
+            &.xiajia
+                text-align: right
+            &.duimian
+                text-align: center
+            &.shangjia
+                text-align: left
 
 #board .board
     .shoupai
         box-sizing: border-box;
-        border: solid 1px white
+        // border: solid 1px white
     .he
         box-sizing: border-box;
-        border: solid 1px blue
+        // border: solid 1px blue

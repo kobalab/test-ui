@@ -16,27 +16,22 @@ const class_name  = ['main','xiajia','duimian','shangjia'];
 const feng_hanzi  = ['東','南','西','北'];
 const jushu_hanzi = ['一局','二局','三局','四局'];
 
-class Score {
+function score(root, model, viewpoint) {
 
-    constructor(root, model) {
-        this._root  = root;
-        this._model = model;
-    }
+    $('.jushu', root).text(feng_hanzi[model.zhuangfeng]
+                            + jushu_hanzi[model.jushu]);
+    $('.changbang', root).text(model.changbang);
+    $('.lizhibang', root).text(model.lizhibang);
 
-    redraw() {
+    for (let l = 0; l < 4; l++) {
 
-        const model = this._model;
+        let id = model.player_id[l];
+        let defen = '' + model.defen[id];
+        defen = defen.replace(/(\d*)(\d{3})$/, '$1,$2');
+        defen = feng_hanzi[l] + ': ' + defen;
 
-        $('.jushu', this._root).text(
-            feng_hanzi[model.zhuangfeng] + jushu_hanzi[model.jushu]);
-        $('.changbang', this._root).text(model.changbang);
-        $('.lizhibang', this._root).text(model.lizhibang);
-
-        return this;
-    }
-
-    update() {
-        return this;
+        let c = class_name[(4 + id - viewpoint) % 4];
+        $(`.defen .${c}`, root).text(defen);
     }
 }
 
@@ -46,7 +41,6 @@ module.exports = class Board {
         this._model = model;
         this._pai   = pai;
         this._view  = {
-            score:   new Score($('.score', root), model),
             shoupai: [],
             he:      [],
         };
@@ -64,7 +58,7 @@ module.exports = class Board {
 
         const model = this._model, view  = this._view;
 
-        view.score.redraw(viewpoint);
+        score($('.score', this._root), model, viewpoint);
 
         view.shan = new Shan($('.score .shan', this._root), this._pai,
                                 model.shan).redraw();
@@ -88,8 +82,6 @@ module.exports = class Board {
     }
 
     update(msg = {}) {
-
-        console.log(msg);
 
         const model = this._model, view  = this._view;
 
