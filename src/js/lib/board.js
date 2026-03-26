@@ -51,6 +51,7 @@ module.exports = class Board {
         this._view  = {
             shoupai: [],
             he:      [],
+            say:     [],
         };
 
         this.sound_on = true;
@@ -98,6 +99,8 @@ module.exports = class Board {
             view.he[l] = new He($(`.he.${c}`, this._root),
                                     this._pai, model.he[l]
                                 ).redraw();
+
+            view.say[l] = hide($(`.say.${c}`, this._root).text(''));
         }
         this._lunban = model.lunban;
 
@@ -114,10 +117,12 @@ module.exports = class Board {
         }
 
         if (msg.zimo) {
+            fadeOut(view.say[msg.zimo.l]);
             view.shan.update();
             view.shoupai[msg.zimo.l].redraw();
         }
         else if (msg.dapai) {
+            fadeOut(view.say[msg.dapai.l]);
             view.shoupai[msg.dapai.l].dapai(msg.dapai.p);
             if (this.sound_on) {
                 this._audio.dapai.currentTime = 0;
@@ -138,6 +143,12 @@ module.exports = class Board {
         else if (msg.kaigang) {
             view.shan.redraw();
         }
+        else if (msg.hule) {
+            fadeOut($('.say', this._root));
+        }
+        else if (msg.pingju) {
+            fadeOut($('.say', this._root));
+        }
 
         class_name.forEach(c => $(`.${c}`, this._root).removeClass('lunban'));
         if (model.lunban >= 0) {
@@ -155,6 +166,8 @@ module.exports = class Board {
             this._audio[name][l].currentTime = 0;
             this._audio[name][l].play();
         }
+        show(this._view.say[l].text(say_text[name]));
+
         return this;
     }
 
