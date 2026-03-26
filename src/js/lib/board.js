@@ -16,6 +16,13 @@ const class_name  = ['main','xiajia','duimian','shangjia'];
 const feng_hanzi  = ['東','南','西','北'];
 const jushu_hanzi = ['一局','二局','三局','四局'];
 
+const say_text   = { chi:   'チー',
+                     peng:  'ポン',
+                     gang:  'カン',
+                     lizhi: 'リーチ',
+                     rong:  'ロン',
+                     zimo:  'ツモ'    };
+
 function score(root, model, viewpoint) {
 
     $('.jushu', root).text(feng_hanzi[model.zhuangfeng]
@@ -38,12 +45,27 @@ function score(root, model, viewpoint) {
 module.exports = class Board {
 
     constructor(root, pai, audio, model) {
+
         this._model = model;
         this._pai   = pai;
         this._view  = {
             shoupai: [],
             he:      [],
         };
+
+        this.sound_on = true;
+
+        this.set_audio(audio);
+    }
+
+    set_audio(audio) {
+        this._audio = {};
+        for (let name of Object.keys(say_text)) {
+            this._audio[name] = [];
+            for (let l = 0; l < 4; l++) this._audio[name][l] = audio(name);
+        }
+        this._audio.dapai = audio('dapai');
+        this._audio.gong  = audio('gong');
     }
 
     kaiju() {
@@ -96,6 +118,10 @@ module.exports = class Board {
         }
         else if (msg.dapai) {
             view.shoupai[msg.dapai.l].dapai(msg.dapai.p);
+            if (this.sound_on) {
+                this._audio.dapai.currentTime = 0;
+                this._audio.dapai.play();
+            }
             view.he[msg.dapai.l].dapai(msg.dapai.p);
         }
         else if (msg.fulou) {
@@ -123,6 +149,13 @@ module.exports = class Board {
         return this;
     }
 
-    say(...param)     { console.log('* say:',     param) }
+    say(name, l) {
+        if (this.sound_on) {
+            this._audio[name][l].currentTime = 0;
+            this._audio[name][l].play();
+        }
+        return this;
+    }
+
     summary(...param) { console.log('*** summary:', param) }
 }
