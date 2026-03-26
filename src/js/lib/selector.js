@@ -11,7 +11,7 @@ function setSelector(list, namespace, param = {}) {
 
     let opt = {
         confirm: 'Enter', prev: 'ArrowLeft', next: 'ArrowRight',
-        tabindex: 0, focus: 0, touch: true
+        tabindex: 0, focus: 0, touch: true, hold: false
     };
     Object.assign(opt, param);
 
@@ -38,6 +38,10 @@ function setSelector(list, namespace, param = {}) {
                         $(ev.target).on('touchstart' + namespace, touchstart)})
         .on('mouseover'  + namespace, (ev)=>$(ev.target).trigger('focus'))
         .on('mouseout'   + namespace, (ev)=>$(ev.target).trigger('blur'));
+
+    if (! opt.hold) {
+        list.on('click' + namespace, (ev)=>$(ev.target).trigger('blur'));
+    }
 
     if (opt.confirm) {
         $(window).on('keyup' + namespace, (ev)=>{
@@ -72,6 +76,7 @@ function setSelector(list, namespace, param = {}) {
 function clearSelector(namespace) {
     if (namespace[0] != '.') namespace = '.' + namespace;
     if (! selectors[namespace]) return;
+    selectors[namespace].trigger('blur');
     selectors[namespace].removeAttr('tabindex').off(namespace);
     $(window).off(namespace);
     delete selectors[namespace];
