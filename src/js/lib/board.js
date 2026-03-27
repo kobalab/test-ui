@@ -95,7 +95,7 @@ module.exports = class Board {
                 hide($(`.player.${c}`, this._root));
             }
             else {
-                let name = model.player[id];
+                let name = this.dummy_name[id] || model.player[id];
                 show($(`.player.${c}`, this._root).text(name));
             }
 
