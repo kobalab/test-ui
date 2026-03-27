@@ -88,9 +88,18 @@ module.exports = class Board {
                                 model.shan).redraw();
 
         for (let l = 0; l < 4; l++) {
-            let c    = class_name[(4 + model.player_id[l] - viewpoint) % 4];
-            let open = model.player_id[l] == viewpoint;
+            let id = model.player_id[l];
+            let c  = class_name[(4 + id - viewpoint) % 4];
 
+            if (this.no_player_name) {
+                hide($(`.player.${c}`, this._root));
+            }
+            else {
+                let name = model.player[id];
+                show($(`.player.${c}`, this._root).text(name));
+            }
+
+            let open = model.player_id[l] == viewpoint;
             view.shoupai[l]
                     = new Shoupai($(`.shoupai.${c}`, this._root),
                                     this._pai, model.shoupai[l]
