@@ -94,7 +94,7 @@ module.exports = class Board {
             view.shoupai[l]
                     = new Shoupai($(`.shoupai.${c}`, this._root),
                                     this._pai, model.shoupai[l]
-                                ).redraw(open);
+                                ).redraw(open || this.open_shoupai);
 
             view.he[l] = new He($(`.he.${c}`, this._root),
                                     this._pai, model.he[l]
@@ -150,9 +150,15 @@ module.exports = class Board {
         }
         else if (msg.hule) {
             fadeOut($('.say', this._root));
+            view.shoupai[msg.hule.l].redraw(true);
         }
         else if (msg.pingju) {
             fadeOut($('.say', this._root));
+            for (let l = 0; l < 4; l++) {
+                let open = model.player_id[l] == this._viewpoint
+                            || msg.pingju.shoupai[l];
+                view.shoupai[l].redraw(open);
+            }
         }
 
         class_name.forEach(c => $(`.${c}`, this._root).removeClass('lunban'));
