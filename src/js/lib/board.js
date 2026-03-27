@@ -73,9 +73,8 @@ module.exports = class Board {
         this._audio.gong  = audio('gong');
     }
 
-    kaiju(param) {
-        console.log('*** kaiju:', param);
-        this._viewpoint = 0;
+    kaiju(viewpoint = 0) {
+        this._viewpoint = viewpoint;
         return this;
     }
 
