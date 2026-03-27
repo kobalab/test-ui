@@ -48,19 +48,23 @@ module.exports = class Board {
 
         this._model = model;
         this._pai   = pai;
+        this._audio = {};
         this._view  = {
             shoupai: [],
             he:      [],
             say:     [],
         };
 
-        this.sound_on = true;
+        this.no_player_name = false;
+        this.sound_on       = true;
+        this.open_shoupai   = false;
+        this.he_type        = 0;
+        this.dummy_name     = [];
 
         this.set_audio(audio);
     }
 
     set_audio(audio) {
-        this._audio = {};
         for (let name of Object.keys(say_text)) {
             this._audio[name] = [];
             for (let l = 0; l < 4; l++) this._audio[name][l] = audio(name);
