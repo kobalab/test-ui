@@ -98,7 +98,7 @@ module.exports = class Board {
 
             view.he[l] = new He($(`.he.${c}`, this._root),
                                     this._pai, model.he[l]
-                                ).redraw();
+                                ).redraw(this.he_type);
 
             view.say[l] = hide($(`.say.${c}`, this._root).text(''));
         }
