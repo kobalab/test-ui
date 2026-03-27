@@ -111,6 +111,10 @@ module.exports = class Board {
 
         const model = this._model, view = this._view;
 
+        if (this._lizhi) {
+            score($('.score', this._root), model, this._viewpoint);
+            this._lizhi = false;
+        }
         if (this._lunban >= 0 && this._lunban != model.lunban) {
             view.he[this._lunban].redraw();
             view.shoupai[this._lunban].redraw();
@@ -129,6 +133,7 @@ module.exports = class Board {
                 this._audio.dapai.play();
             }
             view.he[msg.dapai.l].dapai(msg.dapai.p);
+            this._lizhi = msg.dapai.p.slice(-1) == '*';
         }
         else if (msg.fulou) {
             view.shoupai[msg.fulou.l].redraw();
