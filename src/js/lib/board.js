@@ -141,10 +141,7 @@ module.exports = class Board {
         else if (msg.dapai) {
             fadeOut(view.say[msg.dapai.l]);
             view.shoupai[msg.dapai.l].dapai(msg.dapai.p);
-            if (this.sound_on) {
-                this._audio.dapai.currentTime = 0;
-                this._audio.dapai.play();
-            }
+            this.play_audio(this._audio.dapai);
             view.he[msg.dapai.l].dapai(msg.dapai.p);
             this._lizhi = msg.dapai.p.slice(-1) == '*';
         }
@@ -167,6 +164,7 @@ module.exports = class Board {
             setTimeout(()=>{
                 view.shoupai[msg.hule.l].redraw(true);
                 view.dialog.hule(msg.hule);
+                if (msg.hule.damanguan) this.play_audio(this._audio.gong);
             }, 400);
         }
         else if (msg.pingju) {
@@ -194,13 +192,16 @@ module.exports = class Board {
     }
 
     say(name, l) {
-        if (this.sound_on) {
-            this._audio[name][l].currentTime = 0;
-            this._audio[name][l].play();
-        }
+        this.play_audio(this._audio[name][l]);
         show(this._view.say[l].text(say_text[name]));
-
         return this;
+    }
+
+    play_audio(audio) {
+        if (this.sound_on) {
+            audio.currentTime = 0;
+            audio.play();
+        }
     }
 
     summary(...param) { console.log('*** summary:', param) }
