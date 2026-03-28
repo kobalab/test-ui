@@ -33,6 +33,7 @@ $(function(){
         game.wait = 5000;
 
         hide($('#board .board .dialog button'));
+        hide($('#board .board .summary button'));
 
         $('#board .board').off('click').on('click', ()=>{
             if (game._stop) game.start();
