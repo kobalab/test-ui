@@ -134,7 +134,6 @@ function submit() {
         fanshu:     hule.fanshu,
         defen:      hule.defen,
         hupai:      hule.hupai,
-        fenpei:     hule.fenpei,
     };
 
     dialog.hule(paipu);
