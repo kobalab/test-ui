@@ -35,7 +35,7 @@ function score(root, model, viewpoint) {
 
         let id = model.player_id[l];
         let defen = '' + model.defen[id];
-        defen = defen.replace(/(\d*)(\d{3})$/, '$1,$2');
+        defen = defen.replace(/(\d+)(\d{3})$/, '$1,$2');
         defen = feng_hanzi[l] + ': ' + defen;
 
         let c = class_name[(4 + id - viewpoint) % 4];

@@ -122,7 +122,7 @@ module.exports = class HuleDialog {
             $('.name', root).text(name);
 
             let defen = ('' + this._model.defen[id])
-                                    .replace(/(\d*)(\d{3})$/, '$1,$2');
+                                    .replace(/(\d+)(\d{3})$/, '$1,$2');
             $('.defen', root).text(defen);
 
             let diff = fenpei[l];
@@ -131,7 +131,7 @@ module.exports = class HuleDialog {
             diff = diff > 0 ? '+' + diff
                  : diff < 0 ? '' + diff
                  :            '';
-            diff = diff.replace(/(\d*)(\d{3})$/, '$1,$2');
+            diff = diff.replace(/(\d+)(\d{3})$/, '$1,$2');
             $('.diff', root).text(diff);
         }
     }
