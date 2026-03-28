@@ -201,7 +201,7 @@ module.exports = class Board {
     }
 
     summary(paipu) {
-        if (paipu) show(summary($('.summary', this._root), paipu));
+        if (paipu) fadeIn(summary($('.summary', this._root), paipu));
         else       hide($('.summary', this._root));
     }
 
