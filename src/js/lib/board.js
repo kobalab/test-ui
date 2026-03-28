@@ -9,6 +9,7 @@ const Shoupai    = require('./shoupai');
 const Shan       = require('./shan');
 const He         = require('./he');
 const HuleDialog = require('./dialog');
+const summary    = require('./summary');
 
 const { hide, show, fadeIn, fadeOut } = require('./fadein');
 
@@ -85,6 +86,8 @@ module.exports = class Board {
         else                   viewpoint = this._viewpoint;
 
         const model = this._model, view = this._view;
+
+        this.summary();
 
         score($('.score', this._root), model, viewpoint);
 
@@ -197,12 +200,15 @@ module.exports = class Board {
         return this;
     }
 
+    summary(paipu) {
+        if (paipu) show(summary($('.summary', this._root), paipu));
+        else       hide($('.summary', this._root));
+    }
+
     play_audio(audio) {
         if (this.sound_on) {
             audio.currentTime = 0;
             audio.play();
         }
     }
-
-    summary(...param) { console.log('*** summary:', param) }
 }

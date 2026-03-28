@@ -116,3 +116,49 @@
                 color: #f00
     :has(> button)
         text-align: center
+
+#board .board .summary
+    z-index: 1
+    display: flex
+    overflow: auto
+    align-items: center
+    > div
+        margin: auto 0
+        > div
+            background: rgba(0,0,0,0.8)
+            margin: auto
+    table
+        margin: auto
+        border-collapse: collapse
+        font-family: text-font
+        line-height: 1.5
+        .r_player
+            border-bottom: solid 2px
+        .r_diff
+            .last
+                width: 3em
+                text-align: center
+            :has(> .diff)
+                text-align: right
+                font-family: defen-font
+                .lizhi
+                    display: inline-block
+                    width: 1.2em
+                    text-align: center
+            .zhuangjia
+                background: rgba(128,128,128,0.4)
+        .r_defen
+            border-top: solid 2px
+            font-family: defen-font
+            .defen
+                text-align: right;
+                padding-right: 1.2em
+        .r_point
+            border-top: solid 1px
+            font-family: defen-font
+            .point
+                text-align: center
+    .plus
+        color: #0ff
+    .minus
+        color: #f00
