@@ -14,20 +14,30 @@ let loaded;
 
 $(function(){
 
-    let game;
     const pai   = Majiang.UI.pai($('#loaddata'));
     const audio = Majiang.UI.audio($('#loaddata'));
 
     function start() {
-        console.log('*** START ***');
+
         clearSelector('title');
         $('body').attr('class','board');
         scale($('#board'), $('#space'));
 
         let players = [];
         for (let i = 0; i < 4; i++) players[i] = new Majiang.AI;
-        game      = new Majiang.Game(players, start);
+        let game  = new Majiang.Game(players, start);
         game.view = new Majiang.UI.Board($('#board'), pai, audio, game.model);
+        game._view.no_player_name = true;
+
+        game.speed = 2;
+        game.wait = 5000;
+
+        hide($('#board .board .dialog button'));
+
+        $('#board .board').off('click').on('click', ()=>{
+            if (game._stop) game.start();
+            else            game.stop();
+        });
 
         game.kaiju();
     }
