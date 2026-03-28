@@ -76,7 +76,22 @@ module.exports = class Board {
     }
 
     kaiju(viewpoint = 0) {
+
         this._viewpoint = viewpoint;
+
+        let title = $('<span>').text(this._model.title).html()
+                                            .replace(/\n/g,'<br>');
+        $('.kaiju .title').html(title);
+
+        for (let l = 0; l < 4; l++) {
+            let id = this._model.player_id[l];
+            let c  = class_name[(4 + id - viewpoint) % 4];
+
+            let name = this.dummy_name[id] ||
+                        this._model.player[id].replace(/\n.*$/,'');
+            $(`.kaiju .player .${c}`, this._root).text(name);
+        }
+
         return this;
     }
 
@@ -87,6 +102,7 @@ module.exports = class Board {
 
         const model = this._model, view = this._view;
 
+        hide($('.kaiju'), this._root);
         this.summary();
 
         score($('.score', this._root), model, viewpoint);
@@ -102,7 +118,8 @@ module.exports = class Board {
                 hide($(`.player.${c}`, this._root));
             }
             else {
-                let name = this.dummy_name[id] || model.player[id];
+                let name = this.dummy_name[id] ||
+                            model.player[id].replace(/\n.*$/,'');
                 show($(`.player.${c}`, this._root).text(name));
             }
 

@@ -32,7 +32,7 @@
                 transform: translate(10px, 24px)
 
 #board .board
-    .player
+    > .player
         font-size: 20px
         width: 160px
         height: 30px
@@ -145,3 +145,33 @@
                 width: 114px
             .r_point .point
                 font-size: 24px
+
+#board .board .kaiju
+    width: 800px
+    height: 680px
+    > div
+        width: 580px
+        margin: 120px auto auto
+        border-radius: 6px
+        .title
+            margin: 40px 20px
+            font-size: 32px
+        .player
+            position: relative
+            font-size: 24px
+            height: 136px
+            margin: 1em 20px
+            > div
+                position: absolute
+                width: 240px
+                height: 38px
+                padding: 0px 10px
+                border-radius: 4px
+                &.main
+                    transform: translate(140px, 96px)
+                &.xiajia
+                    transform: translate(280px, 48px)
+                &.duimian
+                    transform: translate(140px, 0px)
+                &.shangjia
+                    transform: translate(0px, 48px)

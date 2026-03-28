@@ -36,7 +36,7 @@
                 text-align: left
 
 #board .board
-    .player
+    > .player
         background: black
         font-family: text-font
         opacity: 0.5
@@ -163,3 +163,25 @@
         color: #0ff
     .minus
         color: #f00
+
+#board .board .kaiju
+    color: white
+    background: #154
+    > div
+        background: #111
+        border: solid 1px #111
+        .title
+            text-align: center
+            font-family: title-font
+            line-height: 1
+        .player
+            font-family: text-font
+            > *
+                background: #333
+                text-align: center
+                white-space: nowrap
+                overflow: hidden
+                text-overflow: ellipsis
+        :has(> button)
+            margin: 0 auto 1em
+            text-align: center
