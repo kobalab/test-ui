@@ -81,3 +81,45 @@
             transform: translate(300px, 50px)
         &.shangjia
             transform: translate(0px, 290px)
+
+#board .board .dialog
+    width: 800px
+    height: 680px
+    > div
+        width: 800px
+        min-height: 460px
+        padding: 10px 0
+        > div
+            min-width: 460px
+            padding: 20px
+    .shan .pai
+        pai-size: 36px
+    .shoupai
+        shoupai-size: auto 76px 48px 48px
+    .hupai
+        margin: 10px auto
+        min-width: 280px
+        font-size: 24px
+    :has(> .changbang):has(> .lizhibang)
+        font-size: 16px
+        img
+            padding-left: 8px
+            width: 60px
+            height: 8px
+    .fenpei
+        width: 380px
+        height: 80px
+        margin: 15px auto
+        font-size: 16px
+        > *
+            width: 88px
+            &.main
+                transform: translate(146px, 48px)
+            &.xiajia
+                transform: translate(292px, 24px)
+            &.duimian
+                transform: translate(146px, 0px)
+            &.shangjia
+                transform: translate(0px, 24px)
+            .defen
+                width: 60px

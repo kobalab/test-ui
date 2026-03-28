@@ -53,6 +53,7 @@ module.exports = class Board {
             shoupai: [],
             he:      [],
             say:     [],
+            dialog:  new HuleDialog($('.dialog', root), pai, model).hide()
         };
 
         this.no_player_name = false;
@@ -160,9 +161,11 @@ module.exports = class Board {
         else if (msg.kaigang) {
             view.shan.redraw();
         }
-        else if (msg.hule) {
+
+        if (msg.hule) {
             fadeOut($('.say', this._root));
             view.shoupai[msg.hule.l].redraw(true);
+            view.dialog.hule(msg.hule);
         }
         else if (msg.pingju) {
             fadeOut($('.say', this._root));
@@ -171,6 +174,9 @@ module.exports = class Board {
                             || msg.pingju.shoupai[l];
                 view.shoupai[l].redraw(open);
             }
+        }
+        else {
+            view.dialog.hide();
         }
 
         class_name.forEach(c => $(`.${c}`, this._root).removeClass('lunban'));

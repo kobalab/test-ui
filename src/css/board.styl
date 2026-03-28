@@ -67,3 +67,49 @@
             text-align: center
         &.shangjia
             text-align: right
+
+#board .board .dialog
+    display: flex
+    overflow: auto
+    align-items: center
+    transition: opacity 0.4s ease-in 0.2s
+    > div
+        margin: auto 0
+        > div
+            display: table
+            background: rgba(0,0,0,0.8)
+            margin: auto
+    .shan
+        .baopai
+            float: left
+        .fubaopai
+            float: right
+    .shoupai
+        clear: both
+    .hupai
+        font-family: title-font
+        line-height: 1
+        .fanshu
+        .defen
+            text-align: right
+    :has(> .changbang):has(> .lizhibang)
+        font-family: defen-font
+        text-align: center
+    .fenpei
+        font-family: defen-font
+        > *
+            position: absolute
+            transform-origin: 0% 0%
+            display: inline-block
+            line-height: 1
+            .defen
+            .diff
+                display: inline-block
+                float: right
+                text-align: right
+            .plus
+                color: #0ff
+            .minus
+                color: #f00
+    :has(> button)
+        text-align: center
