@@ -43,6 +43,9 @@ module.exports = class HuleDialog {
 
         const root = this._root;
 
+        hide($('.pingju', root));
+        show($('.hule', root));
+
         if (hule.fubaopai) show($('.shan .fubaopai', root));
         else               hide($('.shan .fubaopai', root));
 
@@ -78,10 +81,23 @@ module.exports = class HuleDialog {
         $('.changbang', this._node).text(this._model.changbang);
         $('.lizhibang', this._node).text(this._model.lizhibang);
 
-        show($('.hule', root));
-        this.fenpei(hule.fenpei);
+        if (hule.fenpei) this.fenpei(hule.fenpei);
 
         fadeIn(root);
+
+        return this;
+    }
+
+    pingju(pingju) {
+
+        hide($('.hule', this._root));
+        show($('.pingju', this._root));
+
+        $('.pingju', this._root).text(pingju.name);
+
+        if (pingju.fenpei) this.fenpei(pingju.fenpei);
+
+        fadeIn(this._root);
 
         return this;
     }

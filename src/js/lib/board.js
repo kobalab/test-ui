@@ -174,6 +174,7 @@ module.exports = class Board {
                             || msg.pingju.shoupai[l];
                 view.shoupai[l].redraw(open);
             }
+            view.dialog.pingju(msg.pingju);
         }
         else {
             view.dialog.hide();
