@@ -164,8 +164,10 @@ module.exports = class Board {
 
         if (msg.hule) {
             fadeOut($('.say', this._root));
-            view.shoupai[msg.hule.l].redraw(true);
-            view.dialog.hule(msg.hule);
+            setTimeout(()=>{
+                view.shoupai[msg.hule.l].redraw(true);
+                view.dialog.hule(msg.hule);
+            }, 400);
         }
         else if (msg.pingju) {
             fadeOut($('.say', this._root));
