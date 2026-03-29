@@ -47,6 +47,7 @@ module.exports = class Board {
 
     constructor(root, pai, audio, model) {
 
+        this._root  = root;
         this._model = model;
         this._pai   = pai;
         this._audio = {};
