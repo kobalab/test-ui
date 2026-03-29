@@ -1,3 +1,11 @@
+## v0.3.0 / 2025-03-20
+
+  - 「自動対戦」を仮実装
+  - Majiang.UI.Board を追加
+  - Majiang.UI.HuleDialog を完成させた
+  - 内部関数 summary を追加
+  - selecter をデフォルトでは hold しないよう修正
+
 ### v0.2.8 / 2026-03-25
 
   - layout を本登録
