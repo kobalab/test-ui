@@ -1,0 +1,191 @@
+#board .board
+    box-sizing: border-box;
+    background: #154
+    > *
+        position: absolute
+        transform-origin: 0% 0%
+
+#board .board .score
+    box-sizing: border-box;
+    background: #111
+    font-family: defen-font
+    div:has(> .jushu)
+        float: left
+    .jushu
+        line-height: 1
+        font-family: title-font
+    .jushu + div
+        display: table
+        margin: auto
+    .shan
+        float: right
+        text-align: right
+    .defen
+        clear: both
+        div
+            position: absolute
+            &.lunban
+                color: #0ff
+            &.main
+                text-align: center
+            &.xiajia
+                text-align: right
+            &.duimian
+                text-align: center
+            &.shangjia
+                text-align: left
+
+#board .board
+    > .player
+        background: black
+        font-family: text-font
+        opacity: 0.5
+        white-space: nowrap
+        overflow: hidden
+        text-overflow: ellipsis
+    .shoupai
+        box-sizing: border-box;
+        // border: solid 1px white
+    .he
+        box-sizing: border-box;
+        // border: solid 1px blue
+    .say
+        box-sizing: border-box;
+        // border: solid 1px #999
+        font-family: text-font
+        color: white
+        text-shadow: 3px  3px 6px #333,
+                    -3px  3px 6px #333,
+                    -3px -3px 6px #333,
+                     3px -3px 6px #333
+        transition: opacity 0.4s ease-out
+        &.main
+            text-align: center
+        &.xiajia
+            text-align: left
+        &.duimian
+            text-align: center
+        &.shangjia
+            text-align: right
+
+#board .board .dialog
+    display: flex
+    overflow: auto
+    align-items: center
+    transition: opacity 0.2s ease-in
+    > div
+        margin: auto 0
+        > div
+            display: table
+            background: rgba(0,0,0,0.8)
+            margin: auto
+    .shan
+        .baopai
+            float: left
+        .fubaopai
+            float: right
+    .shoupai
+        clear: both
+    .hupai
+        font-family: title-font
+        line-height: 1
+        .fanshu
+        .defen
+            text-align: right
+    :has(> .changbang):has(> .lizhibang)
+        font-family: defen-font
+        text-align: center
+    .pingju
+        font-family: title-font
+        line-height: 1
+        text-align: center
+    .fenpei
+        font-family: defen-font
+        > *
+            position: absolute
+            transform-origin: 0% 0%
+            display: inline-block
+            line-height: 1
+            .defen
+            .diff
+                display: inline-block
+                float: right
+                text-align: right
+            .plus
+                color: #0ff
+            .minus
+                color: #f00
+    :has(> button)
+        text-align: center
+
+#board .board .summary
+    z-index: 1
+    display: flex
+    overflow: auto
+    align-items: center
+    transition: opacity 0.2s ease-out
+    > div
+        margin: auto 0
+        > div
+            background: rgba(0,0,0,0.8)
+            margin: auto
+    table
+        margin: auto
+        border-collapse: collapse
+        font-family: text-font
+        line-height: 1.5
+        .r_player
+            border-bottom: solid 2px
+        .r_diff
+            .last
+                width: 3em
+                text-align: center
+            :has(> .diff)
+                text-align: right
+                font-family: defen-font
+                .lizhi
+                    display: inline-block
+                    width: 1.2em
+                    text-align: center
+            .zhuangjia
+                background: rgba(128,128,128,0.4)
+        .r_defen
+            border-top: solid 2px
+            font-family: defen-font
+            .defen
+                text-align: right;
+                padding-right: 1.2em
+        .r_point
+            border-top: solid 1px
+            font-family: defen-font
+            .point
+                text-align: center
+    .plus
+        color: #0ff
+    .minus
+        color: #f00
+    :has(> button)
+        margin: 0 auto
+        text-align: center
+
+#board .board .kaiju
+    color: white
+    background: #154
+    > div
+        background: #111
+        border: solid 1px #111
+        .title
+            text-align: center
+            font-family: title-font
+            line-height: 1
+        .player
+            font-family: text-font
+            > *
+                background: #333
+                text-align: center
+                white-space: nowrap
+                overflow: hidden
+                text-overflow: ellipsis
+        :has(> button)
+            margin: 0 auto 1em
+            text-align: center

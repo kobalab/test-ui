@@ -9,7 +9,6 @@ html(lang="ja")
     include ../inc/script
     style.
         #board .board {
-            background: #154;
             box-sizing: border-box;
             border: solid 5px #2a8;
         }
@@ -37,7 +36,7 @@ html(lang="ja")
 
             $(window).on('resize', ()=>scale($('#board'), $('#space')));
 
-            $('#board').on('click', ()=>{
+            $('#board .board, #board .analyzer').on('click', ()=>{
                 $('body').toggleClass('analyzer');
             });
 
