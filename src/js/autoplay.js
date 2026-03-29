@@ -26,7 +26,8 @@ $(function(){
         let players = [];
         for (let i = 0; i < 4; i++) players[i] = new Majiang.AI;
         let game  = new Majiang.Game(players, start);
-        game.view = new Majiang.UI.Board($('#board'), pai, audio, game.model);
+        game.view = new Majiang.UI.Board($('#board .board'), pai, audio,
+                                            game.model);
         game._view.no_player_name = true;
 
         game.speed = 2;
