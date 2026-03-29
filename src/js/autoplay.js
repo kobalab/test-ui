@@ -1,5 +1,5 @@
 /*!
- *  電脳麻将: 自動対戦 v0.2.8
+ *  電脳麻将: 自動対戦 v0.3.0
  *
  *  Copyright(C) 2017 Satoshi Kobayashi
  *  Released under the MIT license
