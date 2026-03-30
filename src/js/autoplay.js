@@ -29,7 +29,10 @@ $(function(){
         game.view = new Majiang.UI.Board($('#board .board'), pai, audio,
                                             game.model);
         game._view.no_player_name = true;
-
+        game._view.sound_on = localStorage.getItem('Majiang.pref')
+                                ? JSON.parse(localStorage.getItem(
+                                        'Majiang.pref')).sound_on
+                                : true;
         game.speed = 2;
         game.wait = 5000;
 
