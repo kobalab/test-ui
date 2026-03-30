@@ -1,7 +1,8 @@
-#navi
+#navi .navi
     font-size: 12px
     font-family: menu-font
     img[role="button"]
+    .version
         display: none
     ul
         margin: 0
@@ -38,9 +39,14 @@
         li
             list-style-type: none
             padding: 2px 1em
+    .version
+        display: none
+        padding 0.5em
+        text-align: right
     &.active
         background: black
         img[role="button"]
             opacity: 1
         ul
+        .version
             display: block
