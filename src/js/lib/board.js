@@ -145,6 +145,8 @@ module.exports = class Board {
 
         const model = this._model, view = this._view;
 
+        this.summary();
+
         if (this._lizhi) {
             score($('.score', this._root), model, this._viewpoint);
             this._lizhi = false;
