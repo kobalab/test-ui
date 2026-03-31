@@ -37,10 +37,18 @@ module.exports = class GameCtl {
                                     (this.speed(this._game.speed - 1), false));
         $('.plus',  this._root).on('click.controller', ()=>
                                     (this.speed(this._game.speed + 1), false));
+
+        $(window).on('keyup.controler', (ev)=>{
+            if      (ev.key == 'a') this.sound(! this._pref.sound_on);
+            else if (ev.key == '-') this.speed(this._game.speed - 1);
+            else if (ev.key == '+') this.speed(this._game.speed + 1);
+            return false;
+        });
     }
 
     clear_handler() {
         $('.sound, .minus, .plus', this._root).off('click.controller');
+        $(window).off('.controller')
     }
 
     sound(on) {
