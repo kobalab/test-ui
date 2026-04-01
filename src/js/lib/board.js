@@ -58,11 +58,10 @@ module.exports = class Board {
             dialog:  new HuleDialog($('.dialog', root), pai, model).hide()
         };
 
-        this.no_player_name = false;
-        this.sound_on       = true;
-        this.open_shoupai   = false;
-        this.he_type        = 0;
-        this.dummy_name     = [];
+        this.sound_on     = true;
+        this.open_shoupai = false;
+        this.he_type      = 0;
+        this.dummy_name   = [];
 
         this.set_audio(audio);
     }
@@ -115,14 +114,9 @@ module.exports = class Board {
             let id = model.player_id[l];
             let c  = class_name[(4 + id - viewpoint) % 4];
 
-            if (this.no_player_name) {
-                hide($(`.player.${c}`, this._root));
-            }
-            else {
-                let name = this.dummy_name[id] ||
+            let name = this.dummy_name[id] ||
                             model.player[id].replace(/\n.*$/,'');
-                show($(`.player.${c}`, this._root).text(name));
-            }
+            $(`.player.${c}`, this._root).text(name);
 
             let open = model.player_id[l] == viewpoint;
             view.shoupai[l]

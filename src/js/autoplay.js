@@ -34,6 +34,7 @@ $(function(){
                         game, game._view);
         game.wait = 5000;
 
+        hide($('#board .board > .player'));
         hide($('#board .board .dialog button'));
         hide($('#board .board .summary button'));
 

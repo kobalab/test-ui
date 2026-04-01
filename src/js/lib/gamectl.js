@@ -13,8 +13,6 @@ module.exports = class GameCtl {
         this._game    = game;
         this._views   = views;
 
-        if (game) game._view.no_player_name = true;
-
         hide($('> *:not(.speed)', root));
 
         this._pref = localStorage.getItem(storage)
