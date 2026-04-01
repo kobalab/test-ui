@@ -20,8 +20,6 @@ $(function(){
     function start() {
 
         clearSelector('title');
-        $('body').attr('class','board');
-        scale($('#board'), $('#space'));
 
         let players = [];
         for (let i = 0; i < 4; i++) players[i] = new Majiang.AI;
@@ -34,19 +32,26 @@ $(function(){
                         game, game._view);
         game.wait = 5000;
 
-        hide($('#board .board > .player'));
-        hide($('#board .board .dialog button'));
-        hide($('#board .board .summary button'));
+        hide($('#board .board .dialog'));
+        hide($('#board .board .summary'));
 
         $('#board .board').off('click').on('click', ()=>{
             if (game._stop) game.start();
             else            game.stop();
         });
 
+        $('body').attr('class','board');
+        scale($('#board'), $('#space'));
+
         game.kaiju();
     }
 
     $(window).on('resize', ()=>scale($('#board'), $('#space')));
+
+    hide($('#board .board > .player'));
+    hide($('#board .board .kaiju button'));
+    hide($('#board .board .dialog button'));
+    hide($('#board .board .summary button'));
 
     $('#board .navi [role="button"]').on('click', ()=>{
         $('#board .navi').toggleClass('active');
