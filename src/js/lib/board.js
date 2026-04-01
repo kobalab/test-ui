@@ -103,6 +103,7 @@ module.exports = class Board {
         const model = this._model, view = this._view;
 
         hide($('.kaiju'), this._root);
+        view.dialog.hide();
         this.summary();
 
         score($('.score', this._root), model, viewpoint);
@@ -139,6 +140,7 @@ module.exports = class Board {
 
         const model = this._model, view = this._view;
 
+        view.dialog.hide();
         this.summary();
 
         if (this._lizhi) {
@@ -175,8 +177,7 @@ module.exports = class Board {
         else if (msg.kaigang) {
             view.shan.redraw();
         }
-
-        if (msg.hule) {
+        else if (msg.hule) {
             fadeOut($('.say', this._root));
             setTimeout(()=>{
                 view.shoupai[msg.hule.l].redraw(true);
@@ -192,9 +193,6 @@ module.exports = class Board {
                 view.shoupai[l].redraw(open);
             }
             view.dialog.pingju(msg.pingju);
-        }
-        else {
-            view.dialog.hide();
         }
 
         class_name.forEach(c => $(`.${c}`, this._root).removeClass('lunban'));
