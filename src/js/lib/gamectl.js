@@ -30,17 +30,16 @@ module.exports = class GameCtl {
         this.clear_handler();
 
         $('.sound', this._root).on('click.controller', ()=>
-                                    (this.sound(! this._pref.sound_on), false));
+                                    this.sound(! this._pref.sound_on));
         $('.minus', this._root).on('click.controller', ()=>
-                                    (this.speed(this._game.speed - 1), false));
+                                    this.speed(this._game.speed - 1));
         $('.plus',  this._root).on('click.controller', ()=>
-                                    (this.speed(this._game.speed + 1), false));
+                                    this.speed(this._game.speed + 1));
 
         $(window).on('keyup.controler', (ev)=>{
-            if      (ev.key == 'a') this.sound(! this._pref.sound_on);
-            else if (ev.key == '-') this.speed(this._game.speed - 1);
-            else if (ev.key == '+') this.speed(this._game.speed + 1);
-            return false;
+            if      (ev.key == 'a') return this.sound(! this._pref.sound_on);
+            else if (ev.key == '-') return this.speed(this._game.speed - 1);
+            else if (ev.key == '+') return this.speed(this._game.speed + 1);
         });
     }
 
@@ -63,6 +62,7 @@ module.exports = class GameCtl {
             this._pref.sound_on = on;
             localStorage.setItem(this._storage, JSON.stringify(this._pref));
         }
+        return false;
     }
 
     speed(speed) {
@@ -78,5 +78,19 @@ module.exports = class GameCtl {
             this._pref.speed = speed;
             localStorage.setItem(this._storage, JSON.stringify(this._pref));
         }
+        return false;
+    }
+
+    stop(callback = ()=>{}) {
+        this._game.stop();
+        callback();
+        this.stoped = true;
+        return false;
+    }
+
+    start() {
+        this.stoped = false;
+        this._game.start();
+        return false;
     }
 }
