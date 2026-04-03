@@ -93,4 +93,24 @@ module.exports = class GameCtl {
         this._game.start();
         return false;
     }
+
+    shoupai() {
+        const game = this._game;
+        if (game._status == 'hule')   return false;
+        if (game._status == 'pingju') return false;
+        if (game._status == 'jieju')  return false;
+        game._view.open_shoupai = ! game._view.open_shoupai;
+        game._view.redraw();
+        return false;
+    }
+
+    he() {
+        const game = this._game;
+        if (game._status == 'hule')   return false;
+        if (game._status == 'pingju') return false;
+        if (game._status == 'jieju')  return false;
+        game._view.he_type = (game._view.he_type + 1) % 2;
+        game._view.redraw();
+        return false;
+    }
 }
