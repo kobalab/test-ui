@@ -8,6 +8,7 @@ module.exports = {
     Board:       require('./board'),
     HuleDialog:  require('./dialog'),
     GameCtl:     require('./gamectl'),
+    Player:      require('./player'),
     Util:        Object.assign(require('./fadein'),
                                require('./selector'),
                                require('./scale'),
