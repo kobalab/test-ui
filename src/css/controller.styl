@@ -8,6 +8,11 @@
         height: 20px
         margin: 2px 4px
         opacity: 0.2
+        &:focus
+            outline: none
+            opacity: 0.8
+        &:active
+            opacity: 1
     .speed
         line-height: 1
         img
@@ -26,7 +31,10 @@
         background: black
         img
             opacity: 0.5
-            &:hover
+            &:focus
+                outline: none
+                opacity: 0.8
+            &:active
                 opacity: 1
         .speed .step
             opacity: 0.2
