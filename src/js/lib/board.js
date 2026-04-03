@@ -187,12 +187,18 @@ module.exports = class Board {
         }
         else if (msg.pingju) {
             fadeOut($('.say', this._root));
-            for (let l = 0; l < 4; l++) {
-                let open = model.player_id[l] == this._viewpoint
-                            || msg.pingju.shoupai[l];
-                view.shoupai[l].redraw(open);
-            }
-            view.dialog.pingju(msg.pingju);
+            let duration = 0;
+            if (msg.pingju.name.match(/^三家和/))
+                    duration = 400;
+            else    view.he[this._lunban].redraw();
+            setTimeout(()=>{
+                for (let l = 0; l < 4; l++) {
+                    let open = model.player_id[l] == this._viewpoint
+                                || msg.pingju.shoupai[l];
+                    view.shoupai[l].redraw(open);
+                }
+                view.dialog.pingju(msg.pingju);
+            }, duration);
         }
 
         class_name.forEach(c => $(`.${c}`, this._root).removeClass('lunban'));
