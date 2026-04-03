@@ -153,7 +153,6 @@ module.exports = class Board {
         }
 
         if (msg.zimo) {
-            fadeOut(view.say[msg.zimo.l]);
             view.shan.update();
             view.shoupai[msg.zimo.l].redraw();
         }
@@ -171,6 +170,7 @@ module.exports = class Board {
             view.shoupai[msg.gang.l].redraw();
         }
         else if (msg.gangzimo) {
+            fadeOut(view.say[msg.gangzimo.l]);
             view.shan.update();
             view.shoupai[msg.gangzimo.l].redraw();
         }
