@@ -58,11 +58,10 @@ module.exports = class Board {
             dialog:  new HuleDialog($('.dialog', root), pai, model).hide()
         };
 
-        this.no_player_name = false;
-        this.sound_on       = true;
-        this.open_shoupai   = false;
-        this.he_type        = 0;
-        this.dummy_name     = [];
+        this.sound_on     = true;
+        this.open_shoupai = false;
+        this.he_type      = 0;
+        this.dummy_name   = [];
 
         this.set_audio(audio);
     }
@@ -104,6 +103,7 @@ module.exports = class Board {
         const model = this._model, view = this._view;
 
         hide($('.kaiju'), this._root);
+        view.dialog.hide();
         this.summary();
 
         score($('.score', this._root), model, viewpoint);
@@ -115,14 +115,9 @@ module.exports = class Board {
             let id = model.player_id[l];
             let c  = class_name[(4 + id - viewpoint) % 4];
 
-            if (this.no_player_name) {
-                hide($(`.player.${c}`, this._root));
-            }
-            else {
-                let name = this.dummy_name[id] ||
+            let name = this.dummy_name[id] ||
                             model.player[id].replace(/\n.*$/,'');
-                show($(`.player.${c}`, this._root).text(name));
-            }
+            $(`.player.${c}`, this._root).text(name);
 
             let open = model.player_id[l] == viewpoint;
             view.shoupai[l]
@@ -145,6 +140,9 @@ module.exports = class Board {
 
         const model = this._model, view = this._view;
 
+        view.dialog.hide();
+        this.summary();
+
         if (this._lizhi) {
             score($('.score', this._root), model, this._viewpoint);
             this._lizhi = false;
@@ -155,7 +153,6 @@ module.exports = class Board {
         }
 
         if (msg.zimo) {
-            fadeOut(view.say[msg.zimo.l]);
             view.shan.update();
             view.shoupai[msg.zimo.l].redraw();
         }
@@ -173,14 +170,14 @@ module.exports = class Board {
             view.shoupai[msg.gang.l].redraw();
         }
         else if (msg.gangzimo) {
+            fadeOut(view.say[msg.gangzimo.l]);
             view.shan.update();
             view.shoupai[msg.gangzimo.l].redraw();
         }
         else if (msg.kaigang) {
             view.shan.redraw();
         }
-
-        if (msg.hule) {
+        else if (msg.hule) {
             fadeOut($('.say', this._root));
             setTimeout(()=>{
                 view.shoupai[msg.hule.l].redraw(true);
@@ -190,15 +187,18 @@ module.exports = class Board {
         }
         else if (msg.pingju) {
             fadeOut($('.say', this._root));
-            for (let l = 0; l < 4; l++) {
-                let open = model.player_id[l] == this._viewpoint
-                            || msg.pingju.shoupai[l];
-                view.shoupai[l].redraw(open);
-            }
-            view.dialog.pingju(msg.pingju);
-        }
-        else {
-            view.dialog.hide();
+            let duration = 0;
+            if (msg.pingju.name.match(/^三家和/))
+                    duration = 400;
+            else    view.he[this._lunban].redraw();
+            setTimeout(()=>{
+                for (let l = 0; l < 4; l++) {
+                    let open = model.player_id[l] == this._viewpoint
+                                || msg.pingju.shoupai[l];
+                    view.shoupai[l].redraw(open);
+                }
+                view.dialog.pingju(msg.pingju);
+            }, duration);
         }
 
         class_name.forEach(c => $(`.${c}`, this._root).removeClass('lunban'));

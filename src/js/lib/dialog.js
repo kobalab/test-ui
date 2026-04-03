@@ -78,8 +78,8 @@ module.exports = class HuleDialog {
             $('.hupai').append(r_hupai);
         }
 
-        $('.changbang', this._node).text(this._model.changbang);
-        $('.lizhibang', this._node).text(this._model.lizhibang);
+        $('.changbang', root).text(this._model.changbang);
+        $('.lizhibang', root).text(this._model.lizhibang);
 
         if (hule.fenpei) this.fenpei(hule.fenpei);
 

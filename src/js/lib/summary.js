@@ -63,6 +63,7 @@ module.exports = function(root, paipu, viewpoint = 0, dummy_name = []) {
             diff[l] = diff[l] > 0 ? '+' + diff[l]
                     : diff[l] < 0 ? ''  + diff[l]
                     :               '';
+            diff[l] = diff[l].replace(/(\d+)(\d{3})$/,'$1,$2');
             $('.diff', r_diff).eq(i).text(diff[l]);
 
             $('.lizhi', r_diff).eq(i).text(lizhi[l]);
