@@ -62,6 +62,16 @@ $(function(){
                 .off('click', '.pai')
                 .on('click', '.pai', ()=> gamectl.he());
 
+        for (let i = 1; i < 4; i++) {
+            $('#board .board > .player').eq(i).off('click').on('click', ()=>{
+                game.stop(()=>{
+                    game._view.redraw((game._view._viewpoint + i) % 4);
+                    game.start();
+                });
+                return false;
+            });
+        }
+
         $(window).on('keyup', (ev)=>{
             if (ev.key == ' ') {
                 hide($('#board .download'));
