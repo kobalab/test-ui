@@ -41,6 +41,7 @@ $(function(){
 
         for (let i = 1; i < 4; i++) {
             $('#board .board > .player').eq(i).off('click').on('click', ()=>{
+                if (script) return false;
                 game.stop(()=>{
                     game._view.redraw((game._view._viewpoint + i) % 4);
                     game.start();
