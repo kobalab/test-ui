@@ -27,40 +27,17 @@ $(function(){
         hide($('#board .board .dialog'));
         hide($('#board .board .summary'));
 
-        let players = [];
-        for (let i = 0; i < 4; i++) players[i] = new Majiang.AI;
+        let players = [ new Majiang.Dev.Player($('#board .board')) ];
+        for (let i = 1; i < 4; i++) players[i] = new Majiang.AI;
         let game  = script ? new Majiang.Dev.Game(script, Majiang.rule())
                            : new Majiang.Game(players);
+        if (script) game._players[0] = players[0];
         game.view = new Majiang.UI.Board($('#board .board'), pai, audio,
                                             game.model);
-
-        $(window).off('keyup');
 
         let gamectl = new Majiang.UI.GameCtl(
                         $('#board .controller'), 'Majiang.pref',
                         game, game._view);
-
-        const download = ()=>{
-            let blob = new Blob([ JSON.stringify(game._paipu)],
-                                { type: 'application/json' });
-            $('#board .download a')
-                .attr('href', URL.createObjectURL(blob))
-                .attr('download', '牌譜.json');
-            show($('#board .download'));
-        };
-
-        $('#board .board').off('click').on('click', ()=>{
-            hide($('#board .download'));
-            if (gamectl.stoped) gamectl.start();
-            else                gamectl.stop(download);
-            game.handler = ()=> gamectl.stop(download);
-        });
-        $('#board .board > .shoupai')
-                .off('click', '.pai')
-                .on('click', '.pai', ()=> gamectl.shoupai());
-        $('#board .board > .he')
-                .off('click', '.pai')
-                .on('click', '.pai', ()=> gamectl.he());
 
         for (let i = 1; i < 4; i++) {
             $('#board .board > .player').eq(i).off('click').on('click', ()=>{
@@ -72,16 +49,10 @@ $(function(){
             });
         }
 
-        $(window).on('keyup', (ev)=>{
+        $(window).off('keyup').on('keyup', (ev)=>{
             if (ev.key == ' ') {
-                hide($('#board .download'));
-                if (gamectl.stoped) gamectl.start();
-                else                gamectl.stop(download);
-                game.handler = ()=> gamectl.stop(download);
+                players[0]._auto_replay = ! players[0]._auto_replay;
             }
-            else if (ev.key == 's') gamectl.shoupai();
-            else if (ev.key == 'h') gamectl.he();
-            return false;
         });
 
         $('body').attr('class','board');

@@ -15,4 +15,5 @@ global.$ = jQuery;
 
 global.Majiang.Dev = {
     Game:   require('./dev/game'),
+    Player: require('./dev/player'),
 };
