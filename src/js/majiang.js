@@ -12,3 +12,7 @@ global.Majiang.UI = require('./lib/');
 global.Majiang.VERSION = '0.3.1';
 global.jQuery = require('jquery');
 global.$ = jQuery;
+
+global.Majiang.Dev = {
+    Game:   require('./dev/game'),
+};

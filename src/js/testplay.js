@@ -17,6 +17,9 @@ $(function(){
     const pai   = Majiang.UI.pai($('#loaddata'));
     const audio = Majiang.UI.audio($('#loaddata'));
 
+    const script = localStorage.getItem('Majiang.paipu')
+                    && JSON.parse(localStorage.getItem('Majiang.paipu'))[0];
+
     function start() {
 
         clearSelector('title');
@@ -26,7 +29,8 @@ $(function(){
 
         let players = [];
         for (let i = 0; i < 4; i++) players[i] = new Majiang.AI;
-        let game  = new Majiang.Game(players);
+        let game  = script ? new Majiang.Dev.Game(script, Majiang.rule())
+                           : new Majiang.Game(players);
         game.view = new Majiang.UI.Board($('#board .board'), pai, audio,
                                             game.model);
 
