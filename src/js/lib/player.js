@@ -14,12 +14,36 @@ module.exports = class Player extends Majiang.Player {
     constructor(root) {
         super();
         this._root = root;
+
+        this.clear_action();
     }
 
-    callback(reply) {
+    callback(msg) {
         this._root.off('click');
-        this._callback(reply);
+        this._callback(msg);
         return false;
+    }
+
+    add_action(type, callback) {
+        show($(`.select-action .button.${type}`, this._root)
+                    .attr('role','button')
+                    .on('click', ()=>{
+                        this.clear_action();
+                        callback();
+                    }));
+    }
+
+    select_action(callback = ()=>this.callback()) {
+        const buttons = $('.select-action', this._root);
+        if (! $('.button[role="button"]', buttons).length) return callback();
+        this.add_action('cansel', callback);
+        show(buttons);
+    }
+
+    clear_action() {
+        const buttons = $('.select-action', this._root);
+        hide($('.button', buttons).off('click').removeAttr('role'));
+        hide(buttons);
     }
 
     select_dapai() {
@@ -30,6 +54,7 @@ module.exports = class Player extends Majiang.Player {
                         ? $(`.pai.zimo[data-pai="${p.slice(0,2)}"]`, bingpai)
                         : $(`.pai[data-pai="${p}"]`, bingpai)
             pai.attr('role','button').on('click', (ev)=>{
+                clearSelector('dapai');
                 $(ev.target).addClass('dapai');
                 this.callback({ dapai: p });
             });
@@ -40,11 +65,15 @@ module.exports = class Player extends Majiang.Player {
     action_kaiju(kaiju) { this.callback() }
     action_qipai(qipai) { this.callback() }
 
-    action_zimo(zimo) {
+    action_zimo(zimo, gangzimo) {
 
         if (zimo.l != this._menfeng) return this.callback();
 
-        this.select_dapai();
+        if (this.allow_hule(this.shoupai, null, gangzimo)) {
+            this.add_action('zimo', ()=> this.callback({ hule: '-' }));
+        }
+
+        this.select_action(()=> this.select_dapai());
     }
 
     action_dapai(dapai) { this.callback() }
