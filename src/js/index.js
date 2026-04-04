@@ -43,6 +43,8 @@ $(function(){
         game.kaiju();
     }
 
+    $(window).on('resize', ()=>scale($('#board'), $('#space')));
+
     $('#board .navi [role="button"]').on('click', ()=>{
         $('#board .navi').toggleClass('active');
         return false;
