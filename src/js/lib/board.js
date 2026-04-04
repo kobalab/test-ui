@@ -220,7 +220,8 @@ module.exports = class Board {
     }
 
     summary(paipu) {
-        if (paipu) fadeIn(summary($('.summary', this._root), paipu));
+        if (paipu) fadeIn(summary($('.summary', this._root), paipu,
+                                                        this._viewpoint));
         else       hide($('.summary', this._root));
     }
 
