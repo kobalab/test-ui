@@ -113,10 +113,7 @@ module.exports = class Player extends Majiang.Player {
     action_gang(gang) { this.callback() }
 
     action_hule() {
-        setTimeout(()=> {
-            $('.dialog button', this._root).focus();
-            this._root.on('click', ()=> this.callback());
-        }, 800);
+        $('.dialog', this._root).on('click', ()=> this.callback());
     }
 
     action_pingju() { this.action_hule() }
