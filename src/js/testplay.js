@@ -51,7 +51,7 @@ $(function(){
         }
 
         $(window).on('keyup', (ev)=>{
-            if (ev.key == ' ') {
+            if (script && ev.key == ' ') {
                 players[0]._auto_replay = ! players[0]._auto_replay;
             }
         });
