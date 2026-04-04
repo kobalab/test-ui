@@ -50,7 +50,7 @@ $(function(){
             });
         }
 
-        $(window).off('keyup').on('keyup', (ev)=>{
+        $(window).on('keyup', (ev)=>{
             if (ev.key == ' ') {
                 players[0]._auto_replay = ! players[0]._auto_replay;
             }
