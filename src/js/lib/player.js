@@ -38,10 +38,13 @@ module.exports = class Player extends Majiang.Player {
         if (! $('.button[role="button"]', buttons).length) return callback();
         this.add_action('cansel', callback);
         show(buttons);
+        setSelector($('.button[role="button"]', buttons), 'action',
+                    { focus: -1, touch: false });
     }
 
     clear_action() {
         const buttons = $('.select-action', this._root);
+        clearSelector('action');
         hide($('.button', buttons).off('click').removeAttr('role'));
         hide(buttons);
     }
@@ -76,8 +79,37 @@ module.exports = class Player extends Majiang.Player {
         this.select_action(()=> this.select_dapai());
     }
 
-    action_dapai(dapai) { this.callback() }
-    action_fulou(fulou) { this.callback() }
+    action_dapai(dapai) {
+
+        if (dapai.l == this._menfeng) return this.callback();
+
+        let d = ['','+','=','-'][(4 + this._model.lunban - this._menfeng) % 4];
+        let p = dapai.p + d;
+
+        if (this.allow_hule(this.shoupai, p)) {
+            this.add_action('rong', ()=> this.callback({ hule: '-' }));
+        }
+
+        let peng = this.get_peng_mianzi(this.shoupai, p);
+        if (peng.length) {
+            this.add_action('peng', ()=> this.callback({ fulou: peng[0] }));
+        }
+        let chi = this.get_chi_mianzi(this.shoupai, p);
+        if (chi.length) {
+            this.add_action('chi', ()=> this.callback({ fulou: chi[0] }));
+        }
+
+        this.select_action();
+    }
+
+    action_fulou(fulou) {
+
+        if (fulou.l != this._menfeng) return this.callback();
+        if (fulou.m.match(/^[mpsz]\d{4}/)) return this.callback();
+
+        this.select_action(()=> this.select_dapai());
+    }
+
     action_gang(gang) { this.callback() }
 
     action_hule() {
