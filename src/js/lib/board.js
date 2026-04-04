@@ -55,7 +55,7 @@ module.exports = class Board {
             shoupai: [],
             he:      [],
             say:     [],
-            dialog:  new HuleDialog($('.dialog', root), pai, model).hide()
+            dialog:  null
         };
 
         this.sound_on     = true;
@@ -103,7 +103,8 @@ module.exports = class Board {
         const model = this._model, view = this._view;
 
         hide($('.kaiju'), this._root);
-        view.dialog.hide();
+        view.dialog = new HuleDialog($('.dialog', this._root), this._pai,
+                                        model, viewpoint);
         this.summary();
 
         score($('.score', this._root), model, viewpoint);

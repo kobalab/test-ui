@@ -37,6 +37,8 @@ module.exports = class HuleDialog {
 
         this._r_hupai = $('.r_hupai', root).eq(0);
         this._r_defen = $('.r_defen', root).eq(0);
+
+        this.hide();
     }
 
     hule(hule) {
