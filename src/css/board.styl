@@ -189,3 +189,21 @@
         :has(> button)
             margin: 0 auto 1em
             text-align: center
+
+#board .board .select-action
+    z-index: 1
+    text-align: right
+    white-space: nowrap
+    display: flex
+    justify-content: end
+    .button
+        cursor: pointer
+        display: inline-block
+        text-align: center
+        font-family: menu-font
+        color: white
+        background: black;
+        border-radius: 4px;
+        &:focus
+            background: #999
+            outline: none
