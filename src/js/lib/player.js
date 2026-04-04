@@ -49,13 +49,17 @@ module.exports = class Player extends Majiang.Player {
         hide(buttons);
     }
 
-    select_dapai() {
+    select_dapai(lizhi) {
 
         const bingpai = $('.shoupai.main .bingpai', this._root);
-        for (let p of this.get_dapai(this.shoupai)) {
+        for (let p of lizhi || this.get_dapai(this.shoupai)) {
             let pai = p.slice(-1) == '_'
                         ? $(`.pai.zimo[data-pai="${p.slice(0,2)}"]`, bingpai)
                         : $(`.pai[data-pai="${p}"]`, bingpai)
+            if (lizhi) {
+                pai.addClass('blink');
+                p += '*';
+            }
             pai.attr('role','button').on('click', (ev)=>{
                 clearSelector('dapai');
                 $(ev.target).addClass('dapai');
@@ -74,6 +78,16 @@ module.exports = class Player extends Majiang.Player {
 
         if (this.allow_hule(this.shoupai, null, gangzimo)) {
             this.add_action('zimo', ()=> this.callback({ hule: '-' }));
+        }
+
+        if (this.shoupai.lizhi) {
+            this.select_action(()=> this.callback({ dapai: zimo.p + '_' }));
+            return;
+        }
+
+        let lizhi = this.allow_lizhi(this.shoupai);
+        if (lizhi.length) {
+            this.add_action('lizhi', ()=> this.select_dapai(lizhi));
         }
 
         this.select_action(()=> this.select_dapai());
