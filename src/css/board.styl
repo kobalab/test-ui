@@ -68,6 +68,16 @@
         &.shangjia
             text-align: right
 
+    :has(> .submit)
+        text-align: center
+    .submit
+        background: #ccc
+        color: black
+        padding: 1px 1em
+        border: solid 1px
+        border-radius: 4px
+        font-family: menu-font
+
 #board .board .dialog
     display: flex
     overflow: auto
@@ -115,8 +125,6 @@
                 color: #0ff
             .minus
                 color: #f00
-    :has(> button)
-        text-align: center
 
 #board .board .summary
     z-index: 1
@@ -164,9 +172,6 @@
         color: #0ff
     .minus
         color: #f00
-    :has(> button)
-        margin: 0 auto
-        text-align: center
 
 #board .board .kaiju
     color: white
@@ -186,9 +191,8 @@
                 white-space: nowrap
                 overflow: hidden
                 text-overflow: ellipsis
-        :has(> button)
-            margin: 0 auto 1em
-            text-align: center
+        :has(> .submit)
+            margin-bottom: 1em
 
 #board .board .select-action
     z-index: 1

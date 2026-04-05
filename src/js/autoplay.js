@@ -92,9 +92,7 @@ $(function(){
     $(window).on('resize', ()=>scale($('#board'), $('#space')));
 
     hide($('#board .board > .player'));
-    hide($('#board .board .kaiju button'));
-    hide($('#board .board .dialog button'));
-    hide($('#board .board .summary button'));
+    hide($('#board .board .submit'));
 
     $('#board .navi [role="button"]').on('click', ()=>{
         $('#board .navi').toggleClass('active');

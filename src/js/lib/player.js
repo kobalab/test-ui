@@ -19,6 +19,7 @@ module.exports = class Player extends Majiang.Player {
     }
 
     callback(msg) {
+        clearSelector('dailog');
         this._root.off('click');
         this._callback(msg);
         return false;
@@ -127,6 +128,8 @@ module.exports = class Player extends Majiang.Player {
     action_gang(gang) { this.callback() }
 
     action_hule() {
+        setSelector($('.dialog .submit', this._root), 'dialog',
+                    { prev: null, next: null });
         $('.dialog', this._root).on('click', ()=> this.callback());
     }
 
