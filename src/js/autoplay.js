@@ -39,6 +39,8 @@ $(function(){
         game.view = new Majiang.UI.Board($('#board .board'), pai, audio,
                                             game.model);
 
+        game._model.title
+                = game._model.title.replace(/^[^\n]*/, $('title').text());
         game._view.open_shoupai = open_shoupai;
         game._view.he_type      = he_type;
 
