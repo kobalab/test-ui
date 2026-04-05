@@ -11,6 +11,7 @@ module.exports = class Player extends Majiang.UI.Player {
     constructor(root) {
         super(root);
         this._reply = [];
+        root.append($('<div id="debug">').hide());
         this._auto_replay = true;
     }
 
@@ -23,8 +24,8 @@ module.exports = class Player extends Majiang.UI.Player {
         else {
             if (callback) {
                 let reply = JSON.stringify(this._reply.shift());
-                if (reply == '{}') reply = '';
-                $('#debug').text(reply).show();
+                if (reply == '{}')  $('#debug').text('').hide();
+                else                $('#debug').text(reply).show();
             }
             super.action(msg, callback);
         }
