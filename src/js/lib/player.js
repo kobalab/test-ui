@@ -37,7 +37,7 @@ module.exports = class Player extends Majiang.Player {
         const buttons = $('.select-action', this._root);
         if (! $('.button[role="button"]', buttons).length) return callback();
         this.add_action('cansel', callback);
-        show(buttons);
+        show(buttons.width($('.shoupai.main .bingpai', this._root).width()));
         setSelector($('.button[role="button"]', buttons), 'action',
                     { focus: -1, touch: false });
     }
