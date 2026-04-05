@@ -23,6 +23,7 @@ module.exports = class Player extends Majiang.Player {
 
     callback(msg) {
         clearSelector('dailog');
+        $('.dialog', this._root).off('click');
         this._root.off('click');
         this._callback(msg);
         return false;
@@ -34,6 +35,7 @@ module.exports = class Player extends Majiang.Player {
                     .on('click', ()=>{
                         this.clear_action();
                         callback();
+                        return false;
                     }));
     }
 
@@ -41,6 +43,8 @@ module.exports = class Player extends Majiang.Player {
         const buttons = $('.select-action', this._root);
         if (! $('.button[role="button"]', buttons).length) return callback();
         this.add_action('cansel', callback);
+        this._root.on('click', ()=>
+            $('.select-action .button.cansel', this._root).trigger('click'));
         show(buttons.width($('.shoupai.main .bingpai', this._root).width()));
         setSelector($('.button[role="button"]', buttons), 'action',
                     { focus: -1, touch: false });
@@ -63,7 +67,7 @@ module.exports = class Player extends Majiang.Player {
                     clearSelector('mianzi');
                     $('.mianzi', mianzi).off('click');
                     hide(mianzi);
-                    this.callback(msg)
+                    return this.callback(msg)
                 }));
         }
         show(mianzi.width($('.shoupai.main .bingpai', this._root).width()));
@@ -86,7 +90,7 @@ module.exports = class Player extends Majiang.Player {
             pai.attr('role','button').on('click', (ev)=>{
                 clearSelector('dapai');
                 $(ev.target).addClass('dapai');
-                this.callback({ dapai: p });
+                return this.callback({ dapai: p });
             });
         }
         setSelector($('.pai[role="button"]', bingpai), 'dapai', { focus: -1 });
@@ -104,7 +108,7 @@ module.exports = class Player extends Majiang.Player {
         }
 
         if (this.allow_pingju(this.shoupai)) {
-            this.add_action('pingju', ()=>this.callback({daopai: '-'}));
+            this.add_action('pingju', ()=> this.callback({daopai: '-'}));
         }
 
         let gang = this.get_gang_mianzi(this.shoupai);
