@@ -81,6 +81,11 @@ module.exports = class Player extends Majiang.Player {
             this.add_action('zimo', ()=> this.callback({ hule: '-' }));
         }
 
+        let gang = this.get_gang_mianzi(this.shoupai);
+        if (gang.length) {
+            this.add_action('gang', ()=> this.callback({ gang: gang[0] }));
+        }
+
         if (this.shoupai.lizhi) {
             this.select_action(()=> this.callback({ dapai: zimo.p + '_' }));
             return;
@@ -105,6 +110,10 @@ module.exports = class Player extends Majiang.Player {
             this.add_action('rong', ()=> this.callback({ hule: '-' }));
         }
 
+        let gang = this.get_gang_mianzi(this.shoupai, p);
+        if (gang.length) {
+            this.add_action('gang', ()=> this.callback({ fulou: gang[0] }));
+        }
         let peng = this.get_peng_mianzi(this.shoupai, p);
         if (peng.length) {
             this.add_action('peng', ()=> this.callback({ fulou: peng[0] }));
