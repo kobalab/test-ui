@@ -103,6 +103,10 @@ module.exports = class Player extends Majiang.Player {
             this.add_action('zimo', ()=> this.callback({ hule: '-' }));
         }
 
+        if (this.allow_pingju(this.shoupai)) {
+            this.add_action('pingju', ()=>this.callback({daopai: '-'}));
+        }
+
         let gang = this.get_gang_mianzi(this.shoupai);
         if (gang.length == 1) {
             this.add_action('gang', ()=> this.callback({ gang: gang[0] }));
