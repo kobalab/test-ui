@@ -9,11 +9,14 @@ const Majiang = require('@kobalab/majiang-core');
 const { hide, show, fadeIn }         = require('./fadein');
 const { setSelector, clearSelector } = require('./selector');
 
+const mianzi = require('./mianzi');
+
 module.exports = class Player extends Majiang.Player {
 
-    constructor(root) {
+    constructor(root, pai) {
         super();
         this._root = root;
+        this._mianzi = mianzi(pai)
 
         this.clear_action();
     }
@@ -50,6 +53,25 @@ module.exports = class Player extends Majiang.Player {
         hide(buttons);
     }
 
+    select_mianzi(mm) {
+        const mianzi = $('.select-mianzi', this._root);
+        mianzi.empty();
+        for (let m of mm) {
+            let msg = m.match(/\d/g).length == 4 ? { gang: m } : { fulou: m };
+            mianzi.append(
+                this._mianzi(m).attr('role','button').on('click', ()=>{
+                    clearSelector('mianzi');
+                    $('.mianzi', mianzi).off('click');
+                    hide(mianzi);
+                    this.callback(msg)
+                }));
+        }
+        show(mianzi.width($('.shoupai.main .bingpai', this._root).width()));
+        setSelector($('.mianzi', mianzi), 'mianzi',
+                    { forcus: null, touch: false });
+        return false;
+    }
+
     select_dapai(lizhi) {
 
         const bingpai = $('.shoupai.main .bingpai', this._root);
@@ -82,8 +104,11 @@ module.exports = class Player extends Majiang.Player {
         }
 
         let gang = this.get_gang_mianzi(this.shoupai);
-        if (gang.length) {
+        if (gang.length == 1) {
             this.add_action('gang', ()=> this.callback({ gang: gang[0] }));
+        }
+        else if (gang.length > 1) {
+            this.add_action('gang', ()=> this.select_mianzi(gang));
         }
 
         if (this.shoupai.lizhi) {
@@ -114,13 +139,21 @@ module.exports = class Player extends Majiang.Player {
         if (gang.length) {
             this.add_action('gang', ()=> this.callback({ fulou: gang[0] }));
         }
+
         let peng = this.get_peng_mianzi(this.shoupai, p);
-        if (peng.length) {
+        if (peng.length == 1) {
             this.add_action('peng', ()=> this.callback({ fulou: peng[0] }));
         }
+        else if (peng.length > 1) {
+            this.add_action('peng', ()=> this.select_mianzi(peng));
+        }
+
         let chi = this.get_chi_mianzi(this.shoupai, p);
-        if (chi.length) {
+        if (chi.length == 1) {
             this.add_action('chi', ()=> this.callback({ fulou: chi[0] }));
+        }
+        else if (chi.length > 1) {
+            this.add_action('chi', ()=> this.select_mianzi(chi));
         }
 
         this.select_action();

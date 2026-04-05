@@ -8,8 +8,8 @@ const $ = require('jquery');
 
 module.exports = class Player extends Majiang.UI.Player {
 
-    constructor(root) {
-        super(root);
+    constructor(root, pai) {
+        super(root, pai);
         this._reply = [];
         root.append($('<div id="debug">').hide());
         this._auto_replay = true;

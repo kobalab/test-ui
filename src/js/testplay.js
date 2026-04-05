@@ -27,7 +27,7 @@ $(function(){
         hide($('#board .board .dialog'));
         hide($('#board .board .summary'));
 
-        let players = [ new Majiang.Dev.Player($('#board .board')) ];
+        let players = [ new Majiang.Dev.Player($('#board .board'), pai) ];
         for (let i = 1; i < 4; i++) players[i] = new Majiang.AI;
         let game  = script ? new Majiang.Dev.Game(script, Majiang.rule())
                            : new Majiang.Game(players);
