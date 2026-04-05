@@ -171,7 +171,20 @@ module.exports = class Player extends Majiang.Player {
         this.select_action(()=> this.select_dapai());
     }
 
-    action_gang(gang) { this.callback() }
+    action_gang(gang) {
+
+        if (gang.l == this._menfeng) return this.callback();
+        if (gang.m.match(/^[mpsz]\d{4}$/)) return this.callback();
+
+        let d = ['','+','=','-'][(4 + this._model.lunban - this._menfeng) % 4];
+        let p = gang.m[0] + gang.m.slice(-1) + d;
+
+        if (this.allow_hule(this.shoupai, p, true)) {
+            this.add_action('rong', ()=> this.callback({ hule: '-' }));
+        }
+
+        this.select_action();
+    }
 
     action_hule() {
         setSelector($('.dialog .submit', this._root), 'dialog',
