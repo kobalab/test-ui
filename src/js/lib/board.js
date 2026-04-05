@@ -201,6 +201,9 @@ module.exports = class Board {
                 view.dialog.pingju(msg.pingju);
             }, duration);
         }
+        else {
+            score($('.score', this._root), model, this._viewpoint);
+        }
 
         class_name.forEach(c => $(`.${c}`, this._root).removeClass('lunban'));
         if (model.lunban >= 0) {
