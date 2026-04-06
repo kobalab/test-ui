@@ -18,15 +18,21 @@ module.exports = class Player extends Majiang.Player {
         this._root = root;
         this._mianzi = mianzi(pai)
 
-        this.clear_action();
+        this.clear_handler();
     }
 
     callback(msg) {
-        clearSelector('dailog');
-        $('.dialog', this._root).off('click');
-        this._root.off('click');
+        this.clear_handler();
         this._callback(msg);
         return false;
+    }
+
+    clear_handler() {
+        this.clear_action();
+        this.clear_mianzi();
+        this.clear_dapai();
+        $('.dialog', this._root).off('click');
+        clearSelector('dailog');
     }
 
     add_action(type, callback) {
@@ -51,6 +57,7 @@ module.exports = class Player extends Majiang.Player {
     }
 
     clear_action() {
+        this._root.off('click');
         const buttons = $('.select-action', this._root);
         clearSelector('action');
         hide($('.button', buttons).off('click').removeAttr('role'));
@@ -59,21 +66,27 @@ module.exports = class Player extends Majiang.Player {
 
     select_mianzi(mm) {
         const mianzi = $('.select-mianzi', this._root);
-        mianzi.empty();
         for (let m of mm) {
             let msg = m.match(/\d/g).length == 4 ? { gang: m } : { fulou: m };
             mianzi.append(
-                this._mianzi(m).attr('role','button').on('click', ()=>{
-                    clearSelector('mianzi');
-                    $('.mianzi', mianzi).off('click');
-                    hide(mianzi);
-                    return this.callback(msg)
-                }));
+                this._mianzi(m).attr('role','button')
+                               .on('click', ()=>{
+                                   this.clear_mianzi();
+                                   return this.callback(msg);
+                               }));
         }
         show(mianzi.width($('.shoupai.main .bingpai', this._root).width()));
         setSelector($('.mianzi', mianzi), 'mianzi',
                     { forcus: null, touch: false });
         return false;
+    }
+
+    clear_mianzi() {
+        const mianzi = $('.select-mianzi', this._root);
+        clearSelector('mianzi');
+        $('.mianzi', mianzi).off('click');
+        hide(mianzi);
+        mianzi.empty();
     }
 
     select_dapai(lizhi) {
@@ -88,8 +101,7 @@ module.exports = class Player extends Majiang.Player {
                 p += '*';
             }
             pai.attr('role','button').on('click', (ev)=>{
-                $('.pai', bingpai).removeAttr('role').removeClass('blink');
-                clearSelector('dapai');
+                this.clear_dapai();
                 $(ev.target).addClass('dapai');
                 return this.callback({ dapai: p });
             });
@@ -97,7 +109,14 @@ module.exports = class Player extends Majiang.Player {
         setSelector($('.pai[role="button"]', bingpai), 'dapai', { focus: -1 });
     }
 
+    clear_dapai() {
+        $('.shoupai.main .bingpai .pai', this._root).removeAttr('role')
+                                                    .removeClass('blink');
+        clearSelector('dapai');
+    }
+
     action_kaiju(kaiju) { this.callback() }
+
     action_qipai(qipai) { this.callback() }
 
     action_zimo(zimo, gangzimo) {
