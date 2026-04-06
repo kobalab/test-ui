@@ -1,5 +1,5 @@
 /*!
- *  電脳麻将: 自動対戦 v0.3.1
+ *  電脳麻将: 自動対戦 v0.4.0
  *
  *  Copyright(C) 2017 Satoshi Kobayashi
  *  Released under the MIT license
@@ -39,6 +39,8 @@ $(function(){
         game.view = new Majiang.UI.Board($('#board .board'), pai, audio,
                                             game.model);
 
+        game._model.title
+                = game._model.title.replace(/^[^\n]*/, $('title').text());
         game._view.open_shoupai = open_shoupai;
         game._view.he_type      = he_type;
 
@@ -92,9 +94,7 @@ $(function(){
     $(window).on('resize', ()=>scale($('#board'), $('#space')));
 
     hide($('#board .board > .player'));
-    hide($('#board .board .kaiju button'));
-    hide($('#board .board .dialog button'));
-    hide($('#board .board .summary button'));
+    hide($('#board .board .submit'));
 
     $('#board .navi [role="button"]').on('click', ()=>{
         $('#board .navi').toggleClass('active');

@@ -55,7 +55,7 @@ module.exports = class Board {
             shoupai: [],
             he:      [],
             say:     [],
-            dialog:  new HuleDialog($('.dialog', root), pai, model).hide()
+            dialog:  null
         };
 
         this.sound_on     = true;
@@ -103,7 +103,8 @@ module.exports = class Board {
         const model = this._model, view = this._view;
 
         hide($('.kaiju'), this._root);
-        view.dialog.hide();
+        view.dialog = new HuleDialog($('.dialog', this._root), this._pai,
+                                        model, viewpoint);
         this.summary();
 
         score($('.score', this._root), model, viewpoint);
@@ -200,6 +201,9 @@ module.exports = class Board {
                 view.dialog.pingju(msg.pingju);
             }, duration);
         }
+        else {
+            score($('.score', this._root), model, this._viewpoint);
+        }
 
         class_name.forEach(c => $(`.${c}`, this._root).removeClass('lunban'));
         if (model.lunban >= 0) {
@@ -219,7 +223,8 @@ module.exports = class Board {
     }
 
     summary(paipu) {
-        if (paipu) fadeIn(summary($('.summary', this._root), paipu));
+        if (paipu) fadeIn(summary($('.summary', this._root), paipu,
+                                                        this._viewpoint));
         else       hide($('.summary', this._root));
     }
 

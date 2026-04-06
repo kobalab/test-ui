@@ -23,6 +23,8 @@ shoupai-size($width, $height, $bingpai-height, $fulou-height)
             transition: width 0.3s ease-out 0.1s
             opacity: 0
             width: 0
+        .pai.blink:not(.deleted)
+            animation: blink-img 0.5s infinite
     .fulou
         line-height: 1
         if ($height < $bingpai-height + pai-width($fulou-height) * 2)

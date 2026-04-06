@@ -4,6 +4,7 @@
 "use strict";
 
 const { hide, show } = require('./fadein');
+const { setSelector, clearSelector } = require('./selector');
 
 module.exports = class GameCtl {
 
@@ -14,6 +15,7 @@ module.exports = class GameCtl {
         this._views   = views;
 
         hide($('> *:not(.speed)', root));
+        $('.sound, .minus, .plus', root).attr('role','button');
 
         this._pref = localStorage.getItem(storage)
                         ? JSON.parse(localStorage.getItem(storage))
@@ -41,9 +43,14 @@ module.exports = class GameCtl {
             else if (ev.key == '-') return this.speed(this._game.speed - 1);
             else if (ev.key == '+') return this.speed(this._game.speed + 1);
         });
+
+        setSelector($('.sound, .minus, .plus', this._root), '.controller',
+                        { prev: null, next: null, focus: null,
+                          touch: false, hold: true });
     }
 
     clear_handler() {
+        clearSelector('.controller');
         $('.sound, .minus, .plus', this._root).off('click.controller');
         $(window).off('.controller')
     }
@@ -51,12 +58,12 @@ module.exports = class GameCtl {
     sound(on) {
         this._views.forEach(view => view.sound_on = on);
         if (on) {
-            hide($('.sound.off'), this._root);
-            show($('.sound.on'), this._root);
+            hide($('.sound.off', this._root));
+            show($('.sound.on', this._root)).trigger('focus');
         }
         else {
-            hide($('.sound.on'), this._root);
-            show($('.sound.off'), this._root);
+            hide($('.sound.on', this._root));
+            show($('.sound.off', this._root)).trigger('focus');
         }
         if (on != this._pref.sound_on) {
             this._pref.sound_on = on;
@@ -70,7 +77,6 @@ module.exports = class GameCtl {
         speed = speed | 0;
         if (speed < 1) speed = 1;
         if (speed > 5) speed = 5;
-        this._game.speed = speed;
         $('.speed .step', this._root).each((i, n)=> {
             $(n).css('visibility', i < speed ? 'visible' : 'hidden');
         });
@@ -78,6 +84,9 @@ module.exports = class GameCtl {
             this._pref.speed = speed;
             localStorage.setItem(this._storage, JSON.stringify(this._pref));
         }
+        if (speed > this._game.speed) $('.plus',  this._root).trigger('focus');
+        if (speed < this._game.speed) $('.minus', this._root).trigger('focus');
+        this._game.speed = speed;
         return false;
     }
 
