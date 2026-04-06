@@ -88,6 +88,7 @@ module.exports = class Player extends Majiang.Player {
                 p += '*';
             }
             pai.attr('role','button').on('click', (ev)=>{
+                $('.pai', bingpai).removeAttr('role').removeClass('blink');
                 clearSelector('dapai');
                 $(ev.target).addClass('dapai');
                 return this.callback({ dapai: p });
