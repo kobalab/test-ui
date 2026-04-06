@@ -12,6 +12,9 @@ const { hide, show, fadeIn, scale,
 
 let loaded;
 
+const rule = Majiang.rule(
+                JSON.parse(localStorage.getItem('Majiang.rule'))||'{}');
+
 $(function(){
 
     const pai   = Majiang.UI.pai($('#loaddata'));
@@ -35,7 +38,7 @@ $(function(){
 
         let players = [];
         for (let i = 0; i < 4; i++) players[i] = new Majiang.AI;
-        game      = new Majiang.Game(players, start);
+        game      = new Majiang.Game(players, start, rule);
         game.view = new Majiang.UI.Board($('#board .board'), pai, audio,
                                             game.model);
 
