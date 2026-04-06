@@ -1,5 +1,5 @@
 /*!
- *  電脳麻将: 自動対戦 v0.4.0
+ *  電脳麻将: 自動対戦 v0.4.1
  *
  *  Copyright(C) 2017 Satoshi Kobayashi
  *  Released under the MIT license
@@ -11,6 +11,9 @@ const { hide, show, fadeIn, scale,
         setSelector, clearSelector  } = Majiang.UI.Util;
 
 let loaded;
+
+const rule = Majiang.rule(
+                JSON.parse(localStorage.getItem('Majiang.rule'))||'{}');
 
 $(function(){
 
@@ -35,7 +38,7 @@ $(function(){
 
         let players = [];
         for (let i = 0; i < 4; i++) players[i] = new Majiang.AI;
-        game      = new Majiang.Game(players, start);
+        game      = new Majiang.Game(players, start, rule);
         game.view = new Majiang.UI.Board($('#board .board'), pai, audio,
                                             game.model);
 

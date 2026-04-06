@@ -1,5 +1,5 @@
 /*!
- *  電脳麻将: 試験対戦 v0.4.0
+ *  電脳麻将: 試験対戦 v0.4.1
  *
  *  Copyright(C) 2017 Satoshi Kobayashi
  *  Released under the MIT license
@@ -11,6 +11,9 @@ const { hide, show, fadeIn, scale,
         setSelector, clearSelector  } = Majiang.UI.Util;
 
 let loaded;
+
+const rule = Majiang.rule(
+                JSON.parse(localStorage.getItem('Majiang.rule'))||'{}');
 
 $(function(){
 
@@ -29,8 +32,8 @@ $(function(){
 
         let players = [ new Majiang.Dev.Player($('#board .board'), pai) ];
         for (let i = 1; i < 4; i++) players[i] = new Majiang.AI;
-        let game  = script ? new Majiang.Dev.Game(script, Majiang.rule())
-                           : new Majiang.Game(players);
+        let game  = script ? new Majiang.Dev.Game(script, rule)
+                           : new Majiang.Game(players, ()=>{}, rule);
         if (script) game._players[0] = players[0];
         game.view = new Majiang.UI.Board($('#board .board'), pai, audio,
                                             game.model);
