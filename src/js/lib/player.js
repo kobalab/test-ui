@@ -135,7 +135,10 @@ module.exports = class Player extends Majiang.Player {
 
     action_dapai(dapai) {
 
-        if (dapai.l == this._menfeng) return this.callback();
+        if (this.allow_no_daopai(this.shoupai)) {
+            this.add_action('daopai', ()=> this.callback());
+        }
+        else if (dapai.l == this._menfeng) return this.callback();
 
         let d = ['','+','=','-'][(4 + this._model.lunban - this._menfeng) % 4];
         let p = dapai.p + d;
@@ -165,7 +168,11 @@ module.exports = class Player extends Majiang.Player {
             this.add_action('chi', ()=> this.select_mianzi(chi));
         }
 
-        this.select_action();
+        this.select_action(
+            this.allow_no_daopai(this.shoupai)
+                ? ()=> this.callback({ daopai: '-' })
+                : ()=> this.callback()
+        );
     }
 
     action_fulou(fulou) {
