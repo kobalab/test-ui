@@ -1,5 +1,5 @@
 /*!
- *  電脳麻将 v0.4.1
+ *  電脳麻将 v0.5.0
  *
  *  Copyright(C) 2017 Satoshi Kobayashi
  *  Released under the MIT license
@@ -32,7 +32,7 @@ $(function(){
 
         let players = [ new Majiang.UI.Player($('#board .board'), pai) ];
         for (let i = 1; i < 4; i++) players[i] = new Majiang.AI;
-        game      = new Majiang.Game(players, start, rule);
+        game      = new Majiang.Game(players, null, rule);
         game.view = new Majiang.UI.Board($('#board .board'), pai, audio,
                                             game.model);
 

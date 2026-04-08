@@ -157,7 +157,15 @@ module.exports = class Player extends Majiang.Player {
         if (this.allow_no_daopai(this.shoupai)) {
             this.add_action('daopai', ()=> this.callback());
         }
-        else if (dapai.l == this._menfeng) return this.callback();
+
+        if (dapai.l == this._menfeng) {
+            this.select_action(
+                this.allow_no_daopai(this.shoupai)
+                    ? ()=> this.callback({ daopai: '-' })
+                    : ()=> this.callback()
+            );
+            return;
+        }
 
         let d = ['','+','=','-'][(4 + this._model.lunban - this._menfeng) % 4];
         let p = dapai.p + d;
@@ -199,7 +207,7 @@ module.exports = class Player extends Majiang.Player {
         if (fulou.l != this._menfeng) return this.callback();
         if (fulou.m.match(/^[mpsz]\d{4}/)) return this.callback();
 
-        this.select_action(()=> this.select_dapai());
+        this.select_dapai();
     }
 
     action_gang(gang) {
@@ -225,5 +233,9 @@ module.exports = class Player extends Majiang.Player {
 
     action_pingju() { this.action_hule() }
 
-    action_jieju() {}
+    action_jieju() {
+        setSelector($('.summary .submit', this._root), 'summary',
+                    { prev: null, next: null });
+        $('.summary', this._root).on('click', ()=> this.callback());
+    }
 }
