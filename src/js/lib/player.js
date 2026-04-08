@@ -233,5 +233,9 @@ module.exports = class Player extends Majiang.Player {
 
     action_pingju() { this.action_hule() }
 
-    action_jieju() {}
+    action_jieju() {
+        setSelector($('.summary .submit', this._root), 'summary',
+                    { prev: null, next: null });
+        $('.summary', this._root).on('click', ()=> this.callback());
+    }
 }
