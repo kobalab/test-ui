@@ -207,7 +207,7 @@ module.exports = class Player extends Majiang.Player {
         if (fulou.l != this._menfeng) return this.callback();
         if (fulou.m.match(/^[mpsz]\d{4}/)) return this.callback();
 
-        this.select_action(()=> this.select_dapai());
+        this.select_dapai();
     }
 
     action_gang(gang) {
