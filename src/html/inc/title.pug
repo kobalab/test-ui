@@ -4,6 +4,8 @@
 
   if page == 'autoplay'
     div 自動対戦
+  if page == 'netplay'
+    div ネット対戦
   if page == 'testplay'
     div 試験対戦
 
@@ -11,3 +13,9 @@
   .loading Loading data...
   .start.hide(tabindex="0" role="button") START
   
+  if page == 'netplay'
+    .login.hide
+      form.local(method="POST" action="server/auth/")
+        input(name="name" placeholder="プレーヤー名")
+        input(name="passwd" value="*" type="hidden")
+        input(type="submit" value="登録")
