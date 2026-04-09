@@ -16,7 +16,7 @@ let loaded;
 
 $(function(){
 
-    let sock;
+    let sock, myid;
 
     function init() {
 
@@ -34,6 +34,7 @@ $(function(){
             show($('#title .login'));
             return;
         }
+        myid = user.uid;
         hide($('#room > form'));
         $('body').attr('class','room');
         $('#room .netplay .name').text(user.name);
@@ -51,6 +52,11 @@ $(function(){
         for (let user of msg.user) {
             let r  = row.clone();
             $('.name', r).text(user.name);
+            if (msg.user[0].uid == myid || user.uid == myid) {
+                show($('[name="quit"]', r).on('click', ()=>{
+                    sock.emit('ROOM', msg.room_no, user.uid);
+                }));
+            }
             $('#room > form .room').append(r);
         }
         hide($('#room .netplay'));
