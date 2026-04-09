@@ -31,7 +31,7 @@ module.exports = class Player extends Majiang.Player {
         this.clear_action();
         this.clear_mianzi();
         this.clear_dapai();
-        $('.dialog', this._root).off('click');
+        $('.dialog, .summary', this._root).off('click');
         clearSelector('dailog');
     }
 
@@ -110,8 +110,10 @@ module.exports = class Player extends Majiang.Player {
     }
 
     clear_dapai() {
-        $('.shoupai.main .bingpai .pai', this._root).removeAttr('role')
-                                                    .removeClass('blink');
+        $('.shoupai.main .bingpai .pai', this._root)
+                .off('click')
+                .removeAttr('role')
+                .removeClass('blink');
         clearSelector('dapai');
     }
 
