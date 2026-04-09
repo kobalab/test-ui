@@ -23,20 +23,45 @@ $(function(){
         sock = io('/', { path: `${base}/server/socket.io` });
 
         sock.on('HELLO', hello);
+        sock.on('ROOM',  room);
 
         hide($('#title .loading'));
     }
 
     function hello(user) {
-        console.log('**', user);
         if (! user) {
             $('body').attr('class','title');
             show($('#title .login'));
             return;
         }
+        hide($('#room > form'));
         $('body').attr('class','room');
         $('#room .netplay .name').text(user.name);
+        show($('#room .netplay'));
     }
+
+    let row, src;
+    function room(msg) {
+        if (! row) {
+            row = $('#room .user').eq(0);
+            src = $('img', row).attr('src');
+        }
+        $('#room [name="room_no"]').val(msg.room_no);
+        $('#room > form .room').empty();
+        for (let user of msg.user) {
+            let r  = row.clone();
+            $('.name', r).text(user.name);
+            $('#room > form .room').append(r);
+        }
+        hide($('#room .netplay'));
+        show($('#room > form'));
+    }
+
+    $('#room form.room').on('submit', (ev)=>{
+        let room_no = $('[name="room_no"]', $(ev.target)).val();
+        sock.emit('ROOM', room_no);
+        return false;
+    });
 
     $(window).on('load', init);
     if (loaded) $(window).trigger('load');

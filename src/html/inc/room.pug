@@ -9,11 +9,21 @@
     img(src="img/icon.png" title="guest")
     span.name
     
-    //form.room
+    form.room
       input(name="room_no" placeholder="ルーム")
       input(type="submit" value="入室")
-    //form.room
+    form.room
       input(type="submit" value="ルーム作成")
     
     form.logout(method="POST" action="server/logout")
       input(type="submit" value="ログアウト")
+
+  form
+    | ルーム
+    input(name="room_no" value="" disabled)
+      
+    ul.room
+      li.user
+        img(src="img/icon.png")
+        span.name
+        input(type="button" name="quit" value="退室")
