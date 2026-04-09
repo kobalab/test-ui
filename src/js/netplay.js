@@ -57,6 +57,8 @@ $(function(){
                     sock.emit('ROOM', msg.room_no, user.uid);
                 }));
             }
+            if (user.offline) r.addClass('offline');
+            else              r.removeClass('offline');
             $('#room > form .room').append(r);
         }
         hide($('#room .netplay'));
