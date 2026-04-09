@@ -35,6 +35,7 @@ $(function(){
             return;
         }
         $('body').attr('class','room');
+        $('#room .netplay .name').text(user.name);
     }
 
     $(window).on('load', init);
