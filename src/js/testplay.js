@@ -68,10 +68,7 @@ $(function(){
 
     $(window).on('resize', ()=>scale($('#board'), $('#space')));
 
-    $('#board .navi [role="button"]').on('click', ()=>{
-        $('#board .navi').toggleClass('active');
-        return false;
-    });
+    $('#board .navi').on('click', function(){ $(this).toggleClass('active') });
 
     $(window).on('load', function(){
         setSelector($('#title .start'), 'title');
