@@ -10,7 +10,7 @@
 const { hide, show, fadeIn, fadeOut, scale,
         setSelector, clearSelector  } = Majiang.UI.Util;
 
-const base = location.pathname.replace(/\/.*?$/,'');
+const base = location.pathname.replace(/\/[^\/]*?$/,'');
 
 let loaded;
 
