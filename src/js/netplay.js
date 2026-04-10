@@ -16,7 +16,10 @@ let loaded;
 
 $(function(){
 
-    let sock, myid;
+    const pai   = Majiang.UI.pai($('#loaddata'));
+    const audio = Majiang.UI.audio($('#loaddata'));
+
+    let sock, myuid;
 
     function init() {
 
@@ -24,6 +27,8 @@ $(function(){
 
         sock.on('HELLO', hello);
         sock.on('ROOM',  room);
+        sock.on('START', start);
+        sock.on('END',   end);
         sock.on('ERROR', error);
 
         hide($('#title .loading'));
@@ -35,7 +40,7 @@ $(function(){
             show($('#title .login'));
             return;
         }
-        myid = user.uid;
+        myuid = user.uid;
         hide($('#room > form'));
         $('body').attr('class','room');
         $('#room .netplay .name').text(user.name);
@@ -43,17 +48,20 @@ $(function(){
     }
 
     let row, src;
+
     function room(msg) {
+
         if (! row) {
             row = $('#room .user').eq(0);
             src = $('img', row).attr('src');
         }
+
         $('#room [name="room_no"]').val(msg.room_no);
         $('#room > form .room').empty();
         for (let user of msg.user) {
             let r  = row.clone();
             $('.name', r).text(user.name);
-            if (msg.user[0].uid == myid || user.uid == myid) {
+            if (msg.user[0].uid == myuid || user.uid == myuid) {
                 show($('[name="quit"]', r).on('click', ()=>{
                     sock.emit('ROOM', msg.room_no, user.uid);
                 }));
@@ -62,8 +70,52 @@ $(function(){
             else              r.removeClass('offline');
             $('#room > form .room').append(r);
         }
+        if (msg.user[0].uid == myuid) show($('#room > form .submit'));
+        else                          hide($('#room > form .submit'));
+
         hide($('#room .netplay'));
         show($('#room > form'));
+    }
+
+    function start() {
+
+        const player = new Majiang.UI.Player($('#board .board'), pai, audio);
+        player.view  = new Majiang.UI.Board($('#board .board'), pai, audio,
+                                                player.model);
+        $('body').attr('class','board');
+        scale($('#board'), $('#space'));
+
+        sock.removeAllListeners('GAME');
+        sock.on('GAME', (msg)=>{
+            if (msg.players) {
+            }
+            else if (msg.seq) {
+                player.action(msg, (rep = {})=>{
+                    rep.seq = msg.seq;
+                    sock.emit('GAME', rep);
+                });
+            }
+            else if (msg.say) {
+                player._view.say(msg.say.name, msg.say.l);
+            }
+            else {
+                player.action(msg);
+                if (msg.kaiju && msg.kaiju.log) {
+                    let log = msg.kaiju.log.pop();
+                    for (let msg of log) {
+                        player.action(msg);
+                    }
+                }
+            }
+        });
+    }
+
+    function end(paipu) {
+
+        sock.removeAllListeners('GAME');
+        $('body').attr('class','room');
+        hide($('#room > form'));
+        show($('#room .netplay'));
     }
 
     function error(msg) {
@@ -75,6 +127,14 @@ $(function(){
     $('#room form.room').on('submit', (ev)=>{
         let room_no = $('[name="room_no"]', $(ev.target)).val();
         sock.emit('ROOM', room_no);
+        return false;
+    });
+    $('#room > form').on('submit', (ev)=>{
+        ev.preventDefault();
+        let room_no = $('[name="room_no"]', $(ev.target)).val();
+        let rule = Majiang.rule(JSON.parse(
+                        localStorage.getItem('Majiang.rule')||"{}"));
+        sock.emit('START', room_no, rule);
         return false;
     });
 
