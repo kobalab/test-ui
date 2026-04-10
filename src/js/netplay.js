@@ -141,6 +141,10 @@ $(function(){
         return false;
     });
 
+    $(window).on('resize', ()=>scale($('#board'), $('#space')));
+
+    $('#board .navi').on('click', function(){ $(this).toggleClass('active') });
+
     $(window).on('load', init);
     if (loaded) $(window).trigger('load');
 });
