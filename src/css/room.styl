@@ -18,6 +18,7 @@ body.room
             vertical-align: bottom
     > .version
         margin-top: -2.4em
+        margin-bottom: 0.7em
         font-size: 16px
         font-family: defen-font
         text-align: right
@@ -39,7 +40,6 @@ body.room
         text-overflow: ellipsis
 
 #room .netplay
-    margin: 10px 0
     font-size: 14px
     font-family: menu-font
     form
@@ -62,3 +62,14 @@ body.room
         padding: 2px
         &.offline
             opacity: 0.3
+
+#room .error
+        transition: opacity 0.5s ease-out
+        font-size: 14px
+        font-family: menu-font
+        margin-bottom: 0.5em
+        border-radius: 5px
+        border: solid 1px
+        padding: 2px 1em
+        color: red
+        background: #fdd

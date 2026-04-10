@@ -7,7 +7,7 @@
  */
 "use strict";
 
-const { hide, show, fadeIn, scale,
+const { hide, show, fadeIn, fadeOut, scale,
         setSelector, clearSelector  } = Majiang.UI.Util;
 
 const base = location.pathname.replace(/\/.*?$/,'');
@@ -24,6 +24,7 @@ $(function(){
 
         sock.on('HELLO', hello);
         sock.on('ROOM',  room);
+        sock.on('ERROR', error);
 
         hide($('#title .loading'));
     }
@@ -63,6 +64,12 @@ $(function(){
         }
         hide($('#room .netplay'));
         show($('#room > form'));
+    }
+
+    function error(msg) {
+        const error = $('#room .error');
+        fadeIn(error.text(msg).on('click', ()=> fadeOut(error)));
+        setTimeout(()=> error.trigger('click'), 5000);
     }
 
     $('#room form.room').on('submit', (ev)=>{
