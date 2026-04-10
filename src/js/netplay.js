@@ -82,6 +82,9 @@ $(function(){
         const player = new Majiang.UI.Player($('#board .board'), pai, audio);
         player.view  = new Majiang.UI.Board($('#board .board'), pai, audio,
                                                 player.model);
+        new Majiang.UI.GameCtl($('#board .controller'), 'Majiang.pref',
+                                null, player, player._view);
+
         $('body').attr('class','board');
         scale($('#board'), $('#space'));
 
