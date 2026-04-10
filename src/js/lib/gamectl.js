@@ -34,14 +34,14 @@ module.exports = class GameCtl {
         $('.sound', this._root).on('click.controller', ()=>
                                     this.sound(! this._pref.sound_on));
         $('.minus', this._root).on('click.controller', ()=>
-                                    this.speed(this._game.speed - 1));
+                                    this.speed(this._pref.speed - 1));
         $('.plus',  this._root).on('click.controller', ()=>
-                                    this.speed(this._game.speed + 1));
+                                    this.speed(this._pref.speed + 1));
 
         $(window).on('keyup.controler', (ev)=>{
             if      (ev.key == 'a') return this.sound(! this._pref.sound_on);
-            else if (ev.key == '-') return this.speed(this._game.speed - 1);
-            else if (ev.key == '+') return this.speed(this._game.speed + 1);
+            else if (ev.key == '-') return this.speed(this._pref.speed - 1);
+            else if (ev.key == '+') return this.speed(this._pref.speed + 1);
         });
 
         setSelector($('.sound, .minus, .plus', this._root), '.controller',
@@ -80,12 +80,12 @@ module.exports = class GameCtl {
         $('.speed .step', this._root).each((i, n)=> {
             $(n).css('visibility', i < speed ? 'visible' : 'hidden');
         });
+        if (speed > this._pref.speed) $('.plus',  this._root).trigger('focus');
+        if (speed < this._pref.speed) $('.minus', this._root).trigger('focus');
         if (speed != this._pref.speed) {
             this._pref.speed = speed;
             localStorage.setItem(this._storage, JSON.stringify(this._pref));
         }
-        if (speed > this._game.speed) $('.plus',  this._root).trigger('focus');
-        if (speed < this._game.speed) $('.minus', this._root).trigger('focus');
         this._game.speed = speed;
         return false;
     }
