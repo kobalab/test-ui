@@ -82,7 +82,7 @@ module.exports = class Board {
         this.summary();
 
         let title = $('<span>').text(this._model.title).html()
-                                            .replace(/\n/g,'<br>');
+                                    .replace(/\n/g,'<br aria-hidden="true">');
         $('.kaiju .title').html(title);
 
         for (let l = 0; l < 4; l++) {
