@@ -1,0 +1,34 @@
+#room
+  h1
+    img(src="img/logo.png" alt="電脳麻将")
+    |  ネット対戦
+  .version ver. #{version}
+
+  .error.hide
+
+  .netplay
+    
+    img(src="img/icon.png" title="guest")
+    span.name
+    
+    form.room
+      input(name="room_no" placeholder="ルーム")
+      input(type="submit" value="入室")
+    form.room
+      input(type="submit" value="ルーム作成")
+    
+    form.logout(method="POST" action="server/logout")
+      input(type="submit" value="ログアウト")
+
+  form
+    | ルーム
+    input(name="room_no" value="" disabled)
+      
+    ul.room
+      li.user
+        img(src="img/icon.png")
+        span.name
+        input.hide(type="button" name="quit" value="退室")
+
+    .submit
+      input(type="submit" value="対局開始")

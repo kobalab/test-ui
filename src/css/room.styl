@@ -1,0 +1,75 @@
+body.room
+    color: black
+    background: white
+    margin: 0 10px 15px
+    #room
+        display: block
+    > .version
+        display: none
+
+#room
+    display: none
+    h1
+        margin-top: 0
+        font-size: 24px
+        border-bottom: solid 2px black
+        img
+            height: 36px
+            vertical-align: bottom
+    > .version
+        margin-top: -2.4em
+        margin-bottom: 0.7em
+        font-size: 16px
+        font-family: defen-font
+        text-align: right
+
+#room .netplay
+#room .room
+    img
+        width: 2em
+        vertical-align: middle
+        border-radius: 50%
+        margin-right: 0.5em
+    .name
+        display: inline-block
+        vertical-align: middle
+        font-size: 120%
+        width: 8em
+        white-space: nowrap
+        overflow: hidden
+        text-overflow: ellipsis
+
+#room .netplay
+    font-size: 14px
+    font-family: menu-font
+    form
+        margin-right: 0.5em
+        display: inline-block
+        input[name="room_no"]
+            width: 3em
+
+#room > form
+    font-size: 14px
+    margin: 1em
+    padding: 1em
+    border: solid 1px
+    border-radius: 10px
+    input[name="room_no"]
+        border-color: #ccc
+        width: 3em
+    .user
+        display: block
+        padding: 2px
+        &.offline
+            opacity: 0.3
+
+#room .error
+        transition: opacity 0.5s ease-out
+        font-size: 14px
+        font-family: menu-font
+        margin-bottom: 0.5em
+        border-radius: 5px
+        border: solid 1px
+        padding: 2px 1em
+        color: red
+        background: #fdd
