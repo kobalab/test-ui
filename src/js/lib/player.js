@@ -33,13 +33,13 @@ module.exports = class Player extends Majiang.Player {
     }
 
     callback(msg) {
-        this.clear_timer();
         this.clear_handler();
         this._callback(msg);
         return false;
     }
 
     clear_handler() {
+        this.clear_timer();
         this.clear_action();
         this.clear_mianzi();
         this.clear_dapai();
@@ -131,10 +131,12 @@ module.exports = class Player extends Majiang.Player {
         clearSelector('dapai');
     }
 
-    set_timer(limit = 0, allowed = 0) {
+    set_timer(dialog, limit = 0, allowed = 0) {
+
+        show($('.timeout', this._root).text(''));
+        if (dialog) hide($('.timeout.main', this._root));
 
         let time_last;
-
         let time_limit = Date.now() + (limit + allowed) * 1000;
         this._timer_id = setInterval(()=>{
             let time_count = Math.ceil((time_limit - Date.now()) / 1000);
@@ -143,8 +145,13 @@ module.exports = class Player extends Majiang.Player {
                 return;
             }
             if (time_count <= limit || time_count <= allowed) {
+                if (! dialog) {
+                    $('.timeout.main', this._root).width(
+                        $('.shoupai.main .bingpai', this._root).width() + 20);
+                }
                 if (time_last != time_count) {
-                    if (time_count <= 5) this.beep();
+                    $('.timeout', this._root).text(time_count);
+                    if (time_count <= 5 && ! dialog) this.beep();
                     time_last = time_count;
                 }
             }
@@ -152,12 +159,15 @@ module.exports = class Player extends Majiang.Player {
     }
 
     clear_timer() {
+        hide($('.timeout', this._root).text(''));
         clearInterval(this._timer_id);
     }
 
     action(msg, callback) {
         this.clear_handler();
-        if (msg.timer) this.set_timer(...msg.timer);
+        if (msg.timer) {
+            this.set_timer(msg.kaiju || msg.hule || msg.pingju, ...msg.timer);
+        }
         super.action(msg, callback);
     }
 
