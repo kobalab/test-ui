@@ -1,5 +1,5 @@
 /*!
- *  電脳麻将 v0.5.0
+ *  電脳麻将 v0.6.0
  *
  *  Copyright(C) 2017 Satoshi Kobayashi
  *  Released under the MIT license
@@ -48,10 +48,7 @@ $(function(){
 
     $(window).on('resize', ()=>scale($('#board'), $('#space')));
 
-    $('#board .navi [role="button"]').on('click', ()=>{
-        $('#board .navi').toggleClass('active');
-        return false;
-    });
+    $('#board .navi').on('click', function(){ $(this).toggleClass('active') });
 
     $(window).on('load', function(){
         setSelector($('#title .start'), 'title');

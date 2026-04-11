@@ -79,8 +79,10 @@ module.exports = class Board {
 
         this._viewpoint = viewpoint;
 
+        this.summary();
+
         let title = $('<span>').text(this._model.title).html()
-                                            .replace(/\n/g,'<br>');
+                                    .replace(/\n/g,'<br aria-hidden="true">');
         $('.kaiju .title').html(title);
 
         for (let l = 0; l < 4; l++) {
@@ -91,6 +93,8 @@ module.exports = class Board {
                         this._model.player[id].replace(/\n.*$/,'');
             $(`.kaiju .player .${c}`, this._root).text(name);
         }
+
+        show($('.kaiju', this._root));
 
         return this;
     }
@@ -223,6 +227,7 @@ module.exports = class Board {
     }
 
     summary(paipu) {
+        if (this._view.dialog) this._view.dialog.hide();
         if (paipu) fadeIn(summary($('.summary', this._root), paipu,
                                                         this._viewpoint));
         else       hide($('.summary', this._root));

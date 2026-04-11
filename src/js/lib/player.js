@@ -31,8 +31,10 @@ module.exports = class Player extends Majiang.Player {
         this.clear_action();
         this.clear_mianzi();
         this.clear_dapai();
-        $('.dialog', this._root).off('click');
-        clearSelector('dailog');
+        $('.kaiju, .dialog, .summary', this._root).off('click');
+        clearSelector('kaiju');
+        clearSelector('dialog');
+        clearSelector('summary');
     }
 
     add_action(type, callback) {
@@ -110,12 +112,21 @@ module.exports = class Player extends Majiang.Player {
     }
 
     clear_dapai() {
-        $('.shoupai.main .bingpai .pai', this._root).removeAttr('role')
-                                                    .removeClass('blink');
+        $('.shoupai.main .bingpai .pai', this._root)
+                .off('click')
+                .removeAttr('role')
+                .removeClass('blink');
         clearSelector('dapai');
     }
 
-    action_kaiju(kaiju) { this.callback() }
+    action_kaiju(kaiju) {
+        if (! this._view) return this.callback();
+        setTimeout(()=>{
+            setSelector($('.kaiju .submit', this._root), 'kaiju',
+                        { prev: null, next: null });
+            $('.kaiju', this._root).on('click', ()=> this.callback());
+        }, 500);
+    }
 
     action_qipai(qipai) { this.callback() }
 

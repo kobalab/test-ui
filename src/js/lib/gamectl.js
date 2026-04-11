@@ -15,7 +15,6 @@ module.exports = class GameCtl {
         this._views   = views;
 
         hide($('> *:not(.speed)', root));
-        $('.sound, .minus, .plus', root).attr('role','button');
 
         this._pref = localStorage.getItem(storage)
                         ? JSON.parse(localStorage.getItem(storage))
@@ -31,27 +30,35 @@ module.exports = class GameCtl {
 
         this.clear_handler();
 
-        $('.sound', this._root).on('click.controller', ()=>
+        $('.sound', this._root).attr('role','button')
+                               .on('click.controller', ()=>
                                     this.sound(! this._pref.sound_on));
-        $('.minus', this._root).on('click.controller', ()=>
-                                    this.speed(this._game.speed - 1));
-        $('.plus',  this._root).on('click.controller', ()=>
-                                    this.speed(this._game.speed + 1));
+        if (this._game) {
+            $('.minus', this._root).attr('role','button')
+                                   .on('click.controller', ()=>
+                                        this.speed(this._pref.speed - 1));
+            $('.plus',  this._root).attr('role','button')
+                                   .on('click.controller', ()=>
+                                        this.speed(this._pref.speed + 1));
+        }
 
         $(window).on('keyup.controler', (ev)=>{
-            if      (ev.key == 'a') return this.sound(! this._pref.sound_on);
-            else if (ev.key == '-') return this.speed(this._game.speed - 1);
-            else if (ev.key == '+') return this.speed(this._game.speed + 1);
+            if (ev.key == 'a') return this.sound(! this._pref.sound_on);
+            if (this._game) {
+                if      (ev.key == '-') return this.speed(this._pref.speed - 1);
+                else if (ev.key == '+') return this.speed(this._pref.speed + 1);
+            }
         });
 
-        setSelector($('.sound, .minus, .plus', this._root), '.controller',
+        setSelector($('[role="button"]', this._root), '.controller',
                         { prev: null, next: null, focus: null,
                           touch: false, hold: true });
     }
 
     clear_handler() {
         clearSelector('.controller');
-        $('.sound, .minus, .plus', this._root).off('click.controller');
+        $('[role="button"]', this._root).removeAttr('role')
+                                        .off('click.controller');
         $(window).off('.controller')
     }
 
@@ -80,12 +87,12 @@ module.exports = class GameCtl {
         $('.speed .step', this._root).each((i, n)=> {
             $(n).css('visibility', i < speed ? 'visible' : 'hidden');
         });
+        if (speed > this._pref.speed) $('.plus',  this._root).trigger('focus');
+        if (speed < this._pref.speed) $('.minus', this._root).trigger('focus');
         if (speed != this._pref.speed) {
             this._pref.speed = speed;
             localStorage.setItem(this._storage, JSON.stringify(this._pref));
         }
-        if (speed > this._game.speed) $('.plus',  this._root).trigger('focus');
-        if (speed < this._game.speed) $('.minus', this._root).trigger('focus');
         this._game.speed = speed;
         return false;
     }
