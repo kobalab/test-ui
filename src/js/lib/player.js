@@ -119,6 +119,11 @@ module.exports = class Player extends Majiang.Player {
         clearSelector('dapai');
     }
 
+    action(msg, callback) {
+        this.clear_handler();
+        super.action(msg, callback);
+    }
+
     action_kaiju(kaiju) {
         if (! this._view) return this.callback();
         setTimeout(()=>{

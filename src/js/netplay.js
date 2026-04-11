@@ -142,16 +142,23 @@ $(function(){
         sock.emit('ROOM', room_no);
         return false;
     });
+
     $('#room > form').on('submit', (ev)=>{
-        ev.preventDefault();
+
         let room_no = $('[name="room_no"]', $(ev.target)).val();
+
         let rule = $('[name="rule"]', $(ev.target)).val();
         rule = ! rule      ? {}
              : rule == '-' ? JSON.parse(
                                 localStorage.getItem('Majiang.rule')||"{}")
              :               preset[rule];
         rule = Majiang.rule(rule);
-        sock.emit('START', room_no, rule);
+
+        let timer = $('[name="timer"]', $(ev.target)).val();
+        timer = timer.match(/(\d+)/g);
+        if (timer) timer = timer.map(t => +t);
+
+        sock.emit('START', room_no, rule, timer);
         return false;
     });
 
