@@ -1,5 +1,5 @@
 /*!
- *  電脳麻将: ネット対戦 v0.6.0
+ *  電脳麻将: ネット対戦 v0.6.1
  *
  *  Copyright(C) 2017 Satoshi Kobayashi
  *  Released under the MIT license
@@ -9,6 +9,8 @@
 
 const { hide, show, fadeIn, fadeOut, scale,
         setSelector, clearSelector  } = Majiang.UI.Util;
+
+const preset = require('./conf/rule.json');
 
 const base = location.pathname.replace(/\/[^\/]*?$/,'');
 
@@ -127,17 +129,36 @@ $(function(){
         setTimeout(()=> error.trigger('click'), 5000);
     }
 
+    for (let key of Object.keys(preset)) {
+        $('select[name="rule"]').append($('<option>').val(key).text(key));
+    }
+    if (localStorage.getItem('Majiang.rule')) {
+        $('select[name="rule"]').append(
+                        $('<option>').val('-').text('カスタムルール'));
+    }
+
     $('#room form.room').on('submit', (ev)=>{
         let room_no = $('[name="room_no"]', $(ev.target)).val();
         sock.emit('ROOM', room_no);
         return false;
     });
+
     $('#room > form').on('submit', (ev)=>{
-        ev.preventDefault();
+
         let room_no = $('[name="room_no"]', $(ev.target)).val();
-        let rule = Majiang.rule(JSON.parse(
-                        localStorage.getItem('Majiang.rule')||"{}"));
-        sock.emit('START', room_no, rule);
+
+        let rule = $('[name="rule"]', $(ev.target)).val();
+        rule = ! rule      ? {}
+             : rule == '-' ? JSON.parse(
+                                localStorage.getItem('Majiang.rule')||"{}")
+             :               preset[rule];
+        rule = Majiang.rule(rule);
+
+        let timer = $('[name="timer"]', $(ev.target)).val();
+        timer = timer.match(/(\d+)/g);
+        if (timer) timer = timer.map(t => +t);
+
+        sock.emit('START', room_no, rule, timer);
         return false;
     });
 
