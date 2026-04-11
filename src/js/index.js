@@ -30,7 +30,7 @@ $(function(){
         hide($('#board .board .summary'));
         hide($('#board .board > .player'));
 
-        let players = [ new Majiang.UI.Player($('#board .board'), pai) ];
+        let players = [ new Majiang.UI.Player($('#board .board'), pai, audio) ];
         for (let i = 1; i < 4; i++) players[i] = new Majiang.AI;
         game      = new Majiang.Game(players, null, rule);
         game.view = new Majiang.UI.Board($('#board .board'), pai, audio,
