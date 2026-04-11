@@ -13,15 +13,27 @@ const mianzi = require('./mianzi');
 
 module.exports = class Player extends Majiang.Player {
 
-    constructor(root, pai) {
+    constructor(root, pai, audio) {
         super();
         this._root = root;
         this._mianzi = mianzi(pai)
+
+        this._timer_id;
+
+        let beep = audio('beep');
+        this.sound_on = true;
+        this.beep = ()=>{
+            if (this.sound_on) {
+                beep.currentTime = 0;
+                beep.play();
+            }
+        };
 
         this.clear_handler();
     }
 
     callback(msg) {
+        this.clear_timer();
         this.clear_handler();
         this._callback(msg);
         return false;
@@ -119,8 +131,33 @@ module.exports = class Player extends Majiang.Player {
         clearSelector('dapai');
     }
 
+    set_timer(limit = 0, allowed = 0) {
+
+        let time_last;
+
+        let time_limit = Date.now() + (limit + allowed) * 1000;
+        this._timer_id = setInterval(()=>{
+            let time_count = Math.ceil((time_limit - Date.now()) / 1000);
+            if (time_count <= 0) {
+                this.callback();
+                return;
+            }
+            if (time_count <= limit || time_count <= allowed) {
+                if (time_last != time_count) {
+                    if (time_count <= 5) this.beep();
+                    time_last = time_count;
+                }
+            }
+        }, 200);
+    }
+
+    clear_timer() {
+        clearInterval(this._timer_id);
+    }
+
     action(msg, callback) {
         this.clear_handler();
+        if (msg.timer) this.set_timer(...msg.timer);
         super.action(msg, callback);
     }
 
