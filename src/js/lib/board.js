@@ -239,4 +239,13 @@ module.exports = class Board {
             audio.play();
         }
     }
+
+    players(players) {
+        for (let id = 0; id < 4; id++) {
+            let c = class_name[(4 + id - this._viewpoint) % 4];
+            if (players[id])
+                    $(`.player.${c}`, this._root).removeClass('disconnect');
+            else    $(`.player.${c}`, this._root).addClass('disconnect');
+        }
+    }
 }

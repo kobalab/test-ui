@@ -90,9 +90,11 @@ $(function(){
         $('body').attr('class','board');
         scale($('#board'), $('#space'));
 
+        let players = [];
         sock.removeAllListeners('GAME');
         sock.on('GAME', (msg)=>{
             if (msg.players) {
+                players = msg.players;
             }
             else if (msg.seq) {
                 player.action(msg, (rep = {})=>{
@@ -112,6 +114,7 @@ $(function(){
                     }
                 }
             }
+            player._view.players(players);
         });
     }
 
