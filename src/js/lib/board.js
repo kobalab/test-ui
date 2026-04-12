@@ -26,6 +26,8 @@ const say_text   = { chi:   'チー',
 
 const jicun = { changbang: '本場', lizhibang: '供託' };
 
+const player_name = ['私','上家','対面','下家'];
+
 function set_aria(root) {
 
     $('.score', root).attr('role','region')
@@ -40,6 +42,16 @@ function set_aria(root) {
     }
 
     $('.shan .baopai', root).attr('aria-label','ドラ表示牌');
+
+    for (let i = 0; i < 4; i++) {
+        $(`.he.${class_name[i]}`, root)
+            .attr('role','region')
+            .attr('aria-label', `${player_name[i]}: 捨て牌`)
+            .attr('aria-live','assertive')
+            .attr('aria-relevant','additions');
+        $(`.he.${class_name[i]} .chouma`, root)
+            .attr('aria-label', 'リーチ');
+    }
 }
 
 function score(root, model, viewpoint) {
