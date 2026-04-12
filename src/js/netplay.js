@@ -172,6 +172,13 @@ $(function(){
 
     $('#board .navi').on('click', function(){ $(this).toggleClass('active') });
 
+    $('#title .login form').each(function(){
+        let method = $(this).attr('method');
+        let url    = $(this).attr('action');
+        fetch(url, { method: method, redirect: 'manual' })
+            .then(res => res.status == 404 && hide($(this)));
+    });
+
     $(window).on('load', init);
     if (loaded) $(window).trigger('load');
 });
