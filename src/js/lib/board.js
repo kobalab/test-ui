@@ -24,6 +24,24 @@ const say_text   = { chi:   'チー',
                      rong:  'ロン',
                      zimo:  'ツモ'    };
 
+const jicun = { changbang: '本場', lizhibang: '供託' };
+
+function set_aria(root) {
+
+    $('.score', root).attr('role','region')
+                     .attr('aria-label','局情報');
+    $('.score .jushu', root).attr('aria-live','polite');
+    for (let key of Object.keys(jicun)) {
+        const node = $(`.${key}`, score).parent();
+        const img = $('img', node);
+        if (img.length == 1 && ! img.attr('alt'))
+                img.attr('alt', jicun[key]);
+        else    node.attr('aria-label', jicun[key]);
+    }
+
+    $('.shan .baopai', root).attr('aria-label','ドラ表示牌');
+}
+
 function score(root, model, viewpoint) {
 
     $('.jushu', root).text(feng_hanzi[model.zhuangfeng]
@@ -64,6 +82,7 @@ module.exports = class Board {
         this.dummy_name   = [];
 
         this.set_audio(audio);
+        set_aria(root);
     }
 
     set_audio(audio) {
