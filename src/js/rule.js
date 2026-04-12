@@ -1,5 +1,5 @@
 /*!
- *  電脳麻将: ルール設定 v0.6.1
+ *  電脳麻将: ルール設定 v0.6.2
  *
  *  Copyright(C) 2017 Satoshi Kobayashi
  *  Released under the MIT license
