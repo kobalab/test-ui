@@ -7,6 +7,32 @@
  */
 "use strict";
 
+Majiang.Dev.Player = class Player extends Majiang.UI.Player {
+
+    constructor(root, pai, audio) {
+        super(root, pai, audio);
+        this._reply = [];
+        root.append($('<div id="debug">').hide());
+        this._auto_replay = true;
+    }
+
+    action(msg, callback) {
+        if (this._auto_replay) {
+            $('#debug').hide();
+            super.action(msg);
+            if (callback) callback(this._reply.shift());
+        }
+        else {
+            if (callback) {
+                let reply = JSON.stringify(this._reply.shift());
+                if (reply == '{}')  $('#debug').text('').hide();
+                else                $('#debug').text(reply).show();
+            }
+            super.action(msg, callback);
+        }
+    }
+}
+
 const { hide, show, fadeIn, scale,
         setSelector, clearSelector  } = Majiang.UI.Util;
 
@@ -30,7 +56,8 @@ $(function(){
         hide($('#board .board .dialog'));
         hide($('#board .board .summary'));
 
-        let players = [ new Majiang.Dev.Player($('#board .board'), pai) ];
+        let players = [ new Majiang.Dev.Player($('#board .board'),
+                                                            pai, audio) ];
         for (let i = 1; i < 4; i++) players[i] = new Majiang.AI;
         let game  = script ? new Majiang.Dev.Game(script, rule)
                            : new Majiang.Game(players, ()=>{}, rule);

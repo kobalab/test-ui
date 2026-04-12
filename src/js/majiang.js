@@ -6,14 +6,9 @@
  *  https://github.com/kobalab/Majiang/blob/master/LICENSE
  */
 "use strict";
-global.Majiang = require('@kobalab/majiang-core');
+global.Majiang = require('@kobalab/majiang-core/dev');
 global.Majiang.AI = require('@kobalab/majiang-ai');
 global.Majiang.UI = require('./lib/');
 global.Majiang.VERSION = '0.6.2';
 global.jQuery = require('jquery');
 global.$ = jQuery;
-
-global.Majiang.Dev = {
-    Game:   require('./dev/game'),
-    Player: require('./dev/player'),
-};
