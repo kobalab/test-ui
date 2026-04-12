@@ -38,7 +38,7 @@ $(function(){
 
         let gamectl = new Majiang.UI.GameCtl(
                         $('#board .controller'), 'Majiang.pref',
-                        game, game._view);
+                        game, game.view);
 
         $('body').attr('class','board');
         scale($('#board'), $('#space'));

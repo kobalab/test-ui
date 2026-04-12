@@ -32,8 +32,8 @@ $(function(){
         hide($('#board .board .summary'));
 
         if (game) {
-            open_shoupai = game._view.open_shoupai;
-            he_type      = game._view.he_type;
+            open_shoupai = game.view.open_shoupai;
+            he_type      = game.view.he_type;
         }
 
         let players = [];
@@ -44,14 +44,14 @@ $(function(){
 
         game._model.title
                 = game._model.title.replace(/^[^\n]*/, $('title').text());
-        game._view.open_shoupai = open_shoupai;
-        game._view.he_type      = he_type;
+        game.view.open_shoupai = open_shoupai;
+        game.view.he_type      = he_type;
 
         $(window).off('keyup');
 
         let gamectl = new Majiang.UI.GameCtl(
                         $('#board .controller'), 'Majiang.pref',
-                        game, game._view);
+                        game, game.view);
 
         const download = ()=>{
             let blob = new Blob([ JSON.stringify(game._paipu)],
