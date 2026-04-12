@@ -13,7 +13,7 @@ body.title
 #title
     display: none
     margin: 40px auto
-    width: 640px
+    width: 600px
     padding: 4px
     border-radius: 5px
     background: white
@@ -23,9 +23,8 @@ body.title
     font-size: 16px
     h1
         margin: 0px
-        height: 150px
         img
-            width: 600px
+            width: 540px
     .version
         font-family: defen-font
         font-size: 24px
@@ -51,9 +50,11 @@ body.title
             outline: none
 
 #title .login
+    width: 80%
+    margin: 0.5em auto
     input[type="submit"]
         cursor: pointer
-    form
+    form.local
         margin: 0.5em
         input[name="name"]
             width: 8em
@@ -61,3 +62,24 @@ body.title
             border: none
             color: white
             background: blue
+    form:not(.local)
+        display: inline-block
+        white-space: nowrap
+        .logo
+            display: inline-block
+            width: 1.2em
+            height: 1.2em
+            vertical-align: text-bottom
+            background-size: cover
+        input[type=submit]
+            width: 120px
+            border: none
+            background: none
+            box-shadow: none
+            font-weight: normal
+            text-align: left
+            padding: 0
+        &.hatena .logo
+            background-image: url(https://www.hatena.ne.jp/p/images/favicon.ico)
+        &.google .logo
+            background-image: url(https://www.google.com/favicon.ico)

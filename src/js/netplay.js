@@ -1,5 +1,5 @@
 /*!
- *  電脳麻将: ネット対戦 v0.6.1
+ *  電脳麻将: ネット対戦 v0.6.2
  *
  *  Copyright(C) 2017 Satoshi Kobayashi
  *  Released under the MIT license
@@ -44,24 +44,25 @@ $(function(){
         }
         myuid = user.uid;
         hide($('#room > form'));
-        $('body').attr('class','room');
         $('#room .netplay .name').text(user.name);
+        if (user.icon) {
+            $('#room .netplay img').attr('src', user.icon)
+                                   .attr('title', user.uid);
+        }
+        $('body').attr('class','room');
         show($('#room .netplay'));
     }
 
-    let row, src;
+    const row = $('#room .user').eq(0);
+    const src = $('img', row).attr('src');
 
     function room(msg) {
-
-        if (! row) {
-            row = $('#room .user').eq(0);
-            src = $('img', row).attr('src');
-        }
 
         $('#room [name="room_no"]').val(msg.room_no);
         $('#room > form .room').empty();
         for (let user of msg.user) {
             let r  = row.clone();
+            if (user.icon) $('img', r).attr('src', user.icon);
             $('.name', r).text(user.name);
             if (msg.user[0].uid == myuid || user.uid == myuid) {
                 show($('[name="quit"]', r).on('click', ()=>{
@@ -90,14 +91,18 @@ $(function(){
         $('body').attr('class','board');
         scale($('#board'), $('#space'));
 
+        let players = [], seq = 0;
         sock.removeAllListeners('GAME');
         sock.on('GAME', (msg)=>{
             if (msg.players) {
+                players = msg.players;
             }
             else if (msg.seq) {
+                if (seq && msg.seq != seq) location.reload();
                 player.action(msg, (rep = {})=>{
                     rep.seq = msg.seq;
                     sock.emit('GAME', rep);
+                    seq = msg.seq + 1;
                 });
             }
             else if (msg.say) {
@@ -112,6 +117,7 @@ $(function(){
                     }
                 }
             }
+            player._view.players(players);
         });
     }
 
@@ -165,6 +171,13 @@ $(function(){
     $(window).on('resize', ()=>scale($('#board'), $('#space')));
 
     $('#board .navi').on('click', function(){ $(this).toggleClass('active') });
+
+    $('#title .login form').each(function(){
+        let method = $(this).attr('method');
+        let url    = $(this).attr('action');
+        fetch(url, { method: method, redirect: 'manual' })
+            .then(res => res.status == 404 && hide($(this)));
+    });
 
     $(window).on('load', init);
     if (loaded) $(window).trigger('load');
