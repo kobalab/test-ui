@@ -44,24 +44,25 @@ $(function(){
         }
         myuid = user.uid;
         hide($('#room > form'));
-        $('body').attr('class','room');
         $('#room .netplay .name').text(user.name);
+        if (user.icon) {
+            $('#room .netplay img').attr('src', user.icon)
+                                   .attr('title', user.uid);
+        }
+        $('body').attr('class','room');
         show($('#room .netplay'));
     }
 
-    let row, src;
+    const row = $('#room .user').eq(0);
+    const src = $('img', row).attr('src');
 
     function room(msg) {
-
-        if (! row) {
-            row = $('#room .user').eq(0);
-            src = $('img', row).attr('src');
-        }
 
         $('#room [name="room_no"]').val(msg.room_no);
         $('#room > form .room').empty();
         for (let user of msg.user) {
             let r  = row.clone();
+            if (user.icon) $('img', r).attr('src', user.icon);
             $('.name', r).text(user.name);
             if (msg.user[0].uid == myuid || user.uid == myuid) {
                 show($('[name="quit"]', r).on('click', ()=>{
