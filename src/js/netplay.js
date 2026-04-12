@@ -90,16 +90,18 @@ $(function(){
         $('body').attr('class','board');
         scale($('#board'), $('#space'));
 
-        let players = [];
+        let players = [], seq = 0;
         sock.removeAllListeners('GAME');
         sock.on('GAME', (msg)=>{
             if (msg.players) {
                 players = msg.players;
             }
             else if (msg.seq) {
+                if (seq && msg.seq != seq) location.reload();
                 player.action(msg, (rep = {})=>{
                     rep.seq = msg.seq;
                     sock.emit('GAME', rep);
+                    seq = msg.seq + 1;
                 });
             }
             else if (msg.say) {
