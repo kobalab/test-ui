@@ -51,9 +51,11 @@ body.title
             outline: none
 
 #title .login
+    width: 80%
+    margin: 0.5em auto
     input[type="submit"]
         cursor: pointer
-    form
+    form.local
         margin: 0.5em
         input[name="name"]
             width: 8em
@@ -61,3 +63,24 @@ body.title
             border: none
             color: white
             background: blue
+    form:not(.local)
+        display: inline-block
+        white-space: nowrap
+        .logo
+            display: inline-block
+            width: 1.2em
+            height: 1.2em
+            vertical-align: text-bottom
+            background-size: cover
+        input[type=submit]
+            width: 120px
+            border: none
+            background: none
+            box-shadow: none
+            font-weight: normal
+            text-align: left
+            padding: 0
+        &.hatena .logo
+            background-image: url(https://www.hatena.ne.jp/p/images/favicon.ico)
+        &.google .logo
+            background-image: url(https://www.google.com/favicon.ico)
