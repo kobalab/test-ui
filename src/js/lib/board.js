@@ -34,7 +34,7 @@ function set_aria(root) {
                      .attr('aria-label','局情報');
     $('.score .jushu', root).attr('aria-live','polite');
     for (let key of Object.keys(jicun)) {
-        const node = $(`.${key}`, score).parent();
+        const node = $(`.score .${key}`).parent();
         const img = $('img', node);
         if (img.length == 1 && ! img.attr('alt'))
                 img.attr('alt', jicun[key]);
