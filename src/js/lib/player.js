@@ -91,9 +91,13 @@ module.exports = class Player extends Majiang.Player {
         const mianzi = $('.select-mianzi', this._root);
         for (let m of mm) {
             let msg = m.match(/\d/g).length == 4 ? { gang: m } : { fulou: m };
-            if (! this._default_reply) this._default_reply = msg;
+            let label = m.match(/\d{3}.?\d/) ? pai_label[m.slice(0,2)] + ' カン'
+                      : m.match(/\d(?![\+\=\-])/g)
+                            .map(n => pai_label[m[0] + n])
+                            .join(' ');
             mianzi.append(
                 this._mianzi(m).attr('role','button')
+                               .attr('aria-label', label)
                                .on('click', ()=>{
                                    this.clear_mianzi();
                                    return this.callback(msg);
