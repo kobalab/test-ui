@@ -18,8 +18,6 @@ module.exports = class Player extends Majiang.Player {
         this._root = root;
         this._mianzi = mianzi(pai)
 
-        this._timer_id;
-
         let beep = audio('beep');
         this.sound_on = true;
         this.beep = ()=>{
@@ -39,7 +37,6 @@ module.exports = class Player extends Majiang.Player {
     }
 
     clear_handler() {
-        this._default_reply = null;
         this.clear_timer();
         this.clear_action();
         this.clear_mianzi();
@@ -162,8 +159,9 @@ module.exports = class Player extends Majiang.Player {
     }
 
     clear_timer() {
+        delete this._default_reply;
         hide($('.timeout', this._root).text(''));
-        clearInterval(this._timer_id);
+        this._timer_id = clearInterval(this._timer_id);
     }
 
     action(msg, callback) {
