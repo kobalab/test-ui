@@ -26,8 +26,6 @@ module.exports = class Player extends Majiang.Player {
                 beep.play();
             }
         };
-
-        this.clear_handler();
     }
 
     callback(msg) {
