@@ -39,6 +39,7 @@ module.exports = class Player extends Majiang.Player {
     }
 
     clear_handler() {
+        this._default_reply = null;
         this.clear_timer();
         this.clear_action();
         this.clear_mianzi();
@@ -82,6 +83,7 @@ module.exports = class Player extends Majiang.Player {
         const mianzi = $('.select-mianzi', this._root);
         for (let m of mm) {
             let msg = m.match(/\d/g).length == 4 ? { gang: m } : { fulou: m };
+            if (! this._default_reply) this._default_reply = msg;
             mianzi.append(
                 this._mianzi(m).attr('role','button')
                                .on('click', ()=>{
@@ -113,6 +115,7 @@ module.exports = class Player extends Majiang.Player {
             if (lizhi) {
                 pai.addClass('blink');
                 p += '*';
+                if (! this._default_reply) this._default_reply = { dapai: p };
             }
             pai.attr('role','button').on('click', (ev)=>{
                 this.clear_dapai();
@@ -141,7 +144,7 @@ module.exports = class Player extends Majiang.Player {
         this._timer_id = setInterval(()=>{
             let time_count = Math.ceil((time_limit - Date.now()) / 1000);
             if (time_count <= 0) {
-                this.callback();
+                this.callback(this._default_reply);
                 return;
             }
             if (time_count <= limit || time_count <= allowed) {
