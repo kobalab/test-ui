@@ -6,6 +6,8 @@
 const $ = require('jquery');
 const Majiang = require('@kobalab/majiang-core');
 
+const PaipuReader = require('./reader');
+
 const { hide, show, fadeIn }         = require('./fadein');
 const { setSelector, clearSelector } = require('./selector');
 
@@ -25,6 +27,7 @@ module.exports = class Player extends Majiang.Player {
         super();
         this._root = root;
         this._mianzi = mianzi(pai)
+        this._reader = new PaipuReader($('.live', root));
 
         let beep = audio('beep');
         this.sound_on = true;
@@ -184,6 +187,7 @@ module.exports = class Player extends Majiang.Player {
         if (msg.timer) {
             this.set_timer(msg.kaiju || msg.hule || msg.pingju, ...msg.timer);
         }
+        this._reader.read(msg);
         super.action(msg, callback);
     }
 

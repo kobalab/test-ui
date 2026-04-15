@@ -32,7 +32,7 @@ function set_aria(root) {
 
     $('.score', root).attr('role','region')
                      .attr('aria-label','局情報');
-    $('.score .jushu', root).attr('aria-live','polite');
+//    $('.score .jushu', root).attr('aria-live','polite');
     for (let key of Object.keys(jicun)) {
         const node = $(`.score .${key}`).parent();
         const img = $('img', node);
@@ -47,8 +47,8 @@ function set_aria(root) {
         $(`.he.${class_name[i]}`, root)
             .attr('role','region')
             .attr('aria-label', `${player_name[i]}: 捨て牌`)
-            .attr('aria-live','assertive')
-            .attr('aria-relevant','additions');
+//            .attr('aria-live','assertive')
+//            .attr('aria-relevant','additions');
         $(`.he.${class_name[i]} .chouma`, root)
             .attr('aria-label', 'リーチ');
     }

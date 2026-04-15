@@ -9,6 +9,7 @@ module.exports = {
     HuleDialog:  require('./dialog'),
     GameCtl:     require('./gamectl'),
     Player:      require('./player'),
+    PaipuReader: require('./reader'),
     Util:        Object.assign(require('./fadein'),
                                require('./selector'),
                                require('./scale'),
