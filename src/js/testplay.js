@@ -1,5 +1,5 @@
 /*!
- *  電脳麻将: 試験対戦 v0.6.2
+ *  電脳麻将: 試験対戦 v0.6.3
  *
  *  Copyright(C) 2017 Satoshi Kobayashi
  *  Released under the MIT license

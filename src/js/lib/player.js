@@ -18,8 +18,6 @@ module.exports = class Player extends Majiang.Player {
         this._root = root;
         this._mianzi = mianzi(pai)
 
-        this._timer_id;
-
         let beep = audio('beep');
         this.sound_on = true;
         this.beep = ()=>{
@@ -28,8 +26,6 @@ module.exports = class Player extends Majiang.Player {
                 beep.play();
             }
         };
-
-        this.clear_handler();
     }
 
     callback(msg) {
@@ -82,6 +78,7 @@ module.exports = class Player extends Majiang.Player {
         const mianzi = $('.select-mianzi', this._root);
         for (let m of mm) {
             let msg = m.match(/\d/g).length == 4 ? { gang: m } : { fulou: m };
+            if (! this._default_reply) this._default_reply = msg;
             mianzi.append(
                 this._mianzi(m).attr('role','button')
                                .on('click', ()=>{
@@ -113,6 +110,7 @@ module.exports = class Player extends Majiang.Player {
             if (lizhi) {
                 pai.addClass('blink');
                 p += '*';
+                if (! this._default_reply) this._default_reply = { dapai: p };
             }
             pai.attr('role','button').on('click', (ev)=>{
                 this.clear_dapai();
@@ -141,7 +139,7 @@ module.exports = class Player extends Majiang.Player {
         this._timer_id = setInterval(()=>{
             let time_count = Math.ceil((time_limit - Date.now()) / 1000);
             if (time_count <= 0) {
-                this.callback();
+                this.callback(this._default_reply);
                 return;
             }
             if (time_count <= limit || time_count <= allowed) {
@@ -159,8 +157,9 @@ module.exports = class Player extends Majiang.Player {
     }
 
     clear_timer() {
+        delete this._default_reply;
         hide($('.timeout', this._root).text(''));
-        clearInterval(this._timer_id);
+        this._timer_id = clearInterval(this._timer_id);
     }
 
     action(msg, callback) {
