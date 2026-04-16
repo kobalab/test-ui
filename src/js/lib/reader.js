@@ -46,12 +46,12 @@ module.exports = class PaipuReader {
                  + `${qipai.changbang}本場 `
                  + `親 ${dir(this._menfeng, 0)} `
                  + `ドラ表示牌 ${pai_label[qipai.baopai]}`;
-        this.assertive(text);
+        this.polite(text);
     }
 
     zimo(zimo) {
         if (zimo.l == this._menfeng) {
-            this.assertive(`ツモ ${pai_label[zimo.p.slice(0,2)]}`);
+            this.polite(`ツモ ${pai_label[zimo.p.slice(0,2)]}`);
         }
     }
 
@@ -59,7 +59,7 @@ module.exports = class PaipuReader {
         let text = pai_label[dapai.p.slice(0,2)]
         if (dapai.p.slice(-1) == '*') {
             text = `${dir(this._menfeng, dapai.l)} ${text} リーチ`;
-            this.assertive(text);
+            this.polite(text);
             if (dapai.l == this._menfeng) this._lizhi = true;
         }
         else {
@@ -72,15 +72,15 @@ module.exports = class PaipuReader {
         let mtype = m.match(/^[mpsz]\d{4}/)  ? 'カン'
                   : m.match(/^[mpsz](\d)\1/) ? 'ポン'
                   :                            'チー';
-        this.assertive(`${dir(this._menfeng, fulou.l)} ${mtype}`);
+        this.polite(`${dir(this._menfeng, fulou.l)} ${mtype}`);
     }
 
     gang(gang) {
-        this.assertive(`${dir(this._menfeng, gang.l)} カン`);
+        this.polite(`${dir(this._menfeng, gang.l)} カン`);
     }
 
     kaigang(kaigang) {
-        this.assertive(`ドラ表示牌 ${pai_label[kaigang.baopai]}`);
+        this.polite(`ドラ表示牌 ${pai_label[kaigang.baopai]}`);
     }
 
     hule(hule) {
@@ -98,11 +98,11 @@ module.exports = class PaipuReader {
                      + ' - ' + ((hule.defen / 200)|0) * 100;
             }
         }
-        this.assertive(text);
+        this.polite(text);
     }
 
     pingju(pingju) {
-        this.assertive(pingju.name);
+        this.polite(pingju.name);
     }
 
     read(msg) {
