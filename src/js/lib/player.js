@@ -29,6 +29,8 @@ module.exports = class Player extends Majiang.Player {
         this._mianzi = mianzi(pai)
         this._reader = new PaipuReader($('.live', root));
 
+        this._timer_id;
+
         let beep = audio('beep');
         this.sound_on = true;
         this.beep = ()=>{
@@ -37,6 +39,13 @@ module.exports = class Player extends Majiang.Player {
                 beep.play();
             }
         };
+
+        this.init();
+        this.clear_handler();
+    }
+
+    init() {
+        $('.select-action', this._root).attr('role','alertdialog');
     }
 
     callback(msg) {
@@ -130,7 +139,6 @@ module.exports = class Player extends Majiang.Player {
             if (lizhi) {
                 pai.addClass('blink');
                 p += '*';
-                if (! this._default_reply) this._default_reply = { dapai: p };
             }
             pai.attr('role','button').on('click', (ev)=>{
                 this.clear_dapai();
@@ -159,7 +167,7 @@ module.exports = class Player extends Majiang.Player {
         this._timer_id = setInterval(()=>{
             let time_count = Math.ceil((time_limit - Date.now()) / 1000);
             if (time_count <= 0) {
-                this.callback(this._default_reply);
+                this.callback();
                 return;
             }
             if (time_count <= limit || time_count <= allowed) {
@@ -177,9 +185,8 @@ module.exports = class Player extends Majiang.Player {
     }
 
     clear_timer() {
-        delete this._default_reply;
         hide($('.timeout', this._root).text(''));
-        this._timer_id = clearInterval(this._timer_id);
+        clearInterval(this._timer_id);
     }
 
     action(msg, callback) {
