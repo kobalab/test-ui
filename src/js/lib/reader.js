@@ -40,10 +40,14 @@ module.exports = class PaipuReader {
     qipai(qipai) {
         this._menfeng = qipai.shoupai.findIndex(s => s);
         let text = feng_hanzi[qipai.zhuangfeng]
-                 + jushu_hanzi[qipai.jushu]
-                 + `${qipai.changbang}本場 `
-                 + `親 ${dir(this._menfeng, 0)} `
-                 + `ドラ表示牌 ${pai_label[qipai.baopai]}`;
+                 + jushu_hanzi[qipai.jushu];
+        if (qipai.changbang) {
+            text += `${qipai.changbang}本場 `
+        }
+        else {
+            text += `親 ${dir(this._menfeng, 0)} `
+        }
+        text += `ドラ表示牌 ${pai_label[qipai.baopai]}`;
         this.polite(text);
     }
 
