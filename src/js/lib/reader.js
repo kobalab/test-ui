@@ -18,7 +18,6 @@ module.exports = class PaipuReader {
 
     constructor(root) {
         this._root = root;
-        this._seq  = 0;
         $('[aria-live]', this._root).attr('aria-relevant','additions');
     }
 
@@ -40,7 +39,6 @@ module.exports = class PaipuReader {
 
     qipai(qipai) {
         this._menfeng = qipai.shoupai.findIndex(s => s);
-        this._lizhi   = false;
         let text = feng_hanzi[qipai.zhuangfeng]
                  + jushu_hanzi[qipai.jushu]
                  + `${qipai.changbang}本場 `
@@ -60,7 +58,6 @@ module.exports = class PaipuReader {
         if (dapai.p.slice(-1) == '*') {
             text = `${dir(this._menfeng, dapai.l)} ${text} リーチ`;
             this.polite(text);
-            if (dapai.l == this._menfeng) this._lizhi = true;
         }
         else {
             this.polite(text);
