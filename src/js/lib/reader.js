@@ -23,6 +23,9 @@ module.exports = class PaipuReader {
     }
 
     speak(level, text) {
+        if ($(`[aria-live="${level}"] > *`, this._root).length >= 4) {
+            $(`[aria-live="${level}"]`, this._root).empty();
+        }
         $(`[aria-live="${level}"]`, this._root).append($('<div>').text(text));
     }
     clear() {
@@ -53,7 +56,6 @@ module.exports = class PaipuReader {
     }
 
     dapai(dapai) {
-        if (dapai.l == this._menfeng) this.clear(Date.now());
         let text = pai_label[dapai.p.slice(0,2)]
         if (dapai.p.slice(-1) == '*') {
             text = `${dir(this._menfeng, dapai.l)} ${text} リーチ`;
