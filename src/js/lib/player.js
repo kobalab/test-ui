@@ -6,10 +6,20 @@
 const $ = require('jquery');
 const Majiang = require('@kobalab/majiang-core');
 
+const PaipuReader = require('./reader');
+
 const { hide, show, fadeIn }         = require('./fadein');
 const { setSelector, clearSelector } = require('./selector');
 
 const mianzi = require('./mianzi');
+
+const dir = {
+    '+': 'シモチャ',
+    '=': 'トイメン',
+    '-': 'カミチャ',
+};
+
+const pai_label = require('./label')('pai');
 
 module.exports = class Player extends Majiang.Player {
 
@@ -17,6 +27,9 @@ module.exports = class Player extends Majiang.Player {
         super();
         this._root = root;
         this._mianzi = mianzi(pai)
+        this._reader = new PaipuReader($('.live', root));
+
+        this._timer_id;
 
         let beep = audio('beep');
         this.sound_on = true;
@@ -26,6 +39,13 @@ module.exports = class Player extends Majiang.Player {
                 beep.play();
             }
         };
+
+        this.init();
+        this.clear_handler();
+    }
+
+    init() {
+        $('.select-action', this._root).attr('role','alertdialog');
     }
 
     callback(msg) {
@@ -43,6 +63,10 @@ module.exports = class Player extends Majiang.Player {
         clearSelector('kaiju');
         clearSelector('dialog');
         clearSelector('summary');
+    }
+
+    set_action_label(label) {
+        $('.select-action', this._root).attr('aria-label', label);
     }
 
     add_action(type, callback) {
@@ -67,6 +91,7 @@ module.exports = class Player extends Majiang.Player {
     }
 
     clear_action() {
+        $('.select-action', this._root).removeAttr('aria-label');
         this._root.off('click');
         const buttons = $('.select-action', this._root);
         clearSelector('action');
@@ -78,9 +103,13 @@ module.exports = class Player extends Majiang.Player {
         const mianzi = $('.select-mianzi', this._root);
         for (let m of mm) {
             let msg = m.match(/\d/g).length == 4 ? { gang: m } : { fulou: m };
-            if (! this._default_reply) this._default_reply = msg;
+            let label = m.match(/\d{3}.?\d/) ? pai_label[m.slice(0,2)] + ' カン'
+                      : m.match(/\d(?![\+\=\-])/g)
+                            .map(n => pai_label[m[0] + n])
+                            .join(' ');
             mianzi.append(
                 this._mianzi(m).attr('role','button')
+                               .attr('aria-label', label)
                                .on('click', ()=>{
                                    this.clear_mianzi();
                                    return this.callback(msg);
@@ -110,7 +139,6 @@ module.exports = class Player extends Majiang.Player {
             if (lizhi) {
                 pai.addClass('blink');
                 p += '*';
-                if (! this._default_reply) this._default_reply = { dapai: p };
             }
             pai.attr('role','button').on('click', (ev)=>{
                 this.clear_dapai();
@@ -139,7 +167,7 @@ module.exports = class Player extends Majiang.Player {
         this._timer_id = setInterval(()=>{
             let time_count = Math.ceil((time_limit - Date.now()) / 1000);
             if (time_count <= 0) {
-                this.callback(this._default_reply);
+                this.callback();
                 return;
             }
             if (time_count <= limit || time_count <= allowed) {
@@ -157,9 +185,8 @@ module.exports = class Player extends Majiang.Player {
     }
 
     clear_timer() {
-        delete this._default_reply;
         hide($('.timeout', this._root).text(''));
-        this._timer_id = clearInterval(this._timer_id);
+        clearInterval(this._timer_id);
     }
 
     action(msg, callback) {
@@ -167,6 +194,7 @@ module.exports = class Player extends Majiang.Player {
         if (msg.timer) {
             this.set_timer(msg.kaiju || msg.hule || msg.pingju, ...msg.timer);
         }
+        this._reader.read(msg);
         super.action(msg, callback);
     }
 
@@ -232,6 +260,8 @@ module.exports = class Player extends Majiang.Player {
         let d = ['','+','=','-'][(4 + this._model.lunban - this._menfeng) % 4];
         let p = dapai.p + d;
 
+        this.set_action_label(`${dir[d]} ${pai_label[p.slice(0,2)]}`);
+
         if (this.allow_hule(this.shoupai, p)) {
             this.add_action('rong', ()=> this.callback({ hule: '-' }));
         }
@@ -279,6 +309,8 @@ module.exports = class Player extends Majiang.Player {
 
         let d = ['','+','=','-'][(4 + this._model.lunban - this._menfeng) % 4];
         let p = gang.m[0] + gang.m.slice(-1) + d;
+
+        this.set_action_label(`${dir[d]} ${pai_label[p.slice(0,2)]} カン`);
 
         if (this.allow_hule(this.shoupai, p, true)) {
             this.add_action('rong', ()=> this.callback({ hule: '-' }));
