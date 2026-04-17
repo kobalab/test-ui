@@ -48,7 +48,7 @@ module.exports = class PaipuReader {
             text += `親 ${dir(this._menfeng, 0)} `
         }
         text += `ドラ表示牌 ${pai_label[qipai.baopai]}`;
-        this.polite(text);
+        this.assertive(text);
     }
 
     zimo(zimo) {
