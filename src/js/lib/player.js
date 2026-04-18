@@ -39,12 +39,6 @@ module.exports = class Player extends Majiang.Player {
                 beep.play();
             }
         };
-
-        this.init();
-    }
-
-    init() {
-        $('.select-action', this._root).attr('role','alertdialog');
     }
 
     callback(msg) {
