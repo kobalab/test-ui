@@ -32,7 +32,6 @@ function set_aria(root) {
 
     $('.score', root).attr('role','region')
                      .attr('aria-label','局情報');
-//    $('.score .jushu', root).attr('aria-live','polite');
     for (let key of Object.keys(jicun)) {
         const node = $(`.score .${key}`).parent();
         const img = $('img', node);
@@ -52,6 +51,12 @@ function set_aria(root) {
         $(`.he.${class_name[i]} .chouma`, root)
             .attr('aria-label', 'リーチ');
     }
+
+    $('.dailog', root).attr('role','dialog');
+    $('.dialog .hule', root).attr('role','region')
+                            .attr('aria-label','和了ダイアログ');
+    $('.dialog .pingju', root).attr('role','region')
+                            .attr('aria-label','流局ダイアログ');
 }
 
 function score(root, model, viewpoint) {
