@@ -35,7 +35,6 @@ module.exports = class PaipuReader {
         let menfeng = qipai.shoupai.findIndex(s => s);
         this.assertive();
         this.polite();
-        this._last = ''; this._prev = '';
         let text = feng_hanzi[qipai.zhuangfeng]
                  + jushu_hanzi[qipai.jushu]
                  + '、';
@@ -58,19 +57,13 @@ module.exports = class PaipuReader {
 
     dapai(dapai) {
         let text = pai_label[dapai.p.slice(0,2)]
-        if (dapai.l == this._menfeng) {
-            this.polite();
-            this._prev = '';
-        }
+        if (dapai.l == this._menfeng) this.polite();
         if (dapai.p.slice(-1) == '*') {
             text = `${dir(this._menfeng, dapai.l)} ${text} リーチ`;
             this.polite(text);
         }
         else {
-            if (text == this._last || text == this._prev) text += ',';
             this.polite(text);
-            if (dapai.l == this._menfeng) this._last = text;
-            this._prev = text;
         }
     }
 
