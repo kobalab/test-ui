@@ -98,11 +98,11 @@ module.exports = class PaipuReader {
                      + '、' + ((hule.defen / 200)|0) * 100;
             }
         }
-        this.polite(text);
+        this.assertive(text);
     }
 
     pingju(pingju) {
-        this.polite(pingju.name);
+        this.assertive(pingju.name);
     }
 
     read(msg) {
