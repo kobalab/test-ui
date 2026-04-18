@@ -9,29 +9,23 @@ const pai_label = require('./label')('pai');
 
 const feng_hanzi  = ['東','南','西','北'];
 const jushu_hanzi = ['一局','二局','三局','四局'];
-
 const dir = (m, l)=> ['','シモチャ','トイメン','カミチャ'][(4 + l - m) % 4];
-
 const jicun = { changbang: '本場', lizhibang: '供託' };
+
+const { live } = require('./live');
+const attr = {
+    'role':          'log',
+    'aria-atmic':     true,
+    'aria-relevant': 'additions',
+};
 
 module.exports = class PaipuReader {
 
     constructor(root) {
         this._root = root;
-        $('[aria-live]', this._root).attr('aria-relevant','additions');
+        this.assertive = live($('.assertive', root), 'assertive', attr);
+        this.polite    = live($('.polite',    root), 'polite',    attr);
     }
-
-    speak(level, text) {
-        if ($(`[aria-live="${level}"] > *`, this._root).length >= 4) {
-            $(`[aria-live="${level}"]`, this._root).empty();
-        }
-        $(`[aria-live="${level}"]`, this._root).append($('<div>').text(text));
-    }
-    clear() {
-        $('[aria-live]', this._root).empty();
-    }
-    polite(text)    { this.speak('polite',    text) }
-    assertive(text) { this.speak('assertive', text) }
 
     kaiju(kaiju) {
         this.polite(kaiju.title);
@@ -39,6 +33,8 @@ module.exports = class PaipuReader {
 
     qipai(qipai) {
         this._menfeng = qipai.shoupai.findIndex(s => s);
+        this.assertive();
+        this.polite();
         let text = feng_hanzi[qipai.zhuangfeng]
                  + jushu_hanzi[qipai.jushu];
         if (qipai.changbang) {
@@ -59,6 +55,7 @@ module.exports = class PaipuReader {
 
     dapai(dapai) {
         let text = pai_label[dapai.p.slice(0,2)]
+        if (dapai.l == this._menfeng) this.polite();
         if (dapai.p.slice(-1) == '*') {
             text = `${dir(this._menfeng, dapai.l)} ${text} リーチ`;
             this.polite(text);
