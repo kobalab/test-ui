@@ -13,11 +13,7 @@ const dir = (m, l)=> ['','シモチャ','トイメン','カミチャ'][(4 + l - 
 const jicun = { changbang: '本場', lizhibang: '供託' };
 
 const { live } = require('./live');
-const attr = {
-    'role':          'log',
-    'aria-atmic':     true,
-    'aria-relevant': 'additions',
-};
+const attr = { 'role': 'log' };
 
 module.exports = class PaipuReader {
 
