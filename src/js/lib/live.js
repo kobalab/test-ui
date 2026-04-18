@@ -20,7 +20,8 @@ function live(root, mode, attr = {}) {
             prev = null;
         }
         else {
-            if (message == prev || ! prev && message == last) message += ',';
+            if (message == prev || ! prev && message == last)
+                                                    message += '\u200B';
             root.append($('<div>').text(message));
             if (! prev) last = message;
             prev = message;
