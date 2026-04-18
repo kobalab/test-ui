@@ -17,6 +17,11 @@
     .jushu + div
         display: table
         margin: auto
+    .changbang
+    .lizhibang
+        display: inline-block
+        width: 1.2em
+        text-align: right
     .shan
         float: right
         text-align: right
@@ -247,3 +252,8 @@
     font-size: 16px
     font-family: defen-font
     text-shadow: 2px 2px 4px black
+
+#board .board .live
+    z-index: -1
+    [aria-live="assertive"]
+        color: red

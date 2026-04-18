@@ -6,11 +6,12 @@
     .jushu
         float: left
         font-size: 28px
-    div:has(> .chouma)
+    .jushu + div
         float: left
         padding-left: 2px
         padding-right: 0
-    img.chouma
+    div:has(> .lizhibang) > img
+    div:has(> .changbang) > img
         width: 28px
         height: 6px
     .shan

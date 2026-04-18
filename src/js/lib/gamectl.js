@@ -93,7 +93,7 @@ module.exports = class GameCtl {
             this._pref.speed = speed;
             localStorage.setItem(this._storage, JSON.stringify(this._pref));
         }
-        this._game.speed = speed;
+        this._game.dwell = 200 * speed;
         return false;
     }
 
