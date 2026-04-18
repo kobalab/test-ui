@@ -13,5 +13,6 @@ module.exports = {
     Util:        Object.assign(require('./fadein'),
                                require('./selector'),
                                require('./scale'),
-                               require('./flip'))
+                               require('./flip'),
+                               require('./live'))
 }
