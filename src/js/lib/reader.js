@@ -80,7 +80,7 @@ module.exports = class PaipuReader {
     }
 
     kaigang(kaigang) {
-        this.polite(`ドラ表示牌 ${pai_label[kaigang.baopai]}`);
+        this.polite(`ドラ ${pai_label[kaigang.baopai]}`);
     }
 
     hule(hule) {
