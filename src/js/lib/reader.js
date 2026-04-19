@@ -7,8 +7,8 @@ const $ = require('jquery');
 
 const pai_label = require('./label')('pai');
 
-const feng_hanzi  = ['東','南','西','北'];
-const jushu_hanzi = ['一局','二局','三局','四局'];
+const feng_zhongwen  = ['トン','ナン','シャー','ペー'];
+const jushu_hanzi    = ['一局','二局','三局','四局'];
 const dir = (m, l)=> ['','シモチャ','トイメン','カミチャ'][(4 + l - m) % 4];
 const jicun = { changbang: '本場', lizhibang: '供託' };
 
@@ -31,7 +31,7 @@ module.exports = class PaipuReader {
         let menfeng = qipai.shoupai.findIndex(s => s);
         this.assertive();
         this.polite();
-        let text = feng_hanzi[qipai.zhuangfeng]
+        let text = feng_zhongwen[qipai.zhuangfeng]
                  + jushu_hanzi[qipai.jushu]
                  + '、';
         if (qipai.changbang) {
