@@ -7,47 +7,41 @@ const $ = require('jquery');
 
 const pai_label = require('./label')('pai');
 
-const feng_hanzi  = ['東','南','西','北'];
-const jushu_hanzi = ['一局','二局','三局','四局'];
-
+const feng_zhongwen  = ['トン','ナン','シャー','ペー'];
+const jushu_hanzi    = ['一局','二局','三局','四局'];
 const dir = (m, l)=> ['','シモチャ','トイメン','カミチャ'][(4 + l - m) % 4];
-
 const jicun = { changbang: '本場', lizhibang: '供託' };
+
+const { live } = require('./live');
+const attr = { 'role': 'log' };
 
 module.exports = class PaipuReader {
 
     constructor(root) {
         this._root = root;
-        $('[aria-live]', this._root).attr('aria-relevant','additions');
+        this.assertive = live($('.assertive', root), 'assertive', attr);
+        this.polite    = live($('.polite',    root), 'polite',    attr);
     }
-
-    speak(level, text) {
-        if ($(`[aria-live="${level}"] > *`, this._root).length >= 4) {
-            $(`[aria-live="${level}"]`, this._root).empty();
-        }
-        $(`[aria-live="${level}"]`, this._root).append($('<div>').text(text));
-    }
-    clear() {
-        $('[aria-live]', this._root).empty();
-    }
-    polite(text)    { this.speak('polite',    text) }
-    assertive(text) { this.speak('assertive', text) }
 
     kaiju(kaiju) {
         this.polite(kaiju.title);
     }
 
     qipai(qipai) {
-        this._menfeng = qipai.shoupai.findIndex(s => s);
-        let text = feng_hanzi[qipai.zhuangfeng]
-                 + jushu_hanzi[qipai.jushu];
+        let menfeng = qipai.shoupai.findIndex(s => s);
+        this.assertive();
+        this.polite();
+        let text = feng_zhongwen[qipai.zhuangfeng]
+                 + jushu_hanzi[qipai.jushu]
+                 + '、';
         if (qipai.changbang) {
-            text += `${qipai.changbang}本場 `
+            text += `${qipai.changbang}本場、`
         }
-        else {
-            text += `親 ${dir(this._menfeng, 0)} `
+        if (this._menfeng != menfeng) {
+            this._menfeng = menfeng;
+            text += `親 ${dir(this._menfeng, 0)}、`
         }
-        text += `ドラ表示牌 ${pai_label[qipai.baopai]}`;
+        text += `ドラ ${pai_label[qipai.baopai]}`;
         this.assertive(text);
     }
 
@@ -59,6 +53,7 @@ module.exports = class PaipuReader {
 
     dapai(dapai) {
         let text = pai_label[dapai.p.slice(0,2)]
+        if (dapai.l == this._menfeng) this.polite();
         if (dapai.p.slice(-1) == '*') {
             text = `${dir(this._menfeng, dapai.l)} ${text} リーチ`;
             this.polite(text);
@@ -81,29 +76,29 @@ module.exports = class PaipuReader {
     }
 
     kaigang(kaigang) {
-        this.polite(`ドラ表示牌 ${pai_label[kaigang.baopai]}`);
+        this.polite(`ドラ ${pai_label[kaigang.baopai]}`);
     }
 
     hule(hule) {
         let text;
         if (hule.baojia != null) {
-            text = `${dir(this._menfeng, hule.l)} ロン。 ${hule.defen}`;
+            text = `${dir(this._menfeng, hule.l)} ロン、${hule.defen}`;
         }
         else {
             if (hule.l == 0) {
-                text = `${dir(this._menfeng, hule.l)} ツモ。 ${hule.defen / 3} オール`;
+                text = `${dir(this._menfeng, hule.l)} ツモ、${hule.defen / 3} オール`;
             }
             else {
-                text = `${dir(this._menfeng, hule.l)} ツモ `
+                text = `${dir(this._menfeng, hule.l)} ツモ、`
                      + (hule.defen - ((hule.defen / 200)|0) * 100) / 2
-                     + ' - ' + ((hule.defen / 200)|0) * 100;
+                     + '、' + ((hule.defen / 200)|0) * 100;
             }
         }
-        this.polite(text);
+        this.assertive(text);
     }
 
     pingju(pingju) {
-        this.polite(pingju.name);
+        this.assertive(pingju.name);
     }
 
     read(msg) {

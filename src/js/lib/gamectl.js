@@ -6,6 +6,11 @@
 const { hide, show } = require('./fadein');
 const { setSelector, clearSelector } = require('./selector');
 
+const label = {
+    root:   'コントロール',
+    speed:  '速度',
+};
+
 module.exports = class GameCtl {
 
     constructor(root, storage, game, ...views) {
@@ -22,6 +27,9 @@ module.exports = class GameCtl {
 
         this.sound(this._pref.sound_on);
         this.speed(this._pref.speed);
+
+        this._root.attr('role','region')
+                  .attr('aria-label', label.root);
 
         this.set_handler();
     }
@@ -40,6 +48,7 @@ module.exports = class GameCtl {
             $('.plus',  this._root).attr('role','button')
                                    .on('click.controller', ()=>
                                         this.speed(this._pref.speed + 1));
+            $('.speed', this._root).attr('aria-live','assertive');
         }
 
         $(window).on('keyup.controler', (ev)=>{
@@ -92,6 +101,8 @@ module.exports = class GameCtl {
         if (speed != this._pref.speed) {
             this._pref.speed = speed;
             localStorage.setItem(this._storage, JSON.stringify(this._pref));
+            $('.speed', this._root)
+                    .attr('aria-label', `${label.speed}: ${speed}`);
         }
         this._game.dwell = 200 * speed;
         return false;

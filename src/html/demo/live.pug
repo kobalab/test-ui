@@ -7,6 +7,14 @@ html(lang="ja")
     include ../inc/style
     include ../inc/script
     style.
+      label {
+          display: block;
+          padding: 2px;
+      }
+      label b {
+          display: inline-block;
+          width: 7em;
+      }
       body .live {
         margin-top: 1em;
       }
@@ -14,22 +22,53 @@ html(lang="ja")
         color: red;
       }
     script.
+      const live = {};
+      const aria = {
+          'role':           ['log'],
+          'aria-atmic':     [ true, false ],
+          'aria-relevant':  ['additions','removals','text','all']
+      };
       $(function(){
-          function submit() {
+          function init(form) {
+              form.empty();
+              for (let key of Object.keys(aria)) {
+                  let label = $('<label>').append($('<b>').text(key));
+                  form.append(label);
+                  let select = $('<select>').attr('name', key)
+                                            .append($('<option>'));
+                  label.append(select);
+                  for (let value of aria[key]) {
+                      select.append($('<option>').text(value));
+                  }
+              }
+              $('form.setting *').on('change', setting);
+          }
+          function setting(live) {
+              for (let key of Object.keys(aria)) {
+                  let val = $(`[name="${key}"]`).val();
+                  if (val) $('.live[aria-live]').attr(key, val)
+                  else     $('.live[aria-live]').removeAttr(key);
+              }
+          }
+          for (let mode of ['assertive','polite']) {
+              live[mode] = Majiang.UI.Util.live($(`[aria-live="${mode}"]`), mode);
+          }
+          function submit(ev) {
+              ev.preventDefault();
               let mode    = $('[name="mode"]').val();
               let message = $('[name="message"]').val();
-              $('body .live').text('');
-              setTimeout(
-                  ()=> $(`body .live[aria-live="${mode}"]`).text(message),
-                  500
-              );
+              live[mode](message);
               return false;
           }
-          $('form').on('submit', submit);
+          init($('form.setting'));
+          setting();
+          $('form.live').on('submit', submit);
       });
   body.live
     h1 live
-    form
+    form.setting
+    hr
+    form.live
       select(name="mode")
         each mode in [ 'assertive', 'polite' ]
           option(value=mode)= mode
