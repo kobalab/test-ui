@@ -59,7 +59,8 @@ module.exports = class Player extends Majiang.Player {
     }
 
     set_action_label(label) {
-        $('.select-action', this._root).attr('aria-label', label);
+        $('.select-action', this._root).attr('role','group')
+                                       .attr('aria-label', label);
     }
 
     add_action(type, callback) {
