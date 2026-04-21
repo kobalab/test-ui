@@ -96,8 +96,8 @@ module.exports = class GameCtl {
         $('.speed .step', this._root).each((i, n)=> {
             $(n).css('visibility', i < speed ? 'visible' : 'hidden');
         });
+        $('.speed .status', this._root).text(speed);
         if (speed != this._pref.speed) {
-            $('.speed .status', this._root).text(speed);
             if (speed > this._pref.speed) $('.plus',  this._root).focus();
             if (speed < this._pref.speed) $('.minus', this._root).focus();
             this._pref.speed = speed;
