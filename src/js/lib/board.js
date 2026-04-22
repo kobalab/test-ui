@@ -40,7 +40,7 @@ function set_aria(root) {
         else    node.attr('aria-label', jicun[key]);
     }
 
-    $('.shan .baopai', root).attr('aria-label','ドラ表示牌');
+    $('.shan .baopai', root).attr('aria-label','ドラ');
 
     for (let i = 0; i < 4; i++) {
         $(`.he.${class_name[i]}`, root)
