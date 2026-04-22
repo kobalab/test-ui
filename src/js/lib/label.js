@@ -13,6 +13,7 @@ function pai() {
         for (let n = 0; n <= 9; n++) {
             if (s != 'z')            rv[s+n] = num[n] + suit[s];
             else if (0 < n && n < 8) rv[s+n] = zipai[n-1];
+            if (rv[s+n] && rv[s+n].length <= 2) rv[s+n] += '\u200B';
         }
     }
     return rv;

@@ -36,7 +36,7 @@ function set_aria(root) {
         const node = $(`.score .${key}`).parent();
         const img = $('img', node);
         if (img.length == 1 && ! img.attr('alt'))
-                img.attr('alt', jicun[key]);
+                img.attr('alt', jicun[key] + '：');
         else    node.attr('aria-label', jicun[key]);
     }
 
