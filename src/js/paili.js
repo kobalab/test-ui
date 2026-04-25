@@ -7,7 +7,7 @@
  */
 "use strict";
 
-const { setSelector, clearSelector } = Majiang.UI.Util;
+const { setSelector, clearSelector, live } = Majiang.UI.Util;
 
 const model = {};
 const view  = {};
@@ -33,6 +33,8 @@ function qipai(paistr) {
 
     $('.paili').empty();
     $('.status a').removeAttr('href');
+
+    view.status();
 
     model.shan = new Majiang.Shan(rule);
 
@@ -61,7 +63,9 @@ function qipai(paistr) {
     model.he = new Majiang.He();
     view.he  = new Majiang.UI.He($('.he'), view.pai, model.he, 1).redraw();
 
-    paili(600);
+    model.n_xiangting = null;
+
+    paili(1000);
 }
 
 function set_handler(focus) {
@@ -90,6 +94,7 @@ function clear_handler() {
 function dapai(p) {
 
     clear_handler();
+    view.status();
 
     if (pref.sound_on) view.audio('dapai').play();
 
@@ -100,10 +105,13 @@ function dapai(p) {
         model.lizhi = true;
         p += '*';
         if (pref.sound_on) view.audio('lizhi').play();
+        view.status('リーチ');
     }
 
     model.he.dapai(p);
     view.he.dapai(p);
+
+    view.log(view.pai(p).attr('alt'));
 
     setTimeout(zimo, 600);
 }
@@ -117,7 +125,8 @@ function zimo() {
 
     if (! model.shan.paishu) {
         $('.status a').text('流局……');
-        $('[type="button"]').trigger('focus');
+        view.status('流局');
+        setTimeout(()=> $('[type="button"]').trigger('focus'), 1000);
         return;
     }
 
@@ -135,10 +144,19 @@ function paili(delay) {
     else if (n_xiangting ==  0) $('.status a').text('聴牌！');
     else                        $('.status a').text(`${n_xiangting}向聴`);
 
+    view.log();
+
+    if (model.n_xiangting != n_xiangting) {
+        if      (n_xiangting == -1) view.status('ホーラ');
+        else if (n_xiangting ==  0) view.status('テンパイ');
+        else                        view.status(`${n_xiangting}シャンテン`);
+        model.n_xiangting = n_xiangting;
+    }
+
     if (n_xiangting == -1) {
         if (pref.sound_on) view.audio('zimo').play();
         $('.status a').attr('href', link + model.shoupai + '/0/1/1');
-        $('[type="button"]').trigger('focus');
+        setTimeout(()=> $('[type="button"]').trigger('focus'), 1000);
         return;
     }
 
@@ -182,6 +200,9 @@ $(function(){
 
     view.pai   = Majiang.UI.pai('#loaddata');
     view.audio = Majiang.UI.audio('#loaddata');
+
+    view.status = live($('.status .live'), 'polite');
+    view.log    = live($('.he .live'),     'polite');
 
     $('[type="button"]').on('click', ()=> qipai());
     $('form').on('submit', function(){
