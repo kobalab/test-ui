@@ -33,13 +33,13 @@ module.exports = class PaipuReader {
         this.polite();
         let text = feng_zhongwen[qipai.zhuangfeng]
                  + jushu_hanzi[qipai.jushu]
-                 + '、';
+                 + '　';
         if (qipai.changbang) {
-            text += `${qipai.changbang}本場、`
+            text += `${qipai.changbang}本場　`
         }
         if (this._menfeng != menfeng) {
             this._menfeng = menfeng;
-            text += `親 ${dir(this._menfeng, 0)}、`
+            text += `親 ${dir(this._menfeng, 0)}　`
         }
         text += `ドラ ${pai_label[qipai.baopai]}`;
         this.assertive(text);
@@ -82,14 +82,14 @@ module.exports = class PaipuReader {
     hule(hule) {
         let text;
         if (hule.baojia != null) {
-            text = `${dir(this._menfeng, hule.l)} ロン、${hule.defen}`;
+            text = `${dir(this._menfeng, hule.l)} ロン　${hule.defen}`;
         }
         else {
             if (hule.l == 0) {
-                text = `${dir(this._menfeng, hule.l)} ツモ、${hule.defen / 3} オール`;
+                text = `${dir(this._menfeng, hule.l)} ツモ　${hule.defen / 3} オール`;
             }
             else {
-                text = `${dir(this._menfeng, hule.l)} ツモ、`
+                text = `${dir(this._menfeng, hule.l)} ツモ　`
                      + (hule.defen - ((hule.defen / 200)|0) * 100) / 2
                      + '、' + ((hule.defen / 200)|0) * 100;
             }

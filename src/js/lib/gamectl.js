@@ -48,7 +48,7 @@ module.exports = class GameCtl {
             $('.plus',  this._root).attr('role','button')
                                    .on('click.controller', ()=>
                                         this.speed(this._pref.speed + 1));
-            $('.speed', this._root).attr('aria-live','assertive');
+            $('.speed .status', this._root).attr('aria-live','assertive');
         }
 
         $(window).on('keyup.controler', (ev)=>{
@@ -96,13 +96,12 @@ module.exports = class GameCtl {
         $('.speed .step', this._root).each((i, n)=> {
             $(n).css('visibility', i < speed ? 'visible' : 'hidden');
         });
-        if (speed > this._pref.speed) $('.plus',  this._root).trigger('focus');
-        if (speed < this._pref.speed) $('.minus', this._root).trigger('focus');
+        $('.speed .status', this._root).text(speed);
         if (speed != this._pref.speed) {
+            if (speed > this._pref.speed) $('.plus',  this._root).focus();
+            if (speed < this._pref.speed) $('.minus', this._root).focus();
             this._pref.speed = speed;
             localStorage.setItem(this._storage, JSON.stringify(this._pref));
-            $('.speed', this._root)
-                    .attr('aria-label', `${label.speed}: ${speed}`);
         }
         this._game.dwell = 200 * speed;
         return false;
