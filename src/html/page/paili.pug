@@ -20,29 +20,27 @@ html(lang="ja")
     .version ver. #{version}
 
     h1 牌理
-    
+
     form
       input(type="button" value="新規")
       |  | 手牌
       input(type="text" name="paistr")
       input(type="submit" value="選択")
       input(type="reset" value="クリア")
-    
+
     hr
-    
+
     .he
-      .lizhi
+      div
         img.chouma.hide(src="img/1000.gif")
       .dapai
-      .live
-      
+
     .shoupai
       .bingpai
       .fulou
-    
+
     .status
       a(href="hule.html#" target="_blank")
-      .live
 
     .paili
       .row
@@ -53,3 +51,7 @@ html(lang="ja")
         |  (
         span.n
         | 枚)
+
+    .live
+      .log
+      .status

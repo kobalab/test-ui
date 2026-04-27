@@ -83,7 +83,8 @@ function set_handler(focus) {
                 dapai(p);
             });
     }
-    setSelector($('.shoupai .pai[role="button"]'), 'dapai', { focus: focus });
+    setSelector($('.shoupai .pai[role="button"]'), 'dapai',
+                { focus: focus, release: $('.live .log') });
 }
 
 function clear_handler() {
@@ -201,8 +202,8 @@ $(function(){
     view.pai   = Majiang.UI.pai('#loaddata');
     view.audio = Majiang.UI.audio('#loaddata');
 
-    view.status = live($('.status .live'), 'polite');
-    view.log    = live($('.he .live'),     'polite');
+    view.status = live($('.live .status'), 'polite');
+    view.log    = live($('.live .log'),    'polite');
 
     $('[type="button"]').on('click', ()=> qipai());
     $('form').on('submit', function(){
