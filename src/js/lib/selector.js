@@ -11,7 +11,7 @@ function setSelector(list, namespace, param = {}) {
 
     let opt = {
         confirm: 'Enter', prev: 'ArrowLeft', next: 'ArrowRight',
-        tabindex: 0, focus: 0, touch: true, hold: false
+        tabindex: 0, focus: 0, touch: true, release: true
     };
     Object.assign(opt, param);
 
@@ -39,8 +39,13 @@ function setSelector(list, namespace, param = {}) {
         .on('mouseover'  + namespace, (ev)=>$(ev.target).trigger('focus'))
         .on('mouseout'   + namespace, (ev)=>$(ev.target).trigger('blur'));
 
-    if (! opt.hold) {
-        list.on('click' + namespace, (ev)=>$(ev.target).trigger('blur'));
+    if (opt.release) {
+        if (opt.release instanceof jQuery) {
+            list.on('click' + namespace, ()=> opt.release.trigger('focus'));
+        }
+        else {
+            list.on('click' + namespace, (ev)=>$(ev.target).trigger('blur'));
+        }
     }
 
     if (opt.confirm) {
