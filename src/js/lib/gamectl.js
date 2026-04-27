@@ -61,7 +61,7 @@ module.exports = class GameCtl {
 
         setSelector($('[role="button"]', this._root), '.controller',
                         { prev: null, next: null, focus: null,
-                          touch: false, hold: true });
+                          touch: false, release: false });
     }
 
     clear_handler() {
